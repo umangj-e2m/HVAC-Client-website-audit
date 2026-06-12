@@ -360,6 +360,7 @@
         opacity: 0;
         transform: translateY(12px);
       }
+
       to {
         opacity: 1;
         transform: translateY(0);
@@ -574,6 +575,7 @@
         opacity: 0;
         transform: translateY(12px) scale(0.985);
       }
+
       to {
         opacity: 1;
         transform: translateY(0) scale(1);
@@ -584,25 +586,51 @@
       animation: cardRefresh 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
     }
 
-    .delay-1 { animation-delay: 35ms; }
-    .delay-2 { animation-delay: 70ms; }
-    .delay-3 { animation-delay: 105ms; }
-    .delay-4 { animation-delay: 140ms; }
-    .delay-5 { animation-delay: 175ms; }
-    .delay-6 { animation-delay: 210ms; }
-    .delay-7 { animation-delay: 245ms; }
-    .delay-8 { animation-delay: 280ms; }
-    .delay-9 { animation-delay: 315ms; }
-
-    /* Enhance Hover Effect on Call Transcripts Dashboard Cards */
-    #transcripts-overview .kpi-card, 
-    #transcripts-overview .chart-card {
-      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
-                  box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
-                  border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    .delay-1 {
+      animation-delay: 35ms;
     }
 
-    #transcripts-overview .kpi-card:hover, 
+    .delay-2 {
+      animation-delay: 70ms;
+    }
+
+    .delay-3 {
+      animation-delay: 105ms;
+    }
+
+    .delay-4 {
+      animation-delay: 140ms;
+    }
+
+    .delay-5 {
+      animation-delay: 175ms;
+    }
+
+    .delay-6 {
+      animation-delay: 210ms;
+    }
+
+    .delay-7 {
+      animation-delay: 245ms;
+    }
+
+    .delay-8 {
+      animation-delay: 280ms;
+    }
+
+    .delay-9 {
+      animation-delay: 315ms;
+    }
+
+    /* Enhance Hover Effect on Call Transcripts Dashboard Cards */
+    #transcripts-overview .kpi-card,
+    #transcripts-overview .chart-card {
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+        box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+        border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    }
+
+    #transcripts-overview .kpi-card:hover,
     #transcripts-overview .chart-card:hover {
       transform: translateY(-6px) scale(1.015) !important;
       box-shadow: 0 20px 25px -5px rgba(20, 47, 69, 0.1), 0 10px 10px -5px rgba(20, 47, 69, 0.05) !important;
@@ -1050,6 +1078,178 @@
     .btn-primary:active {
       transform: translateY(0);
     }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* Screen Styles for Sequential PDF Document Preview */
+    #printable-audit-report {
+      background: #e2e8f0;
+      /* Slate canvas background */
+      padding: 40px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      align-items: center;
+      width: 100%;
+      box-sizing: border-box;
+      font-family: var(--font-sans);
+      color: #1e293b;
+      line-height: 1.6;
+    }
+
+    .pdf-page {
+      background: white;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 1500px;
+      height: 1100px;
+      min-height: 1100px;
+      padding: 50px 45px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      border-radius: 0;
+      border: 1px solid #cccccc;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    @page {
+      size: A4 portrait;
+      margin: 0;
+    }
+
+    @media print {
+      body {
+        background: white !important;
+        color: #000000 !important;
+        overflow: visible !important;
+        height: auto !important;
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+
+      .topbar-common,
+      .sidebar,
+      .no-print,
+      .dashboard-filters-bar,
+      .navbar-back-btn,
+      .navbar-bell-btn,
+      .navbar-signout-btn,
+      button {
+        display: none !important;
+      }
+
+      .app-layout {
+        height: auto !important;
+        overflow: visible !important;
+        display: block !important;
+      }
+
+      .main {
+        overflow: visible !important;
+        height: auto !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        display: block !important;
+      }
+
+      .content {
+        overflow: visible !important;
+        height: auto !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        display: block !important;
+      }
+
+      .tab-content {
+        display: none !important;
+      }
+
+      .tab-content.active {
+        display: block !important;
+        padding: 0 !important;
+        margin: 0 !important;
+      }
+
+      #tab-audit {
+        display: block !important;
+      }
+
+      #audit-form-view,
+      #audit-loading-view {
+        display: none !important;
+      }
+
+      #audit-report-view {
+        display: block !important;
+        border: none !important;
+        box-shadow: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        max-width: 100% !important;
+        width: 100% !important;
+        background: transparent !important;
+      }
+
+      #printable-audit-report {
+        padding: 0 !important;
+        margin: 0 !important;
+        background: transparent !important;
+        display: block !important;
+        gap: 0 !important;
+      }
+
+      .pdf-page {
+        page-break-after: always !important;
+        page-break-inside: avoid !important;
+        box-sizing: border-box !important;
+        width: 210mm !important;
+        height: 297mm !important;
+        min-height: 297mm !important;
+        margin: 0 !important;
+        padding: 20mm !important;
+        background: white !important;
+        border: none !important;
+        box-shadow: none !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: space-between !important;
+        border-radius: 0 !important;
+      }
+
+      .pdf-page:last-child {
+        page-break-after: avoid !important;
+      }
+    }
+
+    /* Hover and layout animations for HVAC audit view */
+    .audit-item {
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    }
+    .audit-item:hover {
+      transform: translateX(4px) scale(1.01) !important;
+      background-color: #fafbfc !important;
+      border-color: var(--color-accent) !important;
+      box-shadow: 0 4px 12px rgba(238, 104, 59, 0.08) !important;
+    }
+    @media (max-width: 991px) {
+      .recent-audits-col {
+        border-left: none !important;
+        padding-left: 0 !important;
+        border-top: 1px solid var(--color-border) !important;
+        padding-top: 24px !important;
+        margin-top: 16px !important;
+      }
+    }
   </style>
   <script src="https://unpkg.com/lucide@latest"></script>
 </head>
@@ -1077,9 +1277,11 @@
       </div>
 
       <!-- Centered Title -->
-      <div style="display: flex; align-items: center; gap: 8px; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); pointer-events: none;">
+      <div
+        style="display: flex; align-items: center; gap: 8px; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); pointer-events: none;">
         <i data-lucide="bar-chart-2" style="width: 20px; height: 20px; color: #607484;"></i>
-        <span style="font-size: 20px; font-weight: 700; color: #142f45; font-family: var(--font-sans);">Analysis Dashboard</span>
+        <span style="font-size: 20px; font-weight: 700; color: #142f45; font-family: var(--font-sans);">Analysis
+          Dashboard</span>
       </div>
 
       <!-- Right Side: Bell, Avatar, Divider, Sign Out -->
@@ -1125,6 +1327,13 @@
           <li onclick="showTab('tab-gbp')">
             <i data-lucide="store" style="width: 18px; height: 18px"></i> Business
             Profile
+          </li>
+        </ul>
+        <div class="sidebar-section-title" style="margin-top: 24px;">Audit & Onboarding</div>
+        <ul class="sidebar-nav" style="margin-top: 0">
+          <li onclick="showTab('tab-audit')">
+            <i data-lucide="clipboard-check" style="width: 18px; height: 18px"></i>
+            HVAC Website Audit
           </li>
         </ul>
       </div>
@@ -3380,24 +3589,30 @@
             <div class="sub-tab active" onclick="showSubTab(this, 'transcripts-overview', 'tab-call-transcripts')">
               Overview</div>
           </div>
-          <div id="transcripts-overview" class="sub-tab-content active" style="display: flex; flex-direction: column; gap: 24px;">
+          <div id="transcripts-overview" class="sub-tab-content active"
+            style="display: flex; flex-direction: column; gap: 24px;">
             <!-- Call Transcript Health Analysis Dashboard will render dynamically here -->
           </div>
         </div>
 
-                        <!-- EMAIL AUDIT - MAILCHIMP TAB -->
+        <!-- EMAIL AUDIT - MAILCHIMP TAB -->
         <div id="tab-mailchimp" class="tab-content">
           <!-- AI Customer Insights Tab directly visible -->
           <div id="mailchimp-overview" class="sub-tab-content active">
             <!-- AI Executive Summary Banner -->
-            <div class="chart-card w-100" style="margin-bottom: 24px; background: linear-gradient(135deg, rgba(20,47,69,0.02) 0%, rgba(238,104,59,0.02) 100%); border-left: 4px solid var(--color-accent); cursor: default;">
+            <div class="chart-card w-100"
+              style="margin-bottom: 24px; background: linear-gradient(135deg, rgba(20,47,69,0.02) 0%, rgba(238,104,59,0.02) 100%); border-left: 4px solid var(--color-accent); cursor: default;">
               <div style="display: flex; align-items: flex-start; gap: 16px;">
-                <div style="background: rgba(238,104,59,0.1); border-radius: 8px; padding: 10px; display: flex; align-items: center; justify-content: center; color: var(--color-accent);">
+                <div
+                  style="background: rgba(238,104,59,0.1); border-radius: 8px; padding: 10px; display: flex; align-items: center; justify-content: center; color: var(--color-accent);">
                   <i data-lucide="sparkles" style="width: 24px; height: 24px;"></i>
                 </div>
                 <div style="flex: 1;">
-                  <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--color-accent); letter-spacing: 0.05em; margin-bottom: 4px;">AI Executive Summary</div>
-                  <div id="mailchimp-ai-summary-text" style="font-size: 14px; line-height: 1.6; font-weight: 500; color: var(--color-primary);">
+                  <div
+                    style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--color-accent); letter-spacing: 0.05em; margin-bottom: 4px;">
+                    AI Executive Summary</div>
+                  <div id="mailchimp-ai-summary-text"
+                    style="font-size: 14px; line-height: 1.6; font-weight: 500; color: var(--color-primary);">
                     Loading AI customer summary...
                   </div>
                 </div>
@@ -3410,12 +3625,16 @@
               <div class="kpi-card" style="display: flex; flex-direction: column; justify-content: space-between;">
                 <div>
                   <div class="kpi-label">Customer Sentiment</div>
-                  <div id="mailchimp-sentiment-title" class="kpi-value" style="font-size: 28px; font-weight: 800; margin-bottom: 8px;">0% Positive</div>
+                  <div id="mailchimp-sentiment-title" class="kpi-value"
+                    style="font-size: 28px; font-weight: 800; margin-bottom: 8px;">0% Positive</div>
                 </div>
                 <div>
                   <!-- Progress bar -->
-                  <div style="width: 100%; height: 8px; background: #e2e8f0; border-radius: 4px; overflow: hidden; margin-bottom: 8px;">
-                    <div id="mailchimp-sentiment-progress" style="width: 0%; height: 100%; background: var(--color-success); border-radius: 4px; transition: width 0.5s ease;"></div>
+                  <div
+                    style="width: 100%; height: 8px; background: #e2e8f0; border-radius: 4px; overflow: hidden; margin-bottom: 8px;">
+                    <div id="mailchimp-sentiment-progress"
+                      style="width: 0%; height: 100%; background: var(--color-success); border-radius: 4px; transition: width 0.5s ease;">
+                    </div>
                   </div>
                   <!-- Counts breakdown -->
                   <div style="display: flex; justify-content: space-between; font-size: 11px; font-weight: 600;">
@@ -3430,7 +3649,9 @@
               <div class="kpi-card" style="display: flex; flex-direction: column; justify-content: space-between;">
                 <div>
                   <div class="kpi-label">Top Customer Complaint</div>
-                  <div id="mailchimp-top-complaint-title" class="kpi-value" style="font-size: 20px; font-weight: 700; line-height: 1.2; margin-top: 4px; color: var(--color-primary);">None</div>
+                  <div id="mailchimp-top-complaint-title" class="kpi-value"
+                    style="font-size: 20px; font-weight: 700; line-height: 1.2; margin-top: 4px; color: var(--color-primary);">
+                    None</div>
                 </div>
                 <div style="font-size: 12px; color: var(--color-muted); display: flex; align-items: center; gap: 4px;">
                   <i data-lucide="alert-circle" style="width: 14px; height: 14px; color: var(--color-accent);"></i>
@@ -3442,9 +3663,11 @@
               <div class="kpi-card" style="display: flex; flex-direction: column; justify-content: space-between;">
                 <div>
                   <div class="kpi-label">Unanswered Emails</div>
-                  <div id="mailchimp-unanswered-count-large" class="kpi-value" style="font-size: 28px; font-weight: 800; color: var(--color-primary);">0</div>
+                  <div id="mailchimp-unanswered-count-large" class="kpi-value"
+                    style="font-size: 28px; font-weight: 800; color: var(--color-primary);">0</div>
                 </div>
-                <div style="display: flex; justify-content: space-between; align-items: center; font-size: 11px; font-weight: 600; border-top: 1px solid var(--color-border); padding-top: 8px; margin-top: 4px;">
+                <div
+                  style="display: flex; justify-content: space-between; align-items: center; font-size: 11px; font-weight: 600; border-top: 1px solid var(--color-border); padding-top: 8px; margin-top: 4px;">
                   <span style="color: var(--color-secondary);" id="mailchimp-avg-response">Avg Response: 0.0 hrs</span>
                   <span style="color: var(--color-danger);" id="mailchimp-urgency-count">0 Urgent</span>
                 </div>
@@ -3460,8 +3683,10 @@
                   <canvas id="mailchimp-satisfaction-chart"></canvas>
                 </div>
                 <!-- MoM Alert Box -->
-                <div id="mailchimp-satisfaction-alert" style="margin-top: 16px; background: rgba(238,104,59,0.05); border: 1px dashed var(--color-border); border-radius: 8px; padding: 12px; font-size: 12px; display: flex; align-items: center; gap: 8px; color: var(--color-primary);">
-                  <i data-lucide="info" style="width: 16px; height: 16px; color: var(--color-accent); flex-shrink:0;"></i>
+                <div id="mailchimp-satisfaction-alert"
+                  style="margin-top: 16px; background: rgba(238,104,59,0.05); border: 1px dashed var(--color-border); border-radius: 8px; padding: 12px; font-size: 12px; display: flex; align-items: center; gap: 8px; color: var(--color-primary);">
+                  <i data-lucide="info"
+                    style="width: 16px; height: 16px; color: var(--color-accent); flex-shrink:0;"></i>
                   <span id="mailchimp-satisfaction-alert-text">Satisfaction alert data loading...</span>
                 </div>
               </div>
@@ -3481,9 +3706,12 @@
               <div class="chart-card w-60">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
                   <div class="chart-title" style="margin: 0;">Top Customer Complaints</div>
-                  <span style="font-size: 11px; color: var(--color-muted); font-weight: 600; text-transform: uppercase;">Mentions Count</span>
+                  <span
+                    style="font-size: 11px; color: var(--color-muted); font-weight: 600; text-transform: uppercase;">Mentions
+                    Count</span>
                 </div>
-                <div class="table-container custom-scroll" style="overflow-y: auto; max-height: 250px; border: none; box-shadow: none; border-radius: 0;">
+                <div class="table-container custom-scroll"
+                  style="overflow-y: auto; max-height: 250px; border: none; box-shadow: none; border-radius: 0;">
                   <table style="width: 100%;">
                     <thead>
                       <tr style="background: var(--color-warm);">
@@ -3502,11 +3730,14 @@
               <!-- Topic Clustering -->
               <div class="chart-card w-40" style="display: flex; flex-direction: column;">
                 <div class="chart-title" style="margin-bottom: 16px;">AI Topic Clustering</div>
-                <div style="font-size: 12px; color: var(--color-muted); margin-bottom: 16px;">Most Discussed Topics:</div>
-                <div id="mailchimp-topics-container" style="display: flex; flex-wrap: wrap; gap: 10px; flex: 1; align-content: flex-start;">
+                <div style="font-size: 12px; color: var(--color-muted); margin-bottom: 16px;">Most Discussed Topics:
+                </div>
+                <div id="mailchimp-topics-container"
+                  style="display: flex; flex-wrap: wrap; gap: 10px; flex: 1; align-content: flex-start;">
                   <!-- Dynamic topic bubbles -->
                 </div>
-                <p style="font-size: 11px; color: var(--color-muted); line-height: 1.4; border-top: 1px solid var(--color-border); padding-top: 12px; margin-top: 12px;">
+                <p
+                  style="font-size: 11px; color: var(--color-muted); line-height: 1.4; border-top: 1px solid var(--color-border); padding-top: 12px; margin-top: 12px;">
                   * AI automatically clusters customer emails into topics to save reading time.
                 </p>
               </div>
@@ -3520,12 +3751,782 @@
             <div class="sub-tab active" onclick="showSubTab(this, 'ghl-overview', 'tab-ghl')">
               Overview</div>
           </div>
-          <div id="ghl-overview" class="sub-tab-content active" style="display: flex; flex-direction: column; gap: 24px;">
+          <div id="ghl-overview" class="sub-tab-content active"
+            style="display: flex; flex-direction: column; gap: 24px;">
             <!-- Dynamic GHL dashboard content will render here -->
           </div>
         </div>
 
-      </div>
+        <!-- HVAC WEBSITE AUDIT TAB -->
+        <div id="tab-audit" class="tab-content">
+          <!-- Form Card View -->
+          <div id="audit-form-view" class="chart-card"
+            style="max-width: 1100px; margin: 40px auto; padding: 40px; border-radius: 24px; background: white; border: 1px solid var(--color-border); box-shadow: 0 10px 30px -10px rgba(20,47,69,0.08);">
+            
+            <!-- Header -->
+            <div style="text-align: center; margin-bottom: 36px;">
+              <div
+                style="width: 56px; height: 56px; border-radius: 16px; background: #fdfaf1; color: var(--color-accent); display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto; border: 1px solid var(--color-border);">
+                <i data-lucide="clipboard-check" style="width: 28px; height: 28px;"></i>
+              </div>
+              <h2
+                style="font-family: var(--font-serif); font-size: 26px; font-weight: 700; color: var(--color-primary);">
+                HVAC Onboarding Website Audit</h2>
+              <p style="color: var(--color-secondary); font-size: 14.5px; margin-top: 8px;">Run a semi-automated content
+                and UX audit check for your new HVAC client site.</p>
+            </div>
+
+            <!-- Two Columns Container -->
+            <div style="display: flex; gap: 40px; flex-wrap: wrap; align-items: stretch;">
+              
+              <!-- Left Column: Form -->
+              <div style="flex: 1 1 480px; min-width: 320px; display: flex; flex-direction: column; gap: 20px;">
+                <div style="font-size: 13px; color: var(--color-muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: -8px;">New Audit Request</div>
+                <form onsubmit="runAuditSimulation(event)" style="display: flex; flex-direction: column; gap: 20px; flex-grow: 1; justify-content: space-between;">
+                  <div style="display: flex; flex-direction: column; gap: 16px;">
+                    <div>
+                      <label
+                        style="display: block; font-size: 13px; font-weight: 600; color: var(--color-text); margin-bottom: 6px;">Client Name</label>
+                      <input type="text" id="audit-client-name" required placeholder="e.g. John Doe" class="form-input"
+                        style="width: 100%;" />
+                    </div>
+                    <div>
+                      <label
+                        style="display: block; font-size: 13px; font-weight: 600; color: var(--color-text); margin-bottom: 6px;">Company Name</label>
+                      <input type="text" id="audit-company-name" required placeholder="e.g. Precision HVAC Experts"
+                        class="form-input" style="width: 100%;" />
+                    </div>
+                    <div>
+                      <label
+                        style="display: block; font-size: 13px; font-weight: 600; color: var(--color-text); margin-bottom: 6px;">Company Website URL</label>
+                      <input type="url" id="audit-company-url" required placeholder="e.g. https://precisionhvac.com"
+                        class="form-input" style="width: 100%;" />
+                    </div>
+                  </div>
+
+                  <button type="submit" class="btn-primary"
+                    style="padding: 14px; font-size: 14px; font-weight: 600; border-radius: 12px; margin-top: 24px; justify-content: center; width: 100%;">
+                    Generate Audit Report
+                  </button>
+                </form>
+              </div>
+
+              <!-- Right Column: Recent Audits -->
+              <div style="flex: 1 1 480px; min-width: 320px; display: flex; flex-direction: column; gap: 20px; border-left: 1px solid var(--color-border); padding-left: 40px;" class="recent-audits-col">
+                <div
+                  style="font-size: 13px; color: var(--color-muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; text-align: left;">
+                  Recent Onboarding Audits</div>
+                
+                <div style="display: flex; flex-direction: column; gap: 10px; flex-grow: 1;">
+                  <!-- 1. Rapid Response Air -->
+                  <div onclick="viewQuickReport('John Doe', 'Rapid Response Air', 'https://rapidresponseair.com')"
+                    style="border: 1px solid var(--color-border); border-radius: 12px; padding: 12px 16px; background: white; display: flex; justify-content: space-between; align-items: center; cursor: pointer; text-align: left;"
+                    class="custom-dropdown-item audit-item">
+                    <div>
+                      <div style="font-weight: 600; color: var(--color-primary);">Rapid Response Air</div>
+                      <div style="font-size: 11px; color: var(--color-secondary);">https://rapidresponseair.com •
+                        WordPress / Elementor</div>
+                    </div>
+                    <div
+                      style="font-size: 12px; font-weight: 700; color: var(--color-accent); display: flex; align-items: center; gap: 4px;">
+                      View Report <i data-lucide="arrow-right" style="width: 14px; height: 14px;"></i>
+                    </div>
+                  </div>
+
+                  <!-- 2. Precision HVAC Experts -->
+                  <div onclick="viewQuickReport('Jane Smith', 'Precision HVAC Experts', 'https://precisionhvac.com')"
+                    style="border: 1px solid var(--color-border); border-radius: 12px; padding: 12px 16px; background: white; display: flex; justify-content: space-between; align-items: center; cursor: pointer; text-align: left;"
+                    class="custom-dropdown-item audit-item">
+                    <div>
+                      <div style="font-weight: 600; color: var(--color-primary);">Precision HVAC Experts</div>
+                      <div style="font-size: 11px; color: var(--color-secondary);">https://precisionhvac.com • WordPress / Elementor</div>
+                    </div>
+                    <div
+                      style="font-size: 12px; font-weight: 700; color: var(--color-accent); display: flex; align-items: center; gap: 4px;">
+                      View Report <i data-lucide="arrow-right" style="width: 14px; height: 14px;"></i>
+                    </div>
+                  </div>
+
+                  <!-- 3. Apex Climate Control -->
+                  <div onclick="viewQuickReport('Robert Johnson', 'Apex Climate Control', 'https://apexclimatecontrol.com')"
+                    style="border: 1px solid var(--color-border); border-radius: 12px; padding: 12px 16px; background: white; display: flex; justify-content: space-between; align-items: center; cursor: pointer; text-align: left;"
+                    class="custom-dropdown-item audit-item">
+                    <div>
+                      <div style="font-weight: 600; color: var(--color-primary);">Apex Climate Control</div>
+                      <div style="font-size: 11px; color: var(--color-secondary);">https://apexclimatecontrol.com • Webflow / Custom</div>
+                    </div>
+                    <div
+                      style="font-size: 12px; font-weight: 700; color: var(--color-accent); display: flex; align-items: center; gap: 4px;">
+                      View Report <i data-lucide="arrow-right" style="width: 14px; height: 14px;"></i>
+                    </div>
+                  </div>
+
+                  <!-- 4. Comfort Zone Heating & Air -->
+                  <div onclick="viewQuickReport('Michael Miller', 'Comfort Zone Heating & Air', 'https://comfortzoneheating.com')"
+                    style="border: 1px solid var(--color-border); border-radius: 12px; padding: 12px 16px; background: white; display: flex; justify-content: space-between; align-items: center; cursor: pointer; text-align: left;"
+                    class="custom-dropdown-item audit-item">
+                    <div>
+                      <div style="font-weight: 600; color: var(--color-primary);">Comfort Zone Heating & Air</div>
+                      <div style="font-size: 11px; color: var(--color-secondary);">https://comfortzoneheating.com • Custom HTML / Tailwind</div>
+                    </div>
+                    <div
+                      style="font-size: 12px; font-weight: 700; color: var(--color-accent); display: flex; align-items: center; gap: 4px;">
+                      View Report <i data-lucide="arrow-right" style="width: 14px; height: 14px;"></i>
+                    </div>
+                  </div>
+
+                  <!-- 5. Elite Air Systems -->
+                  <div onclick="viewQuickReport('Sarah Davis', 'Elite Air Systems', 'https://eliteairsystems.com')"
+                    style="border: 1px solid var(--color-border); border-radius: 12px; padding: 12px 16px; background: white; display: flex; justify-content: space-between; align-items: center; cursor: pointer; text-align: left;"
+                    class="custom-dropdown-item audit-item">
+                    <div>
+                      <div style="font-weight: 600; color: var(--color-primary);">Elite Air Systems</div>
+                      <div style="font-size: 11px; color: var(--color-secondary);">https://eliteairsystems.com • Wix / Builder</div>
+                    </div>
+                    <div
+                      style="font-size: 12px; font-weight: 700; color: var(--color-accent); display: flex; align-items: center; gap: 4px;">
+                      View Report <i data-lucide="arrow-right" style="width: 14px; height: 14px;"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+          </div>
+
+          <!-- Simulated Crawler Loading State -->
+          <div id="audit-loading-view" class="chart-card"
+            style="display: none; max-width: 600px; margin: 40px auto; padding: 40px 32px; border-radius: 24px; background: white; border: 1px solid var(--color-border); text-align: center;">
+            <div class="spinner-container" style="margin-bottom: 24px;">
+              <div class="loader-circle"
+                style="width: 64px; height: 64px; border: 4px solid #f1f5f9; border-top-color: var(--color-accent); border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto;">
+              </div>
+            </div>
+            <h3
+              style="font-family: var(--font-serif); font-size: 20px; font-weight: 700; color: var(--color-primary); margin-bottom: 12px;">
+              Running Onboarding Audit...</h3>
+            <p id="audit-loading-status"
+              style="color: var(--color-secondary); font-size: 14px; font-weight: 500; min-height: 20px; transition: all 0.3s;">
+              Initiating crawler...</p>
+
+            <div
+              style="margin-top: 32px; display: flex; flex-direction: column; gap: 12px; text-align: left; max-width: 400px; margin-left: auto; margin-right: auto; padding: 20px; background: var(--color-warm); border-radius: 16px; border: 1px solid var(--color-border);">
+              <div id="status-step-1"
+                style="display: flex; align-items: center; gap: 10px; color: var(--color-muted); font-size: 13.5px;"><i
+                  data-lucide="circle" style="width: 16px; height: 16px;"></i> Crawling website structure...</div>
+              <div id="status-step-2"
+                style="display: flex; align-items: center; gap: 10px; color: var(--color-muted); font-size: 13.5px;"><i
+                  data-lucide="circle" style="width: 16px; height: 16px;"></i> Testing page speed (Google PageSpeed)...
+              </div>
+              <div id="status-step-3"
+                style="display: flex; align-items: center; gap: 10px; color: var(--color-muted); font-size: 13.5px;"><i
+                  data-lucide="circle" style="width: 16px; height: 16px;"></i> Scanning for broken links & redirect
+                loops...</div>
+              <div id="status-step-4"
+                style="display: flex; align-items: center; gap: 10px; color: var(--color-muted); font-size: 13.5px;"><i
+                  data-lucide="circle" style="width: 16px; height: 16px;"></i> Evaluating SEO tags & responsiveness...
+              </div>
+              <div id="status-step-5"
+                style="display: flex; align-items: center; gap: 10px; color: var(--color-muted); font-size: 13.5px;"><i
+                  data-lucide="circle" style="width: 16px; height: 16px;"></i> Verifying CRM integrations
+                (GHL/ClickUp)...</div>
+            </div>
+          </div>
+
+          <!-- High-Fidelity Report View -->
+          <div id="audit-report-view"
+            style="display: none; max-width: 1200px; margin: 0 auto; background: transparent; border: none; box-shadow: none; overflow: visible; position: relative;">
+
+            <!-- Report Actions Bar (Non-Printable) -->
+            <div class="no-print"
+              style="display: flex; justify-content: space-between; align-items: center; padding: 16px 32px; background: #f8fafc; border-bottom: 1px solid var(--color-border); border-radius: 12px; margin-bottom: 24px; border: 1px solid var(--color-border); box-shadow: 0 2px 8px rgba(0,0,0,0.02);">
+              <span style="font-size: 13px; font-weight: 600; color: var(--color-secondary);">Report Ready</span>
+              <div style="display: flex; gap: 12px;">
+                <button onclick="resetAuditForm()" class="btn-primary"
+                  style="background: transparent; color: var(--color-primary); border: 1px solid var(--color-border); font-weight: 600; border-radius: 10px; padding: 8px 16px; font-size: 13px;">
+                  New Audit
+                </button>
+                <button onclick="printAuditReport()" class="btn-primary"
+                  style="background: var(--color-accent); border: none; font-weight: 600; border-radius: 10px; padding: 8px 16px; font-size: 13px;">
+                  <i data-lucide="download" style="width: 16px; height: 16px; margin-right: 4px;"></i> Download PDF
+                </button>
+              </div>
+            </div>
+
+            <!-- The actual printable audit report document -->
+            <div id="printable-audit-report">
+
+              <!-- PAGE 1 -->
+              <div class="pdf-page"
+                style="background: white; padding: 20mm; font-family: var(--font-sans); color: #333333; line-height: 1.6; display: flex; flex-direction: column; justify-content: space-between; box-sizing: border-box; min-height: 297mm; height: auto;">
+
+                <!-- Page Header -->
+                <div
+                  style="display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 1px solid #cccccc; padding-bottom: 8px; margin-bottom: 24px; flex-shrink: 0;">
+                  <div style="display: flex; align-items: center;">
+                    <img src="/logo.svg" alt="Explore Media Logo" style="height: 60px; opacity: 0.9;" />
+                  </div>
+                  <div style="font-size: 11px; color: #666666; font-weight: 550;">Generated: <span
+                      class="dyn-report-date">June 2, 2026</span></div>
+                </div>
+
+                <!-- Page Content -->
+                <div
+                  style="flex-grow: 1; display: flex; flex-direction: column; justify-content: flex-start; gap: 20px;">
+
+                  <!-- Title -->
+                  <h1
+                    style="font-family: var(--font-sans); font-size: 24px; font-weight: 700; color: #0f5b99; margin-bottom: 16px; margin-top: 0; text-align: center;">
+                    Website Audit Report</h1>
+
+                  <!-- Metadata -->
+                  <div style="font-size: 12.5px; line-height: 1.8; color: #333333; margin-bottom: 24px;">
+                    <div><span style="color: #0f5b99; font-weight: 700;">Company Name:</span> <span
+                        class="dyn-company-name">AppCentri</span></div>
+                    <div><span style="color: #0f5b99; font-weight: 700;">URL:</span> <a class="dyn-company-url"
+                        href="https://appcentri.com" target="_blank"
+                        style="color: #0f5b99; text-decoration: underline;">https://appcentri.com</a></div>
+                    <div><span style="color: #0f5b99; font-weight: 700;">Prepared:</span> <span
+                        class="dyn-report-date">June 2, 2026</span></div>
+                    <div><span style="color: #0f5b99; font-weight: 700;">Pages Analyzed:</span> 21 Pages</div>
+                    <div><span style="color: #0f5b99; font-weight: 700;">Health Grade:</span> B (Score: 85)</div>
+                  </div>
+
+                  <!-- Executive Summary -->
+                  <div style="margin-bottom: 10px;">
+                    <h2
+                      style="font-family: var(--font-sans); font-size: 15px; font-weight: 700; color: #0f5b99; text-transform: uppercase; border-bottom: 1px solid #cccccc; padding-bottom: 4px; margin-bottom: 10px; letter-spacing: 0.03em; margin-top: 0;">
+                      Executive Summary</h2>
+                    <p style="font-size: 12px; color: #333333; line-height: 1.6; text-align: justify; margin: 0;">
+                      The overall SEO health of <span class="dyn-company-url">https://appcentri.com</span> is solid with
+                      an average SEO score of 85 across 21 pages. The site benefits from strong foundational elements
+                      including 100% HTTPS coverage, robust canonical and structured data implementation at 95.24%, and
+                      efficient server response times averaging 782.97 milliseconds. All pages return a 200 OK status,
+                      indicating good crawlability and accessibility. However, there are critical issues that need
+                      urgent attention to improve user experience and search engine performance. The Largest Contentful
+                      Paint (LCP) averages 4266 milliseconds, which is significantly above the recommended 2.5-second
+                      threshold, indicating slow page load times that could impact rankings and conversions.
+                      Additionally, there are 261 broken internal links and 1 orphan page, which hinder site navigation
+                      and link equity flow. The site also lacks viewport meta tags on all pages, severely impacting
+                      mobile usability. In total, 15 issues were identified across the site, with several high-impact
+                      technical and on-page SEO concerns.
+                    </p>
+                  </div>
+
+                  <!-- General Overview - Strengths -->
+                  <div>
+                    <h2
+                      style="font-family: var(--font-sans); font-size: 15px; font-weight: 700; color: #0f5b99; text-transform: uppercase; border-bottom: 1px solid #cccccc; padding-bottom: 4px; margin-bottom: 10px; letter-spacing: 0.03em; margin-top: 0;">
+                      General Overview</h2>
+                    <h3
+                      style="font-family: var(--font-sans); font-size: 13px; font-weight: 700; color: #0f5b99; margin-top: 8px; margin-bottom: 8px;">
+                      Overall Strengths</h3>
+                    <ul
+                      style="padding-left: 20px; font-size: 12px; color: #333333; line-height: 1.6; margin: 0; display: flex; flex-direction: column; gap: 8px; list-style-type: disc;">
+                      <li><strong style="color: #0f5b99; font-weight: 700;">100% HTTPS Coverage</strong> — Every page is
+                        served securely with zero mixed content detected.</li>
+                      <li><strong style="color: #0f5b99; font-weight: 700;">95.24% Canonical Coverage</strong> — Most
+                        pages have canonical tags to prevent duplicate content issues.</li>
+                      <li><strong style="color: #0f5b99; font-weight: 700;">95.24% Structured Data Coverage</strong> —
+                        Strong implementation of schema markup across the site.</li>
+                      <li><strong style="color: #0f5b99; font-weight: 700;">100% Compression Coverage</strong> — All
+                        pages utilize compression to reduce load times.</li>
+                      <li><strong style="color: #0f5b99; font-weight: 700;">57.14% CDN Coverage</strong> — Over half the
+                        pages leverage CDN for faster content delivery.</li>
+                      <li><strong style="color: #0f5b99; font-weight: 700;">782.97ms Average Response Time</strong> —
+                        Fast server response supporting better user experience.</li>
+                      <li><strong style="color: #0f5b99; font-weight: 700;">100% 200 OK Status Codes</strong> — All 21
+                        pages return successful HTTP status codes ensuring accessibility.</li>
+                    </ul>
+                  </div>
+
+                </div>
+
+                <!-- Page Footer -->
+                <div
+                  style="border-top: 1px solid #cccccc; padding-top: 8px; display: flex; justify-content: center; align-items: center; font-size: 8.5px; color: #888888; font-weight: normal; margin-top: 16px; flex-shrink: 0; width: 100%; text-align: center;">
+                  © 2026 Explore Media. All Rights Reserved. | Privacy Policy | Internal Use Only | Montgomery, Alabama
+                  (River Region) | www.exploremedia.com
+                </div>
+              </div>
+
+              <!-- PAGE 2 -->
+              <div class="pdf-page"
+                style="background: white; padding: 20mm; font-family: var(--font-sans); color: #333333; line-height: 1.6; display: flex; flex-direction: column; justify-content: space-between; box-sizing: border-box; min-height: 297mm; height: auto;">
+
+                <!-- Page Header -->
+                <div
+                  style="display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 1px solid #cccccc; padding-bottom: 8px; margin-bottom: 24px; flex-shrink: 0;">
+                  <div style="display: flex; align-items: center;">
+                    <img src="/logo.svg" alt="Explore Media Logo" style="height: 60px; opacity: 0.9;" />
+                  </div>
+                  <div style="font-size: 11px; color: #666666; font-weight: 550;">Generated: <span
+                      class="dyn-report-date">June 2, 2026</span></div>
+                </div>
+
+                <!-- Page Content -->
+                <div
+                  style="flex-grow: 1; display: flex; flex-direction: column; justify-content: flex-start; gap: 20px;">
+
+                  <!-- Key Concerns -->
+                  <div>
+                    <h2
+                      style="font-family: var(--font-sans); font-size: 15px; font-weight: 700; color: #d84315; text-transform: uppercase; border-bottom: 1px solid #cccccc; padding-bottom: 4px; margin-bottom: 10px; letter-spacing: 0.03em; margin-top: 0;">
+                      Key Concerns</h2>
+                    <ul
+                      style="padding-left: 20px; font-size: 12px; color: #333333; line-height: 1.6; margin: 0; display: flex; flex-direction: column; gap: 6px; list-style-type: disc;">
+                      <li><strong style="color: #0f5b99; font-weight: 700;">Poor Core Web Vitals (LCP)</strong> —
+                        Average Largest Contentful Paint of 4266ms, nearly 1.7 times above Google's 2.5-second target.
+                      </li>
+                      <li><strong style="color: #0f5b99; font-weight: 700;">Broken Internal Links</strong> — 261 broken
+                        links detected, negatively impacting user navigation and SEO.</li>
+                      <li><strong style="color: #0f5b99; font-weight: 700;">Zero Viewport Meta Tag Coverage</strong> —
+                        0% of pages have viewport tags, severely affecting mobile usability.</li>
+                      <li><strong style="color: #0f5b99; font-weight: 700;">Orphan Pages</strong> — 1 page without
+                        internal links, limiting its discoverability and ranking potential.</li>
+                      <li><strong style="color: #0f5b99; font-weight: 700;">Missing Security Headers</strong> — No
+                        security headers detected, increasing vulnerability risks.</li>
+                      <li><strong style="color: #0f5b99; font-weight: 700;">Lack of Modern Image Formats</strong> — 0
+                        images in WebP or AVIF formats out of 312 total, missing optimization opportunities.</li>
+                    </ul>
+                  </div>
+
+                  <!-- Section 4 -->
+                  <div>
+                    <h2
+                      style="font-family: var(--font-sans); font-size: 14px; font-weight: 700; color: #0f5b99; text-transform: uppercase; border-bottom: 1px solid #cccccc; padding-bottom: 4px; margin-bottom: 8px; letter-spacing: 0.03em;">
+                      Section 4: Site Overview</h2>
+                    <p
+                      style="font-size: 11.5px; color: #333333; line-height: 1.5; margin-bottom: 8px; text-align: justify;">
+                      The website consists of 21 pages with a total of 15 identified SEO issues. The average SEO score
+                      is 85, indicating generally good health with potential for rankings improvement.
+                    </p>
+                    <ul
+                      style="padding-left: 20px; font-size: 11px; color: #333333; line-height: 1.5; margin: 0; list-style-type: disc; display: flex; flex-direction: column; gap: 3px;">
+                      <li><strong style="color: #0f5b99;">Total Pages:</strong> 21</li>
+                      <li><strong style="color: #0f5b99;">Total Issues:</strong> 15</li>
+                      <li><strong style="color: #0f5b99;">Health Grade:</strong> B</li>
+                      <li><strong style="color: #0f5b99;">Critical Issues:</strong> 0</li>
+                      <li><strong style="color: #0f5b99;">High Priority Issues:</strong> 4</li>
+                      <li><strong style="color: #0f5b99;">Medium Priority Issues:</strong> 6</li>
+                      <li><strong style="color: #0f5b99;">Low Priority Issues:</strong> 2</li>
+                    </ul>
+                  </div>
+
+                  <!-- Section 5 -->
+                  <div>
+                    <h2
+                      style="font-family: var(--font-sans); font-size: 14px; font-weight: 700; color: #0f5b99; text-transform: uppercase; border-bottom: 1px solid #cccccc; padding-bottom: 4px; margin-bottom: 8px; letter-spacing: 0.03em;">
+                      Section 5: Crawlability</h2>
+                    <p
+                      style="font-size: 11.5px; color: #333333; line-height: 1.5; margin-bottom: 8px; text-align: justify;">
+                      The site has a robots.txt file and an XML sitemap containing 22 links. All 21 pages return
+                      successful 200 OK codes, indicating indexability.
+                    </p>
+                    <ul
+                      style="padding-left: 20px; font-size: 11px; color: #333333; line-height: 1.5; margin: 0; list-style-type: disc; display: flex; flex-direction: column; gap: 3px;">
+                      <li><strong style="color: #0f5b99;">Robots.txt Exists:</strong> Yes</li>
+                      <li><strong style="color: #0f5b99;">XML Sitemap Exists:</strong> Yes</li>
+                      <li><strong style="color: #0f5b99;">Sitemap Links:</strong> 22</li>
+                      <li><strong style="color: #0f5b99;">Indexable Pages:</strong> 21</li>
+                      <li><strong style="color: #0f5b99;">Broken Internal Links:</strong> 261</li>
+                      <li><strong style="color: #0f5b99;">Orphan Pages:</strong> 1</li>
+                      <li><strong style="color: #0f5b99;">Crawlability Status:</strong> Excellent</li>
+                    </ul>
+                  </div>
+
+                  <!-- Section 6 -->
+                  <div>
+                    <h2
+                      style="font-family: var(--font-sans); font-size: 14px; font-weight: 700; color: #0f5b99; text-transform: uppercase; border-bottom: 1px solid #cccccc; padding-bottom: 4px; margin-bottom: 8px; letter-spacing: 0.03em;">
+                      Section 6: HTTP Status Codes</h2>
+                    <p style="font-size: 11.5px; color: #333333; line-height: 1.5; margin-bottom: 8px;">
+                      All 21 pages return successful status codes with zero 4xx or 5xx errors, showing flawless index
+                      accessibility.
+                    </p>
+                    <ul
+                      style="padding-left: 20px; font-size: 11px; color: #333333; line-height: 1.5; margin: 0; list-style-type: disc; display: flex; flex-direction: column; gap: 3px;">
+                      <li><strong style="color: #0f5b99;">200 OK Status:</strong> 21 pages</li>
+                      <li><strong style="color: #0f5b99;">301 Redirects:</strong> 0</li>
+                      <li><strong style="color: #0f5b99;">404 Not Found:</strong> 0</li>
+                      <li><strong style="color: #0f5b99;">500 Server Errors:</strong> 0</li>
+                      <li><strong style="color: #0f5b99;">Healthy Pages %:</strong> 100%</li>
+                      <li><strong style="color: #0f5b99;">Status Grade:</strong> Perfect</li>
+                    </ul>
+                  </div>
+
+                  <!-- Section 7 -->
+                  <div>
+                    <h2
+                      style="font-family: var(--font-sans); font-size: 14px; font-weight: 700; color: #0f5b99; text-transform: uppercase; border-bottom: 1px solid #cccccc; padding-bottom: 4px; margin-bottom: 8px; letter-spacing: 0.03em;">
+                      Section 7: Core Signals</h2>
+                    <p style="font-size: 11.5px; color: #333333; line-height: 1.5; margin-bottom: 8px;">
+                      The site features complete HTTPS coverage. Canonical and structured schema data are on 95.24% of
+                      pages (with canonical warnings and unknown schemas).
+                    </p>
+                    <ul
+                      style="padding-left: 20px; font-size: 11px; color: #333333; line-height: 1.5; margin: 0; list-style-type: disc; display: flex; flex-direction: column; gap: 3px;">
+                      <li><strong style="color: #0f5b99;">HTTPS Coverage:</strong> 100%</li>
+                      <li><strong style="color: #0f5b99;">Canonical Coverage:</strong> 95.24%</li>
+                      <li><strong style="color: #0f5b99;">Structured Data:</strong> 95.24%</li>
+                      <li><strong style="color: #0f5b99;">Viewport Tag Coverage:</strong> 0%</li>
+                      <li><strong style="color: #0f5b99;">Overall Grade:</strong> Mixed</li>
+                    </ul>
+                  </div>
+
+                </div>
+
+                <!-- Page Footer -->
+                <div
+                  style="border-top: 1px solid #cccccc; padding-top: 8px; display: flex; justify-content: center; align-items: center; font-size: 8.5px; color: #888888; font-weight: normal; margin-top: 16px; flex-shrink: 0; width: 100%; text-align: center;">
+                  © 2026 Explore Media. All Rights Reserved. | Privacy Policy | Internal Use Only | Montgomery, Alabama
+                  (River Region) | www.exploremedia.com
+                </div>
+              </div>
+
+              <!-- PAGE 3 -->
+              <div class="pdf-page"
+                style="background: white; padding: 20mm; font-family: var(--font-sans); color: #333333; line-height: 1.6; display: flex; flex-direction: column; justify-content: space-between; box-sizing: border-box; min-height: 297mm; height: auto;">
+
+                <!-- Page Header -->
+                <div
+                  style="display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 1px solid #cccccc; padding-bottom: 8px; margin-bottom: 24px; flex-shrink: 0;">
+                  <div style="display: flex; align-items: center;">
+                    <img src="/logo.svg" alt="Explore Media Logo" style="height: 60px; opacity: 0.9;" />
+                  </div>
+                  <div style="font-size: 11px; color: #666666; font-weight: 550;">Generated: <span
+                      class="dyn-report-date">June 2, 2026</span></div>
+                </div>
+
+                <!-- Page Content -->
+                <div
+                  style="flex-grow: 1; display: flex; flex-direction: column; justify-content: flex-start; gap: 20px;">
+
+                  <!-- Section 8: Server Performance -->
+                  <div>
+                    <h2
+                      style="font-family: var(--font-sans); font-size: 15px; font-weight: 700; color: #0f5b99; text-transform: uppercase; border-bottom: 1px solid #cccccc; padding-bottom: 4px; margin-bottom: 10px; letter-spacing: 0.03em; margin-top: 0;">
+                      Section 8: Server Performance & Infrastructure</h2>
+                    <p
+                      style="font-size: 12px; color: #333333; line-height: 1.6; text-align: justify; margin-bottom: 10px;">
+                      The average server response time is 782.97 ms, with response times ranging from 248.73 ms to
+                      1277.9 ms, reflecting enterprise-grade performance. Compression is fully enabled (100%), and CDN
+                      coverage is moderate at 57.14%. However, cache-control headers are only present on 4.76% of pages,
+                      indicating a caching configuration issue.
+                    </p>
+                    <ul
+                      style="padding-left: 20px; font-size: 12px; color: #333333; line-height: 1.6; margin: 0; list-style-type: disc;">
+                      <li><strong style="color: #0f5b99; font-weight: 700;">Avg Response Time (ms):</strong> 782.97</li>
+                      <li><strong style="color: #0f5b99; font-weight: 700;">Response Time Status:</strong> Good</li>
+                      <li><strong style="color: #0f5b99; font-weight: 700;">CDN Coverage:</strong> 57.14%</li>
+                      <li><strong style="color: #0f5b99; font-weight: 700;">Compression Coverage:</strong> 100%</li>
+                      <li><strong style="color: #0f5b99; font-weight: 700;">Performance Grade:</strong> A+</li>
+                    </ul>
+                  </div>
+
+                  <!-- Section 9: Core Web Vitals & Page Speed -->
+                  <div>
+                    <h2
+                      style="font-family: var(--font-sans); font-size: 15px; font-weight: 700; color: #0f5b99; text-transform: uppercase; border-bottom: 1px solid #cccccc; padding-bottom: 4px; margin-bottom: 10px; letter-spacing: 0.03em; margin-top: 0;">
+                      Section 9: Core Web Vitals & Page Speed</h2>
+                    <p
+                      style="font-size: 12px; color: #333333; line-height: 1.6; text-align: justify; margin-bottom: 10px;">
+                      The website is experiencing critical performance issues primarily due to a poor Largest Contentful
+                      Paint (LCP) of 4266ms, which significantly exceeds the recommended target of 2500ms. Additionally,
+                      the Cumulative Layout Shift (CLS) score is poor at 0.34, indicating noticeable visual instability
+                      during page load. While First Input Delay (FID) and Interaction to Next Paint (INP) metrics are
+                      good, the overall user experience is negatively impacted by slow content rendering and layout
+                      shifts. Mobile performance is notably worse than desktop, with mobile LCP at 5119ms compared to
+                      desktop LCP at 3839ms, highlighting mobile users face even greater delays.
+                    </p>
+                    <ul
+                      style="padding-left: 20px; font-size: 12px; color: #333333; line-height: 1.6; margin: 0; list-style-type: disc; display: flex; flex-direction: column; gap: 4px;">
+                      <li><strong style="color: #d84315; font-weight: 700;">High LCP</strong> — Caused by large,
+                        unoptimized images and render-blocking resources delaying content visibility.</li>
+                      <li><strong style="color: #d84315; font-weight: 700;">Significant Layout Shifts</strong> — Due to
+                        images missing width and height attributes causing CLS issues.</li>
+                      <li><strong style="color: #d84315; font-weight: 700;">Mobile Load Penalties</strong> — Slower
+                        mobile loading due to heavier resource payloads and less efficient render cycles.</li>
+                      <li><strong style="color: #d84315; font-weight: 700;">Unoptimized Image Formats</strong> — Lack of
+                        modern formats (WebP/AVIF) and lazy loading configurations.</li>
+                    </ul>
+                  </div>
+
+                  <!-- Section 10: Image Optimization -->
+                  <div>
+                    <h2
+                      style="font-family: var(--font-sans); font-size: 15px; font-weight: 700; color: #0f5b99; text-transform: uppercase; border-bottom: 1px solid #cccccc; padding-bottom: 4px; margin-bottom: 10px; letter-spacing: 0.03em; margin-top: 0;">
+                      Section 10: Image Optimization</h2>
+                    <p
+                      style="font-size: 12px; color: #333333; line-height: 1.6; text-align: justify; margin-bottom: 10px;">
+                      Improving image optimization by adopting modern formats, completing lazy loading, specifying image
+                      dimensions, and resizing oversized images will significantly enhance page speed, reduce layout
+                      shifts, and improve Core Web Vitals scores, leading to better user experience and SEO performance.
+                    </p>
+                    <ul
+                      style="padding-left: 20px; font-size: 12px; color: #333333; line-height: 1.6; margin: 0; list-style-type: disc; display: flex; flex-direction: column; gap: 4px;">
+                      <li><strong style="color: #0f5b99; font-weight: 700;">Zero Modern Image Formats (Medium)</strong>
+                        — The website currently uses no modern image formats such as WebP or AVIF, relying entirely on
+                        traditional formats. Fix: Convert and serve images in WebP or AVIF to reduce file sizes.</li>
+                      <li><strong style="color: #0f5b99; font-weight: 700;">Incomplete Lazy Loading (Medium)</strong> —
+                        Only 180 out of 312 images (57.69%) are lazy loaded, leaving 132 images loading immediately.
+                        Fix: Implement lazy loading for offscreen images.</li>
+                      <li><strong style="color: #0f5b99; font-weight: 700;">Missing Image Dimensions (Medium)</strong> —
+                        21 images lack explicit width and height attributes, causing layout shifts. Fix: Add width and
+                        height dimensions.</li>
+                      <li><strong style="color: #0f5b99; font-weight: 700;">Oversized Images (Medium)</strong> — 22
+                        images are oversized or unoptimized, with dimensions exceeding 2000px. Fix: Resize and optimize
+                        file sizes.</li>
+                    </ul>
+                  </div>
+
+                </div>
+
+                <!-- Page Footer -->
+                <div
+                  style="border-top: 1px solid #cccccc; padding-top: 8px; display: flex; justify-content: center; align-items: center; font-size: 8.5px; color: #888888; font-weight: normal; margin-top: 16px; flex-shrink: 0; width: 100%; text-align: center;">
+                  © 2026 Explore Media. All Rights Reserved. | Privacy Policy | Internal Use Only | Montgomery, Alabama
+                  (River Region) | www.exploremedia.com
+                </div>
+              </div>
+
+              <!-- PAGE 4 -->
+              <div class="pdf-page"
+                style="background: white; padding: 20mm; font-family: var(--font-sans); color: #333333; line-height: 1.6; display: flex; flex-direction: column; justify-content: space-between; box-sizing: border-box; min-height: 297mm; height: auto;">
+
+                <!-- Page Header -->
+                <div
+                  style="display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 1px solid #cccccc; padding-bottom: 8px; margin-bottom: 24px; flex-shrink: 0;">
+                  <div style="display: flex; align-items: center;">
+                    <img src="/logo.svg" alt="Explore Media Logo" style="height: 60px; opacity: 0.9;" />
+                  </div>
+                  <div style="font-size: 11px; color: #666666; font-weight: 550;">Generated: <span
+                      class="dyn-report-date">June 2, 2026</span></div>
+                </div>
+
+                <!-- Page Content -->
+                <div
+                  style="flex-grow: 1; display: flex; flex-direction: column; justify-content: flex-start; gap: 20px;">
+
+                  <!-- Section 11: On-Page Analysis -->
+                  <div>
+                    <h2
+                      style="font-family: var(--font-sans); font-size: 14px; font-weight: 700; color: #0f5b99; text-transform: uppercase; border-bottom: 1px solid #cccccc; padding-bottom: 4px; margin-bottom: 8px; letter-spacing: 0.03em;">
+                      Section 11: On-Page Analysis</h2>
+                    <ul
+                      style="padding-left: 20px; font-size: 11.5px; color: #333333; line-height: 1.6; margin: 0; list-style-type: disc; display: flex; flex-direction: column; gap: 4px;">
+                      <li><strong style="color: #0f5b99;">Title Tags:</strong> 100% coverage. 3 title tags are too
+                        short, 1 is too long. 0 duplicate title tags.</li>
+                      <li><strong style="color: #0f5b99;">Meta Descriptions:</strong> Present on 80.95% of pages (4
+                        pages missing descriptions). 1 too long. 0 duplicates.</li>
+                      <li><strong style="color: #0f5b99;">H1 Headings:</strong> 95.24% of pages have H1 tags (1 page
+                        missing an H1 tag). No pages have duplicate H1 tags.</li>
+                    </ul>
+                  </div>
+
+                  <!-- Section 12: Internal Linking -->
+                  <div>
+                    <h2
+                      style="font-family: var(--font-sans); font-size: 14px; font-weight: 700; color: #0f5b99; text-transform: uppercase; border-bottom: 1px solid #cccccc; padding-bottom: 4px; margin-bottom: 8px; letter-spacing: 0.03em;">
+                      Section 12: Internal Linking</h2>
+                    <ul
+                      style="padding-left: 20px; font-size: 11.5px; color: #333333; line-height: 1.6; margin: 0; list-style-type: disc; display: flex; flex-direction: column; gap: 4px;">
+                      <li><strong style="color: #d84315;">Broken Internal Links (High)</strong> — 261 broken internal
+                        links found. Fix: Repair or remove broken link endpoints.</li>
+                      <li><strong style="color: #0f5b99;">Orphan Pages (Medium)</strong> — 1 orphan page has no internal
+                        links pointing to it. Fix: Add links from related pages.</li>
+                      <li><strong style="color: #0f5b99;">No Anchor Text (Medium)</strong> — 130 internal links are
+                        missing anchor text. Fix: Add descriptive anchors.</li>
+                    </ul>
+                  </div>
+
+                  <!-- Section 13: URL Structures -->
+                  <div>
+                    <h2
+                      style="font-family: var(--font-sans); font-size: 14px; font-weight: 700; color: #0f5b99; text-transform: uppercase; border-bottom: 1px solid #cccccc; padding-bottom: 4px; margin-bottom: 8px; letter-spacing: 0.03em;">
+                      Section 13: URL Structures</h2>
+                    <p
+                      style="font-size: 11.5px; color: #333333; line-height: 1.5; margin-bottom: 8px; text-align: justify;">
+                      85.71% of URLs are well structured. 3 URLs are too long (avg length: 52.52 characters). Consider
+                      shortening:
+                    </p>
+                    <div
+                      style="font-family: var(--font-mono); font-size: 9.5px; color: #d84315; line-height: 1.4; word-break: break-all; background: #fafafa; border: 1px solid #e2e8f0; padding: 8px; border-radius: 4px; margin-left: 10px; margin-bottom: 6px;">
+                      1. <span
+                        class="dyn-company-url">https://appcentri.com</span>/this-is-an-example-of-a-very-long-url-that-needs-shortening<br>
+                      2. <span
+                        class="dyn-company-url">https://appcentri.com</span>/category/subcategory/another-long-url-example-for-optimization<br>
+                      3. <span
+                        class="dyn-company-url">https://appcentri.com</span>/products/item/1234567890/extra-details-that-make-url-lengthy
+                    </div>
+                  </div>
+
+                  <!-- Section 14: Mobile Optimization -->
+                  <div>
+                    <h2
+                      style="font-family: var(--font-sans); font-size: 14px; font-weight: 700; color: #0f5b99; text-transform: uppercase; border-bottom: 1px solid #cccccc; padding-bottom: 4px; margin-bottom: 8px; letter-spacing: 0.03em;">
+                      Section 14: Mobile Optimization</h2>
+                    <p style="font-size: 11.5px; color: #333333; line-height: 1.5; margin-bottom: 8px;">
+                      Mobile Largest Contentful Paint (LCP) is 5119 ms, significantly slower than desktop (3839 ms),
+                      indicating poor mobile experience. Mobile-First Indexing is blocked by incomplete configurations.
+                    </p>
+                    <ul
+                      style="padding-left: 20px; font-size: 11px; color: #333333; line-height: 1.5; margin: 0; list-style-type: disc; display: flex; flex-direction: column; gap: 3px;">
+                      <li><strong style="color: #d84315;">Viewport Tag Coverage:</strong> 0% (Critical Alert)</li>
+                      <li><strong style="color: #0f5b99;">Mobile LCP (seconds):</strong> 5.1s</li>
+                      <li><strong style="color: #0f5b99;">Desktop LCP (seconds):</strong> 3.8s</li>
+                      <li><strong style="color: #0f5b99;">Mobile-First Indexing Ready:</strong> No</li>
+                    </ul>
+                  </div>
+
+                  <!-- Section 15: Pagination Issues -->
+                  <div>
+                    <h2
+                      style="font-family: var(--font-sans); font-size: 14px; font-weight: 700; color: #0f5b99; text-transform: uppercase; border-bottom: 1px solid #cccccc; padding-bottom: 4px; margin-bottom: 8px; letter-spacing: 0.03em;">
+                      Section 15: Pagination Issues</h2>
+                    <p style="font-size: 11.5px; color: #333333; line-height: 1.5; margin: 0;">
+                      <strong style="color: #0f5b99;">Issue:</strong> 20 pages have pagination, but none use
+                      previous/next pagination links. <br>
+                      <strong style="color: #0f5b99;">Fix:</strong> Implement previous and next pagination links to
+                      improve user navigation and help search engines understand relationship paths.
+                    </p>
+                  </div>
+
+                </div>
+
+                <!-- Page Footer -->
+                <div
+                  style="border-top: 1px solid #cccccc; padding-top: 8px; display: flex; justify-content: center; align-items: center; font-size: 8.5px; color: #888888; font-weight: normal; margin-top: 16px; flex-shrink: 0; width: 100%; text-align: center;">
+                  © 2026 Explore Media. All Rights Reserved. | Privacy Policy | Internal Use Only | Montgomery, Alabama
+                  (River Region) | www.exploremedia.com
+                </div>
+              </div>
+
+              <!-- PAGE 5 -->
+              <div class="pdf-page"
+                style="background: white; padding: 20mm; font-family: var(--font-sans); color: #333333; line-height: 1.6; display: flex; flex-direction: column; justify-content: space-between; box-sizing: border-box; min-height: 297mm; height: auto;">
+
+                <!-- Page Header -->
+                <div
+                  style="display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 1px solid #cccccc; padding-bottom: 8px; margin-bottom: 24px; flex-shrink: 0;">
+                  <div style="display: flex; align-items: center;">
+                    <img src="/logo.svg" alt="Explore Media Logo" style="height: 60px; opacity: 0.9;" />
+                  </div>
+                  <div style="font-size: 11px; color: #666666; font-weight: 550;">Generated: <span
+                      class="dyn-report-date">June 2, 2026</span></div>
+                </div>
+
+                <!-- Page Content -->
+                <div
+                  style="flex-grow: 1; display: flex; flex-direction: column; justify-content: flex-start; gap: 20px; font-size: 11.5px;">
+
+                  <!-- Section 16: UX & Accessibility -->
+                  <div>
+                    <h2
+                      style="font-family: var(--font-sans); font-size: 14px; font-weight: 700; color: #0f5b99; text-transform: uppercase; border-bottom: 1px solid #cccccc; padding-bottom: 4px; margin-bottom: 8px; letter-spacing: 0.03em;">
+                      Section 16: UX & Accessibility</h2>
+                    <p style="margin: 0; line-height: 1.5; color: #333333;">
+                      <strong style="color: #0f5b99;">Passes:</strong> 100% button usage compliance, and interstitial
+                      layout guidance. <br>
+                      <strong style="color: #d84315;">Failures:</strong> Accessibility score of 14 (Grade F), 0% heading
+                      hierarchy coverage, and 0% semantic HTML structure coverage.
+                    </p>
+                  </div>
+
+                  <!-- Section 17: Security -->
+                  <div>
+                    <h2
+                      style="font-family: var(--font-sans); font-size: 14px; font-weight: 700; color: #0f5b99; text-transform: uppercase; border-bottom: 1px solid #cccccc; padding-bottom: 4px; margin-bottom: 8px; letter-spacing: 0.03em;">
+                      Section 17: Security</h2>
+                    <p style="margin: 0; line-height: 1.5; color: #333333;">
+                      <strong style="color: #0f5b99;">HTTPS Coverage:</strong> 100% active.<br>
+                      <strong style="color: #d84315;">Security Score:</strong> 17 (Grade F). Missing standard protection
+                      headers: Strict-Transport-Security (HSTS), Content-Security-Policy (CSP), X-Frame-Options,
+                      X-Content-Type-Options, Referrer-Policy, and Permissions-Policy.
+                    </p>
+                  </div>
+
+                  <!-- Section 18: Prioritized Action Plan -->
+                  <div>
+                    <h2
+                      style="font-family: var(--font-sans); font-size: 14px; font-weight: 700; color: #0f5b99; text-transform: uppercase; border-bottom: 1px solid #cccccc; padding-bottom: 4px; margin-bottom: 8px; letter-spacing: 0.03em;">
+                      Section 18: Prioritized Action Plan</h2>
+                    <div
+                      style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; font-size: 10.5px; line-height: 1.5; margin-top: 8px;">
+
+                      <!-- Phase 1 -->
+                      <div style="border-left: 2px solid #d84315; padding-left: 8px;">
+                        <div style="font-weight: 700; color: #d84315; text-transform: uppercase; margin-bottom: 4px;">
+                          Phase 1: High Priority (W1-2)</div>
+                        <ul
+                          style="padding-left: 0; margin: 0; color: #333333; list-style: none; display: flex; flex-direction: column; gap: 2px;">
+                          <li>• Optimize Core Web Vitals & images</li>
+                          <li>• Repair 261 broken internal links</li>
+                          <li>• Create missing meta descriptions</li>
+                          <li>• Add missing page H1 headings</li>
+                          <li>• Link orphan pages & viewport tag</li>
+                        </ul>
+                      </div>
+
+                      <!-- Phase 2 -->
+                      <div style="border-left: 2px solid #b45309; padding-left: 8px;">
+                        <div style="font-weight: 700; color: #b45309; text-transform: uppercase; margin-bottom: 4px;">
+                          Phase 2: Medium Priority (W3-4)</div>
+                        <ul
+                          style="padding-left: 0; margin: 0; color: #333333; list-style: none; display: flex; flex-direction: column; gap: 2px;">
+                          <li>• Add server Cache-Control headers</li>
+                          <li>• Add anchor text to blank link tags</li>
+                          <li>• Trim long page titles / URLs</li>
+                          <li>• Fix canonicals & pagination rel tags</li>
+                          <li>• Implement secure HTTP headers</li>
+                        </ul>
+                      </div>
+
+                      <!-- Phase 3 -->
+                      <div style="border-left: 2px solid #1976d2; padding-left: 8px;">
+                        <div style="font-weight: 700; color: #1976d2; text-transform: uppercase; margin-bottom: 4px;">
+                          Phase 3: Lower Priority (W5+)</div>
+                        <ul
+                          style="padding-left: 0; margin: 0; color: #333333; list-style: none; display: flex; flex-direction: column; gap: 2px;">
+                          <li>• Trim long meta descriptions</li>
+                          <li>• Add breadcrumbs & skip-to-content</li>
+                          <li>• Add ARIA labels & apple touch icon</li>
+                          <li>• Create llms.txt standard files</li>
+                          <li>• Add structured schema types</li>
+                        </ul>
+                      </div>
+
+                    </div>
+                  </div>
+
+                  <!-- Section 19: Conclusion -->
+                  <div>
+                    <h2
+                      style="font-family: var(--font-sans); font-size: 14px; font-weight: 700; color: #0f5b99; text-transform: uppercase; border-bottom: 1px solid #cccccc; padding-bottom: 4px; margin-bottom: 8px; letter-spacing: 0.03em;">
+                      Section 19: Conclusion</h2>
+                    <p style="font-size: 11.5px; color: #333333; line-height: 1.5; margin: 0; text-align: justify;">
+                      <span class="dyn-company-url"
+                        style="font-weight: 700; text-decoration: none; color: #0f5b99;">https://appcentri.com</span>
+                      has a strong SEO foundation with full HTTPS coverage, effective canonical and structured data
+                      implementation, and fast server response times. However, critical issues such as poor Core Web
+                      Vitals, numerous broken links, and lack of mobile viewport tags must be addressed to improve user
+                      experience and search engine rankings. Implementing the prioritized action plan will significantly
+                      enhance site performance, accessibility, and SEO effectiveness, driving better traffic and
+                      engagement outcomes.
+                    </p>
+                  </div>
+
+                </div>
+
+                <!-- Page Footer -->
+                <div
+                  style="border-top: 1px solid #cccccc; padding-top: 8px; display: flex; justify-content: center; align-items: center; font-size: 8.5px; color: #888888; font-weight: normal; margin-top: 16px; flex-shrink: 0; width: 100%; text-align: center;">
+                  © 2026 Explore Media. All Rights Reserved. | Privacy Policy | Internal Use Only | Montgomery, Alabama
+                  (River Region) | www.exploremedia.com
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -3636,6 +4637,268 @@
     function signOut() {
       localStorage.setItem('isLoggedIn', 'false');
       window.location.href = '/';
+    }
+
+    function selectQuickAudit(companyName, companyUrl) {
+      let contactName = "John Doe";
+      if (companyName === "Precision HVAC Experts") {
+        contactName = "Jane Smith";
+      }
+
+      document.getElementById("audit-client-name").value = contactName;
+      document.getElementById("audit-company-name").value = companyName;
+      document.getElementById("audit-company-url").value = companyUrl;
+
+      runAuditSimulation({ preventDefault: () => { } });
+    }
+
+    function viewQuickReport(clientName, companyName, companyUrl) {
+      // Set the input fields so the form is also populated
+      document.getElementById("audit-client-name").value = clientName;
+      document.getElementById("audit-company-name").value = companyName;
+      document.getElementById("audit-company-url").value = companyUrl;
+
+      // Populate report fields immediately
+      if (document.getElementById("report-client-name")) {
+        document.getElementById("report-client-name").innerText = clientName;
+      }
+      if (document.getElementById("report-company-name")) {
+        document.getElementById("report-company-name").innerText = companyName;
+      }
+      if (document.getElementById("report-company-url")) {
+        document.getElementById("report-company-url").innerText = companyUrl;
+        document.getElementById("report-company-url").href = companyUrl;
+      }
+
+      // Update all dynamic instances of company name, URL and date
+      document.querySelectorAll('.dyn-company-name').forEach(el => {
+        el.innerText = companyName;
+      });
+      document.querySelectorAll('.dyn-company-url').forEach(el => {
+        el.innerText = companyUrl;
+        if (el.tagName === 'A') el.href = companyUrl;
+      });
+
+      // Dynamic page recommendation URLs
+      const homepageLinkEl = document.getElementById("report-link-homepage");
+      if (homepageLinkEl) {
+        homepageLinkEl.innerText = companyUrl + "/";
+        homepageLinkEl.href = companyUrl;
+      }
+
+      const acLinkEl = document.getElementById("report-link-ac");
+      if (acLinkEl) {
+        acLinkEl.innerText = companyUrl + "/ac-repair";
+        acLinkEl.href = companyUrl + "/ac-repair";
+      }
+
+      const contactLinkEl = document.getElementById("report-link-contact");
+      if (contactLinkEl) {
+        contactLinkEl.innerText = companyUrl + "/contact";
+        contactLinkEl.href = companyUrl + "/contact";
+      }
+
+      // Dynamic dates & timestamps
+      const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
+      const now = new Date();
+      const formattedDate = now.toLocaleDateString('en-US', dateOptions);
+      const formattedTime = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+      const fullTimestamp = formattedDate + " at " + formattedTime;
+
+      document.querySelectorAll('.dyn-report-date').forEach(el => {
+        el.innerText = formattedDate;
+      });
+      if (document.getElementById("report-date")) {
+        document.getElementById("report-date").innerText = formattedDate;
+      }
+      document.querySelectorAll('.report-timestamp-val').forEach(el => {
+        el.innerText = fullTimestamp;
+      });
+
+      // Show report, hide form & loader
+      document.getElementById("audit-form-view").style.display = "none";
+      document.getElementById("audit-loading-view").style.display = "none";
+      document.getElementById("audit-report-view").style.display = "block";
+    }
+
+    function runAuditSimulation(event) {
+      event.preventDefault();
+
+      const clientName = document.getElementById("audit-client-name").value.trim();
+      const companyName = document.getElementById("audit-company-name").value.trim();
+      const companyUrl = document.getElementById("audit-company-url").value.trim();
+
+      // Show loader, hide form
+      document.getElementById("audit-form-view").style.display = "none";
+      document.getElementById("audit-loading-view").style.display = "block";
+      document.getElementById("audit-report-view").style.display = "none";
+
+      const statusEl = document.getElementById("audit-loading-status");
+
+      // Reset steps visual indicators
+      const steps = [1, 2, 3, 4, 5];
+      steps.forEach(num => {
+        const el = document.getElementById("status-step-" + num);
+        el.style.color = "var(--color-secondary)";
+        el.innerHTML = `<i data-lucide="circle" style="width: 16px; height: 16px;"></i> ` + getStepName(num);
+      });
+      if (window.lucide) lucide.createIcons();
+
+      // Step 1
+      setTimeout(() => {
+        statusEl.innerText = "Crawling website structure & hierarchy...";
+        const el = document.getElementById("status-step-1");
+        el.style.color = "var(--color-accent)";
+        el.innerHTML = `<i data-lucide="loader-2" class="animate-spin" style="width: 16px; height: 16px; animation: spin 1s linear infinite;"></i> Crawling website structure...`;
+        if (window.lucide) lucide.createIcons();
+      }, 0);
+
+      // Step 2
+      setTimeout(() => {
+        const el1 = document.getElementById("status-step-1");
+        el1.style.color = "var(--color-success)";
+        el1.innerHTML = `<i data-lucide="check-circle-2" style="width: 16px; height: 16px; color: var(--color-success);"></i> Crawling website structure...`;
+
+        statusEl.innerText = "Analyzing page speed & performance via Lighthouse...";
+        const el2 = document.getElementById("status-step-2");
+        el2.style.color = "var(--color-accent)";
+        el2.innerHTML = `<i data-lucide="loader-2" class="animate-spin" style="width: 16px; height: 16px; animation: spin 1s linear infinite;"></i> Testing page speed (Google PageSpeed)...`;
+        if (window.lucide) lucide.createIcons();
+      }, 1000);
+
+      // Step 3
+      setTimeout(() => {
+        const el2 = document.getElementById("status-step-2");
+        el2.style.color = "var(--color-success)";
+        el2.innerHTML = `<i data-lucide="check-circle-2" style="width: 16px; height: 16px; color: var(--color-success);"></i> Testing page speed (Google PageSpeed)...`;
+
+        statusEl.innerText = "Scanning page links for redirect loops and 404s...";
+        const el3 = document.getElementById("status-step-3");
+        el3.style.color = "var(--color-accent)";
+        el3.innerHTML = `<i data-lucide="loader-2" class="animate-spin" style="width: 16px; height: 16px; animation: spin 1s linear infinite;"></i> Scanning for broken links & redirect loops...`;
+        if (window.lucide) lucide.createIcons();
+      }, 2000);
+
+      // Step 4
+      setTimeout(() => {
+        const el3 = document.getElementById("status-step-3");
+        el3.style.color = "var(--color-success)";
+        el3.innerHTML = `<i data-lucide="check-circle-2" style="width: 16px; height: 16px; color: var(--color-success);"></i> Scanning for broken links & redirect loops...`;
+
+        statusEl.innerText = "Checking viewport tag & responsiveness queries...";
+        const el4 = document.getElementById("status-step-4");
+        el4.style.color = "var(--color-accent)";
+        el4.innerHTML = `<i data-lucide="loader-2" class="animate-spin" style="width: 16px; height: 16px; animation: spin 1s linear infinite;"></i> Evaluating SEO tags & responsiveness...`;
+        if (window.lucide) lucide.createIcons();
+      }, 3000);
+
+      // Step 5
+      setTimeout(() => {
+        const el4 = document.getElementById("status-step-4");
+        el4.style.color = "var(--color-success)";
+        el4.innerHTML = `<i data-lucide="check-circle-2" style="width: 16px; height: 16px; color: var(--color-success);"></i> Evaluating SEO tags & responsiveness...`;
+
+        statusEl.innerText = "Validating webhook triggers & CRM payload syncs...";
+        const el5 = document.getElementById("status-step-5");
+        el5.style.color = "var(--color-accent)";
+        el5.innerHTML = `<i data-lucide="loader-2" class="animate-spin" style="width: 16px; height: 16px; animation: spin 1s linear infinite;"></i> Verifying CRM integrations (GHL/ClickUp)...`;
+        if (window.lucide) lucide.createIcons();
+      }, 4200);
+
+      // Finish & Show Report
+      setTimeout(() => {
+        const el5 = document.getElementById("status-step-5");
+        el5.style.color = "var(--color-success)";
+        el5.innerHTML = `<i data-lucide="check-circle-2" style="width: 16px; height: 16px; color: var(--color-success);"></i> Verifying CRM integrations (GHL/ClickUp)...`;
+        if (window.lucide) lucide.createIcons();
+
+        // Populate report fields
+        if (document.getElementById("report-client-name")) {
+          document.getElementById("report-client-name").innerText = clientName;
+        }
+        if (document.getElementById("report-company-name")) {
+          document.getElementById("report-company-name").innerText = companyName;
+        }
+        if (document.getElementById("report-company-url")) {
+          document.getElementById("report-company-url").innerText = companyUrl;
+          document.getElementById("report-company-url").href = companyUrl;
+        }
+
+        // Update all dynamic instances of company name, URL and date
+        document.querySelectorAll('.dyn-company-name').forEach(el => {
+          el.innerText = companyName;
+        });
+        document.querySelectorAll('.dyn-company-url').forEach(el => {
+          el.innerText = companyUrl;
+          if (el.tagName === 'A') el.href = companyUrl;
+        });
+
+        // Dynamic page recommendation URLs
+        const homepageLinkEl = document.getElementById("report-link-homepage");
+        if (homepageLinkEl) {
+          homepageLinkEl.innerText = companyUrl + "/";
+          homepageLinkEl.href = companyUrl;
+        }
+
+        const acLinkEl = document.getElementById("report-link-ac");
+        if (acLinkEl) {
+          acLinkEl.innerText = companyUrl + "/ac-repair";
+          acLinkEl.href = companyUrl + "/ac-repair";
+        }
+
+        const contactLinkEl = document.getElementById("report-link-contact");
+        if (contactLinkEl) {
+          contactLinkEl.innerText = companyUrl + "/contact";
+          contactLinkEl.href = companyUrl + "/contact";
+        }
+
+        // Dynamic dates & timestamps
+        const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
+        const now = new Date();
+        const formattedDate = now.toLocaleDateString('en-US', dateOptions);
+        const formattedTime = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+        const fullTimestamp = formattedDate + " at " + formattedTime;
+
+        document.querySelectorAll('.dyn-report-date').forEach(el => {
+          el.innerText = formattedDate;
+        });
+        if (document.getElementById("report-date")) {
+          document.getElementById("report-date").innerText = formattedDate;
+        }
+        document.querySelectorAll('.report-timestamp-val').forEach(el => {
+          el.innerText = fullTimestamp;
+        });
+
+        // Switch view to report
+        // Switch view to report
+        document.getElementById("audit-loading-view").style.display = "none";
+        document.getElementById("audit-report-view").style.display = "block";
+      }, 5500);
+    }
+
+    function getStepName(num) {
+      switch (num) {
+        case 1: return "Crawling website structure...";
+        case 2: return "Testing page speed (Google PageSpeed)...";
+        case 3: return "Scanning for broken links & redirect loops...";
+        case 4: return "Evaluating SEO tags & responsiveness...";
+        case 5: return "Verifying CRM integrations (GHL/ClickUp)...";
+      }
+      return "";
+    }
+
+    function resetAuditForm() {
+      document.getElementById("audit-client-name").value = "";
+      document.getElementById("audit-company-name").value = "";
+      document.getElementById("audit-company-url").value = "";
+
+      document.getElementById("audit-report-view").style.display = "none";
+      document.getElementById("audit-loading-view").style.display = "none";
+      document.getElementById("audit-form-view").style.display = "block";
+    }
+
+    function printAuditReport() {
+      window.print();
     }
 
     let MOCK_DATA = {
@@ -7945,7 +9208,7 @@
       }
     };
 
-        function renderCallTranscripts() {
+    function renderCallTranscripts() {
       const container = document.getElementById("transcripts-overview");
       if (!container) return;
 
@@ -8258,9 +9521,9 @@
     }
 
 
-    
+
     // ==========================================
-    
+
     // ==========================================
     // --- MAILCHIMP CLIENT-SPECIFIC SENTIMENT DATA ---
     // ==========================================
@@ -8971,7 +10234,7 @@
       }
     };
 
-            function renderGHLDashboard() {
+    function renderGHLDashboard() {
       const container = document.getElementById("ghl-overview");
       if (!container) return;
 
@@ -8979,22 +10242,22 @@
       const data = GHL_CLIENT_DATA[clientName] || GHL_CLIENT_DATA["Foundation Health & Wellness"];
 
       // Retrieve only the first lead and appointment
-      const lead = data.leads[0] || { 
-        name: "No Active Lead", 
-        email: "N/A", 
-        phone: "N/A", 
-        source: "N/A", 
-        tags: ["No Lead"], 
-        serviceType: "N/A", 
-        budget: "N/A", 
-        history: "No activity history available" 
+      const lead = data.leads[0] || {
+        name: "No Active Lead",
+        email: "N/A",
+        phone: "N/A",
+        source: "N/A",
+        tags: ["No Lead"],
+        serviceType: "N/A",
+        budget: "N/A",
+        history: "No activity history available"
       };
-      
-      const appt = data.appointments[0] || { 
-        dateTime: "N/A", 
-        contact: "N/A", 
-        staff: "N/A", 
-        status: "N/A" 
+
+      const appt = data.appointments[0] || {
+        dateTime: "N/A",
+        contact: "N/A",
+        staff: "N/A",
+        status: "N/A"
       };
 
       // Determine appropriate status badge classes for the appointment
@@ -9225,12 +10488,12 @@
     function renderMailChimpDashboard() {
       const clientName = document.getElementById("selected-client-name").innerText.replace("✓ ", "").trim();
       const data = MAILCHIMP_CLIENT_DATA[clientName] || MAILCHIMP_CLIENT_DATA["Foundation Health & Wellness"];
-      
+
       // Update Executive Summary Text
       if (document.getElementById("mailchimp-ai-summary-text")) {
         document.getElementById("mailchimp-ai-summary-text").innerText = data.executiveSummary;
       }
-      
+
       // Update Sentiment Card
       if (document.getElementById("mailchimp-sentiment-title")) {
         document.getElementById("mailchimp-sentiment-title").innerText = `${data.sentiment.pct}% Positive`;
@@ -9247,7 +10510,7 @@
       if (document.getElementById("mailchimp-sentiment-neg")) {
         document.getElementById("mailchimp-sentiment-neg").innerText = `Neg: ${data.sentiment.negative}`;
       }
-      
+
       // Update Top Complaint Card
       const topComplaint = data.complaints[0] || { name: "None", mentions: 0 };
       if (document.getElementById("mailchimp-top-complaint-title")) {
@@ -9256,7 +10519,7 @@
       if (document.getElementById("mailchimp-top-complaint-meta")) {
         document.getElementById("mailchimp-top-complaint-meta").innerText = `${topComplaint.mentions} mentions this week`;
       }
-      
+
       // Update Unanswered & Response Time Card (Unanswered count is large font)
       if (document.getElementById("mailchimp-unanswered-count-large")) {
         document.getElementById("mailchimp-unanswered-count-large").innerText = data.responseTime.unanswered;
@@ -9267,12 +10530,12 @@
       if (document.getElementById("mailchimp-urgency-count")) {
         document.getElementById("mailchimp-urgency-count").innerText = `${data.urgency.count} Urgent`;
       }
-      
+
       // Update MoM Trend Alert
       if (document.getElementById("mailchimp-satisfaction-alert-text")) {
         document.getElementById("mailchimp-satisfaction-alert-text").innerText = data.satisfactionTrend.alert;
       }
-      
+
       // Render Satisfaction MoM line chart
       if (
         document.getElementById("mailchimp-satisfaction-chart") &&
@@ -9312,7 +10575,7 @@
           }
         );
       }
-      
+
       // Render Intent horizontal bar chart
       if (
         document.getElementById("mailchimp-intent-chart") &&
@@ -9348,7 +10611,7 @@
           }
         );
       }
-      
+
       // Render Topic Clustering Tags
       const topicsContainer = document.getElementById("mailchimp-topics-container");
       if (topicsContainer) {
@@ -9358,7 +10621,7 @@
           </div>
         `).join("");
       }
-      
+
       // Render Complaints Table Rows
       const complaintsTbody = document.getElementById("mailchimp-complaints-tbody");
       if (complaintsTbody) {
@@ -9378,16 +10641,16 @@
           `;
         }).join("");
       }
-      
+
       if (window.lucide) {
         lucide.createIcons();
       }
-      
+
       if (window.lucide) {
         lucide.createIcons();
       }
     }
-    
+
     const ALL_CLIENTS = [
       "Foundation Health & Wellness",
       "JAG Medical Spa",

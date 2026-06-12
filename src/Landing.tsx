@@ -478,8 +478,8 @@ export default function Landing() {
           </div>
         </div>
         <div className="max-w-7xl mx-auto px-6 border-t border-slate-200 dark:border-slate-800 pt-8 flex flex-col items-center sm:flex-row justify-between gap-4">
-          <div className="text-slate-500 text-sm">
-            &copy; {new Date().getFullYear()} ExploreMedia Automation. All rights reserved.
+          <div className="text-slate-500 text-sm text-center w-full">
+            &copy; 2026 Explore Media. All Rights Reserved. | Privacy Policy | Internal Use Only | Montgomery, Alabama (River Region) | www.exploremedia.com
           </div>
         </div>
       </footer>
