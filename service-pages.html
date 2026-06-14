@@ -1,0 +1,271 @@
+<!-- Service Page Optimizer View -->
+<div style="width: 100%; margin: 24px 0; display: flex; flex-direction: column; gap: 24px;">
+
+  <!-- Summary Metric Cards (using dashboard class names for exact card designs) -->
+  <div class="kpi-grid">
+    <!-- Metric 1 -->
+    <div class="kpi-card" style="flex-direction: row; align-items: center; gap: 16px; padding: 20px;">
+      <div style="width: 48px; height: 48px; border-radius: 12px; background: rgba(59,96,255,0.1); color: var(--color-primary); display: flex; align-items: center; justify-content: center;">
+        <i data-lucide="file-text" style="width: 24px; height: 24px;"></i>
+      </div>
+      <div>
+        <div style="font-size: 24px; font-weight: 700; color: var(--color-primary); line-height: 1.2;">8</div>
+        <div style="font-size: 12px; color: var(--color-secondary); font-weight: 550; margin-top: 2px;">Service Pages Tracked</div>
+      </div>
+    </div>
+    <!-- Metric 2 -->
+    <div class="kpi-card" style="flex-direction: row; align-items: center; gap: 16px; padding: 20px;">
+      <div style="width: 48px; height: 48px; border-radius: 12px; background: rgba(220,38,38,0.1); color: #dc2626; display: flex; align-items: center; justify-content: center;">
+        <i data-lucide="alert-triangle" style="width: 24px; height: 24px;"></i>
+      </div>
+      <div>
+        <div style="font-size: 24px; font-weight: 700; color: #dc2626; line-height: 1.2;">3</div>
+        <div style="font-size: 12px; color: var(--color-secondary); font-weight: 550; margin-top: 2px;">Critical / High Urgency</div>
+      </div>
+    </div>
+    <!-- Metric 3 -->
+    <div class="kpi-card" style="flex-direction: row; align-items: center; gap: 16px; padding: 20px;">
+      <div style="width: 48px; height: 48px; border-radius: 12px; background: rgba(22,163,74,0.1); color: #16a34a; display: flex; align-items: center; justify-content: center;">
+        <i data-lucide="check-circle" style="width: 24px; height: 24px;"></i>
+      </div>
+      <div>
+        <div style="font-size: 24px; font-weight: 700; color: #16a34a; line-height: 1.2;">5</div>
+        <div style="font-size: 12px; color: var(--color-secondary); font-weight: 550; margin-top: 2px;">Optimized (Score &gt; 70%)</div>
+      </div>
+    </div>
+    <!-- Metric 4 -->
+    <div class="kpi-card" style="flex-direction: row; align-items: center; gap: 16px; padding: 20px;">
+      <div style="width: 48px; height: 48px; border-radius: 12px; background: rgba(230,222,201,0.2); color: var(--color-primary); display: flex; align-items: center; justify-content: center;">
+        <i data-lucide="gauge" style="width: 24px; height: 24px;"></i>
+      </div>
+      <div>
+        <div style="font-size: 24px; font-weight: 700; color: var(--color-primary); line-height: 1.2;">68%</div>
+        <div style="font-size: 12px; color: var(--color-secondary); font-weight: 550; margin-top: 2px;">Avg. Optimization Score</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Workspace Layout (Using identical panel styles as Home Dashboard) -->
+  <div style="display: flex; flex-direction: row; gap: 24px; align-items: stretch; min-height: 650px;">
+    
+    <!-- LEFT PANEL: Service Pages Queue -->
+    <div class="chart-card" style="flex: 1.1; min-width: 0; display: flex; flex-direction: column; gap: 20px;">
+      
+      <!-- List Title & Filters -->
+      <div style="display: flex; justify-content: space-between; align-items: center; gap: 16px; border-bottom: 1.5px solid var(--color-border); padding-bottom: 16px;">
+        <div>
+          <h3 style="font-family: var(--font-sans); font-size: 16px; font-weight: 700; color: var(--color-primary); margin: 0;">Optimization Priority Queue</h3>
+          <p style="font-size: 12px; color: var(--color-secondary); margin: 4px 0 0 0;">Select a page to view recommendations and content enhancement briefs.</p>
+        </div>
+        
+        <!-- Filter select options -->
+        <div style="display: flex; gap: 8px;">
+          <select id="opt-filter-urgency" onchange="filterServicePages()" class="form-input" style="padding: 6px 12px; font-size: 12px; border-radius: 8px; border: 1.5px solid var(--color-border); outline: none; background: white; cursor: pointer; color: var(--color-primary); font-weight: 600;">
+            <option value="ALL">All Urgencies</option>
+            <option value="Critical">Critical</option>
+            <option value="High">High</option>
+            <option value="Medium">Medium</option>
+            <option value="Low">Low</option>
+          </select>
+          <select id="opt-filter-timeline" onchange="filterServicePages()" class="form-input" style="padding: 6px 12px; font-size: 12px; border-radius: 8px; border: 1.5px solid var(--color-border); outline: none; background: white; cursor: pointer; color: var(--color-primary); font-weight: 600;">
+            <option value="ALL">All Timelines</option>
+            <option value="Optimize Now">Optimize Now</option>
+            <option value="In 2 Months">In 2 Months</option>
+            <option value="In 6 Months">In 6 Months</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Table Queue -->
+      <div style="flex: 1; overflow-y: auto;">
+        <table style="width: 100%; border-collapse: collapse; font-size: 12px; line-height: 1.4;">
+          <thead>
+            <tr style="border-bottom: 2px solid var(--color-border); color: var(--color-primary); font-weight: 700; text-align: left; background: #f8fafc;">
+              <th style="padding: 12px 14px; width: 200px;">Service Page</th>
+              <th style="padding: 12px 14px; text-align: center; width: 90px;">SEO Score</th>
+              <th style="padding: 12px 14px; text-align: center; width: 95px;">Urgency</th>
+              <th style="padding: 12px 14px; text-align: center; width: 110px;">Focus Period</th>
+              <th style="padding: 12px 14px; text-align: center; width: 80px;">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="service-pages-table-body">
+            <!-- Dynamically populated from JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- RIGHT PANEL: Interactive Brief Workspace -->
+    <div id="opt-brief-panel" class="chart-card" style="flex: 1.3; min-width: 0; display: flex; flex-direction: column; justify-content: space-between; gap: 20px;">
+      
+      <!-- Loading / Empty State -->
+      <div id="brief-empty-state" style="display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; text-align: center; gap: 16px;">
+        <div style="width: 64px; height: 64px; border-radius: 50%; background: var(--color-warm); color: var(--color-primary); display: flex; align-items: center; justify-content: center; border: 1px dashed var(--color-border);">
+          <i data-lucide="sparkles" style="width: 28px; height: 28px;"></i>
+        </div>
+        <div>
+          <h4 style="font-family: var(--font-sans); font-size: 15px; font-weight: 700; color: var(--color-primary); margin: 0 0 6px 0;">No Page Selected</h4>
+          <p style="font-size: 12px; color: var(--color-secondary); max-width: 280px; margin: 0 auto;">Select a client service page from the queue on the left to load the optimization brief.</p>
+        </div>
+      </div>
+
+      <!-- Loaded Brief Container -->
+      <div id="brief-loaded-content" style="display: none; flex-direction: column; gap: 20px; flex: 1;">
+        <!-- Workspace Header -->
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 1.5px solid var(--color-border); padding-bottom: 14px;">
+          <div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <h3 id="brief-page-title" style="font-family: var(--font-sans); font-size: 17px; font-weight: 700; color: var(--color-primary); margin: 0;">AC Repair Montgomery</h3>
+              <span id="brief-timeline-badge" style="font-size: 10px; font-weight: 700; background: #fee2e2; color: #dc2626; padding: 2px 8px; border-radius: 4px; text-transform: uppercase;">Optimize Now</span>
+            </div>
+            <div id="brief-page-url" style="font-size: 11.5px; font-family: monospace; color: var(--color-secondary); margin-top: 4px;">/services/ac-repair</div>
+          </div>
+          <div style="text-align: right; display: flex; align-items: center; gap: 12px;">
+            <div>
+              <div style="font-size: 10px; color: var(--color-muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 2px;">SEO Score</div>
+              <div id="brief-score-text" style="font-size: 22px; font-weight: 800; color: #dc2626; line-height: 1;">45%</div>
+            </div>
+            <div style="width: 38px; height: 38px; position: relative; display: flex; align-items: center; justify-content: center;">
+              <svg width="38" height="38" viewBox="0 0 36 36" style="transform: rotate(-90deg);">
+                <circle cx="18" cy="18" r="16" fill="none" stroke="#f1f5f9" stroke-width="3.5"></circle>
+                <circle id="brief-score-circle" cx="18" cy="18" r="16" fill="none" stroke="#dc2626" stroke-dasharray="100 100" stroke-dashoffset="55" stroke-linecap="round" stroke-width="3.5"></circle>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Scrollable Brief Elements -->
+        <div style="flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 20px; max-height: 520px; padding-right: 8px;" class="custom-scroll">
+          
+          <!-- 1. Content Gap Metrics Table -->
+          <div>
+            <div style="font-size: 11px; font-weight: 700; color: var(--color-primary); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+              <i data-lucide="bar-chart-2" style="width: 14px; height: 14px;"></i>
+              SEO GAP ANALYSIS VS. TOP COMPETITOR
+            </div>
+            <div style="font-size: 11px; color: var(--color-secondary); font-style: italic; margin-bottom: 8px;" id="brief-competitor-ref">Competitor Target: comfortmastershvac.com/services/ac-repair</div>
+            
+            <div style="border: 1px solid var(--color-border); border-radius: 12px; overflow: hidden; background: white; box-shadow: 0 1px 3px rgba(0,0,0,0.02);">
+              <table style="width: 100%; border-collapse: collapse; font-size: 12px; text-align: left;">
+                <thead>
+                  <tr style="border-bottom: 1.5px solid var(--color-border); background: #f8fafc; font-weight: 700; color: var(--color-primary);">
+                    <th style="padding: 10px 14px;">Metric</th>
+                    <th style="padding: 10px 14px;">Client Page (Apex)</th>
+                    <th style="padding: 10px 14px;">Competitor Target</th>
+                    <th style="padding: 10px 14px; text-align: center;">Gap Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr style="border-bottom: 1px solid var(--color-border);">
+                    <td style="padding: 10px 14px; font-weight: 600; color: var(--color-primary);">Word Count</td>
+                    <td style="padding: 10px 14px;" id="brief-gap-words-client">610 words</td>
+                    <td style="padding: 10px 14px;" id="brief-gap-words-comp">1,850 words</td>
+                    <td style="padding: 10px 14px; text-align: center;"><span id="brief-gap-words-badge" style="color: #dc2626; font-weight: 700; background: #fee2e2; padding: 2px 6px; border-radius: 4px; font-size: 9.5px;">3x Gap</span></td>
+                  </tr>
+                  <tr style="border-bottom: 1px solid var(--color-border);">
+                    <td style="padding: 10px 14px; font-weight: 600; color: var(--color-primary);">HTML Headings</td>
+                    <td style="padding: 10px 14px;" id="brief-gap-headings-client">H1: 1 | H2: 3 | H3: 0</td>
+                    <td style="padding: 10px 14px;" id="brief-gap-headings-comp">H1: 1 | H2: 12 | H3: 15</td>
+                    <td style="padding: 10px 14px; text-align: center;"><span id="brief-gap-headings-badge" style="color: #dc2626; font-weight: 700; background: #fee2e2; padding: 2px 6px; border-radius: 4px; font-size: 9.5px;">Missing H3s</span></td>
+                  </tr>
+                  <tr>
+                    <td style="padding: 10px 14px; font-weight: 600; color: var(--color-primary);">Schema Markups</td>
+                    <td style="padding: 10px 14px;" id="brief-gap-schema-client">LocalBusiness only</td>
+                    <td style="padding: 10px 14px;" id="brief-gap-schema-comp">LocalBusiness, FAQPage, Service</td>
+                    <td style="padding: 10px 14px; text-align: center;"><span id="brief-gap-schema-badge" style="color: #ea580c; font-weight: 700; background: #ffedd5; padding: 2px 6px; border-radius: 4px; font-size: 9.5px;">No FAQs</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- 2. Content & Heading Structure Recommendations -->
+          <div>
+            <div style="font-size: 11px; font-weight: 700; color: var(--color-primary); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 10px; display: flex; align-items: center; gap: 6px;">
+              <i data-lucide="edit-3" style="width: 14px; height: 14px;"></i>
+              CONTENT &amp; STRUCTURE RECOMMENDATIONS
+            </div>
+            <div style="background: var(--color-warm); border: 1px solid var(--color-border); border-radius: 12px; padding: 14px 18px;">
+              <ul id="brief-recommendations-list" style="padding-left: 18px; margin: 0; font-size: 12px; color: #334155; display: flex; flex-direction: column; gap: 8px; line-height: 1.6;">
+                <!-- Filled dynamically -->
+              </ul>
+            </div>
+          </div>
+
+          <!-- 3. Internal Linking & Media Opportunities (NEW FEATURE) -->
+          <div>
+            <div style="font-size: 11px; font-weight: 700; color: var(--color-primary); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 10px; display: flex; align-items: center; gap: 6px;">
+              <i data-lucide="link" style="width: 14px; height: 14px;"></i>
+              INTERNAL LINKING &amp; MEDIA OPPORTUNITIES
+            </div>
+            <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 12px; padding: 14px 18px;">
+              <ul id="brief-linking-media-list" style="padding-left: 18px; margin: 0; font-size: 12px; color: #166534; display: flex; flex-direction: column; gap: 8px; line-height: 1.6;">
+                <!-- Filled dynamically -->
+              </ul>
+            </div>
+          </div>
+
+          <!-- 4. Core Web Vitals & Tech SEO Suggestions (NEW FEATURE) -->
+          <div>
+            <div style="font-size: 11px; font-weight: 700; color: var(--color-primary); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 10px; display: flex; align-items: center; gap: 6px;">
+              <i data-lucide="zap" style="width: 14px; height: 14px;"></i>
+              CORE WEB VITALS &amp; TECHNICAL SUGGESTIONS
+            </div>
+            <div style="background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 12px; padding: 14px 18px;">
+              <ul id="brief-web-vitals-list" style="padding-left: 18px; margin: 0; font-size: 12px; color: #0369a1; display: flex; flex-direction: column; gap: 8px; line-height: 1.6;">
+                <!-- Filled dynamically -->
+              </ul>
+            </div>
+          </div>
+
+          <!-- 5. Gemini Copy Proposal -->
+          <div>
+            <div style="font-size: 11px; font-weight: 700; color: var(--color-primary); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;">
+              <span style="display: flex; align-items: center; gap: 6px;">
+                <i data-lucide="sparkles" style="width: 14px; height: 14px;"></i>
+                GEMINI AI CONTENT REWRITE (STYLE-PRESERVED)
+              </span>
+              <span style="font-size: 9.5px; color: #0284c7; font-weight: 700; background: #e0f2fe; border: 1px solid #bae6fd; border-radius: 4px; padding: 2px 6px;">Structure Intact</span>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+              <div style="background: #f8fafc; border: 1px solid var(--color-border); border-radius: 10px; padding: 14px; display: flex; flex-direction: column; gap: 6px;">
+                <div style="font-size: 10.5px; font-weight: 700; color: #dc2626; text-transform: uppercase; letter-spacing: 0.03em;">Current Copy</div>
+                <div id="brief-copy-current" style="font-size: 12px; color: #4b5563; font-style: italic; line-height: 1.55;">"We offer professional AC repair in Montgomery, Alabama. Our technicians are certified. Call us for service."</div>
+              </div>
+              <div style="background: #fdfaf1; border: 1.5px solid var(--color-border); border-radius: 10px; padding: 14px; display: flex; flex-direction: column; gap: 6px;">
+                <div style="font-size: 10.5px; font-weight: 700; color: #16a34a; text-transform: uppercase; letter-spacing: 0.03em;">Gemini Suggested Optimization</div>
+                <div id="brief-copy-suggested" style="font-size: 12px; color: #14532d; font-weight: 550; line-height: 1.55;">"Need emergency AC repair in Montgomery, AL? Our NATE-certified technicians provide 24/7 same-day HVAC repair, servicing all air conditioning models with upfront pricing and lifetime workmanship guarantees."</div>
+              </div>
+            </div>
+          </div>
+
+
+
+        </div>
+
+        <!-- Sync Button -->
+        <div style="border-top: 1.5px solid var(--color-border); padding-top: 16px; display: flex; justify-content: flex-end;">
+          <button id="btn-sync-brief" onclick="syncBriefToClickUp()" class="btn-primary" style="background: var(--color-accent); color: white; border: none; font-weight: 600; border-radius: 10px; padding: 11px 24px; font-size: 13.5px; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; transition: all 0.2s ease; box-shadow: 0 4px 14px rgba(238,104,59,0.2);">
+            <i data-lucide="check-square" style="width: 16px; height: 16px;"></i>
+            Push Optimization Tasks to ClickUp
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="opt-toast-alert" style="display: none; position: fixed; bottom: 24px; right: 24px; z-index: 1050; background: #142f45; border: 1.5px solid var(--color-border); border-radius: 12px; padding: 14px 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); align-items: center; gap: 12px; animation: slideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;">
+    <div style="width: 28px; height: 28px; border-radius: 50%; background: rgba(57,181,74,0.1); color: var(--color-success); display: flex; align-items: center; justify-content: center;">
+      <i data-lucide="check" style="width: 16px; height: 16px;"></i>
+    </div>
+    <div style="display: flex; flex-direction: column;">
+      <span style="font-size: 13px; font-weight: 700; color: white;">Tasks Synced to ClickUp</span>
+      <span style="font-size: 11px; color: #94a3b8; margin-top: 2px;" id="opt-toast-msg">AC Repair Montgomery optimization list added to copywriting board!</span>
+    </div>
+  </div>
+
+</div>

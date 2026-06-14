@@ -1523,6 +1523,10 @@
             <i data-lucide="clipboard-check" style="width: 18px; height: 18px"></i>
             HVAC Website Audit
           </li>
+          <li onclick="showTab('tab-service-pages')">
+            <i data-lucide="sparkles" style="width: 18px; height: 18px"></i>
+            Service Page Optimizer
+          </li>
         </ul>
         <div class="sidebar-section-title" style="margin-top: 24px;">Competitor Analysis</div>
         <ul class="sidebar-nav" style="margin-top: 0">
@@ -4733,6 +4737,11 @@
           <!-- Competitor SEO Content will be dynamically loaded here from competitor-seo.html -->
         </div>
 
+        <!-- SERVICE PAGE OPTIMIZER TAB -->
+        <div id="tab-service-pages" class="tab-content">
+          <!-- Service Page Optimizer Content will be dynamically loaded here from service-pages.html -->
+        </div>
+
       </div>
     </main>
   </div> <!-- End of app-layout -->
@@ -5309,6 +5318,566 @@
 
     function printCompetitorReport() {
       window.print();
+    }
+
+    // SERVICE PAGE OPTIMIZER FUNCTIONS
+    const servicePagesData = [
+      {
+        title: "AC Repair Montgomery",
+        url: "/services/ac-repair",
+        score: 45,
+        urgency: "Critical",
+        timeline: "Optimize Now",
+        competitor: "comfortmastershvac.com/services/ac-repair",
+        gapWordsClient: "610 words",
+        gapWordsComp: "1,850 words",
+        gapWordsBadge: "3x Gap",
+        gapHeadingsClient: "H1: 1 | H2: 3 | H3: 0",
+        gapHeadingsComp: "H1: 1 | H2: 12 | H3: 15",
+        gapHeadingsBadge: "Missing H3s",
+        gapSchemaClient: "LocalBusiness only",
+        gapSchemaComp: "LocalBusiness, FAQPage, Service",
+        gapSchemaBadge: "No FAQs",
+        recommendations: [
+          "<strong>Add H3 sub-headings</strong> for Montgomery neighborhoods (e.g., Eastchase, Halcyon, Deer Creek) to capture localized long-tail searches.",
+          "<strong>Integrate LocalBusiness schema markup</strong> and service schema tags in the header metadata.",
+          "<strong>Insert 4 local FAQ accordions</strong> at the bottom covering AC emergency calls, pricing guides, and same-day availability."
+        ],
+        linkingMedia: [
+          "<strong>Link from blog post</strong> <code>/blog/ac-maintenance-tips</code> with anchor text 'professional AC repair'.",
+          "<strong>Embed a customer video testimonial</strong> from a Montgomery homeowner directly in the middle of the service steps.",
+          "<strong>Add 3 local images</strong> of AC compressors with geographical metadata tags."
+        ],
+        webVitals: [
+          "<strong>Compress heavy hero image</strong> (currently 1.8MB PNG) to WebP format to save 85% bandwidth.",
+          "<strong>Leverage browser caching</strong> for static resources (CSS, JS, images) by updating the <code>.htaccess</code> rules."
+        ],
+        schemaCode: {
+          "@context": "https://schema.org",
+          "@type": "HVACBusiness",
+          "name": "Apex Heating & Air",
+          "url": "https://apexheatingandair.com/services/ac-repair",
+          "telephone": "+1-334-555-0199",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Montgomery",
+            "addressRegion": "AL",
+            "postalCode": "36104",
+            "addressCountry": "US"
+          },
+          "areaServed": "Montgomery, Alabama",
+          "serviceType": "AC Repair"
+        },
+        copyCurrent: "We offer professional AC repair in Montgomery, Alabama. Our technicians are certified. Call us for service.",
+        copySuggested: "Need emergency AC repair in Montgomery, AL? Our NATE-certified technicians provide 24/7 same-day HVAC repair, servicing all air conditioning models with upfront pricing and lifetime workmanship guarantees."
+      },
+      {
+        title: "Furnace & Heating Repair",
+        url: "/services/heating-repair",
+        score: 52,
+        urgency: "Critical",
+        timeline: "Optimize Now",
+        competitor: "comfortmastershvac.com/services/heating",
+        gapWordsClient: "580 words",
+        gapWordsComp: "1,450 words",
+        gapWordsBadge: "2.5x Gap",
+        gapHeadingsClient: "H1: 1 | H2: 2 | H3: 0",
+        gapHeadingsComp: "H1: 1 | H2: 10 | H3: 8",
+        gapHeadingsBadge: "Missing H3s",
+        gapSchemaClient: "LocalBusiness only",
+        gapSchemaComp: "LocalBusiness, Service",
+        gapSchemaBadge: "Missing Service",
+        recommendations: [
+          "<strong>Add a 4-step furnace troubleshooting checklist</strong> (filters, thermostat batteries, breakers) to capture DIY users.",
+          "<strong>Embed a local heating service reviews widget</strong> showing local Montgomery area furnace replacements.",
+          "<strong>Create clear CTA sections</strong> promoting seasonal furnace checkups and pre-winter packages."
+        ],
+        linkingMedia: [
+          "<strong>Link from homepage</strong> hero section under seasonal comfort offers.",
+          "<strong>Embed a comparison infographic</strong> showing Gas Furnaces vs. Heat Pumps efficiency."
+        ],
+        webVitals: [
+          "<strong>Reduce render-blocking resources</strong> by deferring non-essential CSS stylesheets.",
+          "<strong>Minify main stylesheet</strong> to improve mobile page loading speeds."
+        ],
+        schemaCode: {
+          "@context": "https://schema.org",
+          "@type": "HVACBusiness",
+          "name": "Apex Heating & Air",
+          "url": "https://apexheatingandair.com/services/heating-repair",
+          "telephone": "+1-334-555-0199",
+          "areaServed": "Montgomery, AL",
+          "serviceType": "Furnace Repair"
+        },
+        copyCurrent: "We do furnace and heating repair in Montgomery. Our staff can fix your heat pump or gas furnace.",
+        copySuggested: "Is your furnace blowing cold air? Our certified heating specialists provide rapid gas furnace repair and heat pump troubleshooting in Montgomery, restoring warm air with transparent pricing and zero hidden fees."
+      },
+      {
+        title: "Duct Cleaning & Air Quality",
+        url: "/services/duct-cleaning",
+        score: 61,
+        urgency: "High",
+        timeline: "Optimize Now",
+        competitor: "guardianairsolutions.com/iaq-ducts",
+        gapWordsClient: "680 words",
+        gapWordsComp: "1,520 words",
+        gapWordsBadge: "2.2x Gap",
+        gapHeadingsClient: "H1: 1 | H2: 4 | H3: 1",
+        gapHeadingsComp: "H1: 1 | H2: 9 | H3: 6",
+        gapHeadingsBadge: "Weak H3 depth",
+        gapSchemaClient: "LocalBusiness only",
+        gapSchemaComp: "LocalBusiness, FAQPage, Service",
+        gapSchemaBadge: "No FAQ Schema",
+        recommendations: [
+          "<strong>Add indoor air quality (IAQ) facts</strong> detailing dust, allergen, and pet dander benefits.",
+          "<strong>Implement FAQ schema</strong> targeting local air quality standards and duct cleaning cycles.",
+          "<strong>List specialized sanitization methods</strong> used by our team to assure clean ducts."
+        ],
+        linkingMedia: [
+          "<strong>Link from AC Tune-up page</strong> suggesting duct inspections during routine maintenance checks.",
+          "<strong>Add interactive before/after sliders</strong> showcasing dirty vs clean air ducts."
+        ],
+        webVitals: [
+          "<strong>Optimize image loading</strong> by implementing <code>loading='lazy'</code> on all air filter pictures.",
+          "<strong>Eliminate unused JavaScript</strong> in the third-party review widgets."
+        ],
+        schemaCode: {
+          "@context": "https://schema.org",
+          "@type": "HVACBusiness",
+          "name": "Apex Heating & Air",
+          "url": "https://apexheatingandair.com/services/duct-cleaning",
+          "areaServed": "Montgomery, AL",
+          "serviceType": "Duct Cleaning"
+        },
+        copyCurrent: "We clean air ducts and check indoor air quality. We remove dust and debris from your system.",
+        copySuggested: "Breathe cleaner air today. Our high-power duct cleaning and indoor air sanitization services remove 99% of dust, pollen, and pet dander from your HVAC system, improving airflow and HVAC efficiency."
+      },
+      {
+        title: "Heat Pump Services",
+        url: "/services/heat-pump",
+        score: 74,
+        urgency: "High",
+        timeline: "In 2 Months",
+        competitor: "comfortmastershvac.com/heat-pumps",
+        gapWordsClient: "820 words",
+        gapWordsComp: "1,200 words",
+        gapWordsBadge: "1.5x Gap",
+        gapHeadingsClient: "H1: 1 | H2: 5 | H3: 2",
+        gapHeadingsComp: "H1: 1 | H2: 8 | H3: 5",
+        gapHeadingsBadge: "Minor gap",
+        gapSchemaClient: "LocalBusiness, Service",
+        gapSchemaComp: "LocalBusiness, Service, Product",
+        gapSchemaBadge: "No Product Schema",
+        recommendations: [
+          "<strong>Build a SEER & COP comparison table</strong> to visually explain energy efficiency differences.",
+          "<strong>Detail local utility rebates</strong> (e.g. Alabama Power) for high-efficiency heat pump upgrades.",
+          "<strong>Explain dual-fuel heating systems</strong> and their benefits in southern climates."
+        ],
+        linkingMedia: [
+          "<strong>Link from AC Repair page</strong> under 'When to Replace' sections.",
+          "<strong>Embed a custom video guide</strong> explaining the dual-heating hybrid system."
+        ],
+        webVitals: [
+          "<strong>Eliminate layout shifts (CLS)</strong> by reserving explicit width/height ratios on product icons."
+        ],
+        schemaCode: {
+          "@context": "https://schema.org",
+          "@type": "HVACBusiness",
+          "name": "Apex Heating & Air",
+          "url": "https://apexheatingandair.com/services/heat-pump",
+          "serviceType": "Heat Pump Installation"
+        },
+        copyCurrent: "We install and repair heat pumps. Heat pumps work for both heating and cooling.",
+        copySuggested: "Get year-round comfort with professional heat pump installation and repair in Montgomery. Save up to 30% on utility bills using our high-efficiency hybrid heat pump setups, backed by local energy rebates."
+      },
+      {
+        title: "AC Maintenance & Tune-Up",
+        url: "/services/ac-tune-up",
+        score: 78,
+        urgency: "Medium",
+        timeline: "In 2 Months",
+        competitor: "southerncomforthvac.com/ac-tune-ups",
+        gapWordsClient: "890 words",
+        gapWordsComp: "1,100 words",
+        gapWordsBadge: "1.2x Gap",
+        gapHeadingsClient: "H1: 1 | H2: 6 | H3: 3",
+        gapHeadingsComp: "H1: 1 | H2: 8 | H3: 4",
+        gapHeadingsBadge: "Aligned",
+        gapSchemaClient: "LocalBusiness, Service",
+        gapSchemaComp: "LocalBusiness, FAQPage, Service",
+        gapSchemaBadge: "No FAQ Schema",
+        recommendations: [
+          "<strong>Incorporate a 21-point checklist</strong> detailing the exact steps in our seasonal tune-up.",
+          "<strong>Add local testimonial quotes</strong> focused on preventive cooling maintenance plans.",
+          "<strong>Link to the Comfort Club membership page</strong> to drive recurring agreements."
+        ],
+        linkingMedia: [
+          "<strong>Link from blog posts</strong> discussing spring preparation advice.",
+          "<strong>Embed a printable 21-point checklist PDF</strong> for download to boost conversion metrics."
+        ],
+        webVitals: [
+          "<strong>Pre-connect to Google Fonts</strong> to speed up typography rendering times on mobile devices."
+        ],
+        schemaCode: {
+          "@context": "https://schema.org",
+          "@type": "HVACBusiness",
+          "name": "Apex Heating & Air",
+          "url": "https://apexheatingandair.com/services/ac-tune-up",
+          "serviceType": "AC Maintenance"
+        },
+        copyCurrent: "Get your air conditioner tuned up for the summer. We do a full inspection of your AC unit.",
+        copySuggested: "Prevent unexpected cooling failures with our comprehensive 21-point AC maintenance tune-up. We clean coils, check coolant pressures, and calibrate thermostats to guarantee peak performance during hot Alabama summers."
+      },
+      {
+        title: "Commercial HVAC Systems",
+        url: "/services/commercial-hvac",
+        score: 82,
+        urgency: "Medium",
+        timeline: "In 6 Months",
+        competitor: "guardianairsolutions.com/commercial",
+        gapWordsClient: "950 words",
+        gapWordsComp: "1,250 words",
+        gapWordsBadge: "1.3x Gap",
+        gapHeadingsClient: "H1: 1 | H2: 7 | H3: 4",
+        gapHeadingsComp: "H1: 1 | H2: 10 | H3: 6",
+        gapHeadingsBadge: "Minor gap",
+        gapSchemaClient: "LocalBusiness, Service",
+        gapSchemaComp: "LocalBusiness, Service",
+        gapSchemaBadge: "Aligned",
+        recommendations: [
+          "<strong>Add client logos</strong> of local businesses, offices, and commercial spaces serviced.",
+          "<strong>Incorporate commercial project galleries</strong> showing heavy cooling unit installs.",
+          "<strong>Detail customizable custom contracts</strong> for routine business HVAC servicing."
+        ],
+        linkingMedia: [
+          "<strong>Link from corporate partner logos</strong> in case study pages.",
+          "<strong>Embed high-resolution galleries</strong> showing industrial cooling installs."
+        ],
+        webVitals: [
+          "<strong>Enable GZIP compression</strong> on text-based assets via server settings."
+        ],
+        schemaCode: {
+          "@context": "https://schema.org",
+          "@type": "HVACBusiness",
+          "name": "Apex Heating & Air",
+          "url": "https://apexheatingandair.com/services/commercial-hvac",
+          "serviceType": "Commercial HVAC"
+        },
+        copyCurrent: "We offer commercial heating and air repair for businesses. We handle large scale commercial projects.",
+        copySuggested: "Keep your commercial property comfortable and compliant. Our commercial HVAC contractors specialize in high-capacity systems, custom maintenance contracts, and emergency repair for offices and retail storefronts."
+      },
+      {
+        title: "Thermostats & Smart Controls",
+        url: "/services/smart-thermostats",
+        score: 85,
+        urgency: "Low",
+        timeline: "In 6 Months",
+        competitor: "totalhomecomfort.com/smart-controls",
+        gapWordsClient: "910 words",
+        gapWordsComp: "1,050 words",
+        gapWordsBadge: "1.1x Gap",
+        gapHeadingsClient: "H1: 1 | H2: 5 | H3: 4",
+        gapHeadingsComp: "H1: 1 | H2: 6 | H3: 5",
+        gapHeadingsBadge: "Aligned",
+        gapSchemaClient: "LocalBusiness, Service",
+        gapSchemaComp: "LocalBusiness, Service",
+        gapSchemaBadge: "Aligned",
+        recommendations: [
+          "<strong>Integrate an interactive smart thermostat comparison widget</strong> (Google Nest vs. Ecobee).",
+          "<strong>Explain home zoning systems</strong> and how smart controls reduce energy consumption."
+        ],
+        linkingMedia: [
+          "<strong>Link from AC Tune-up page</strong> suggesting smart thermostat add-ons.",
+          "<strong>Embed standard manufacturer video</strong> for Nest thermostat setup."
+        ],
+        webVitals: [
+          "<strong>Reduce third-party script impacts</strong> from the Google Map embed iframe."
+        ],
+        schemaCode: {
+          "@context": "https://schema.org",
+          "@type": "HVACBusiness",
+          "name": "Apex Heating & Air",
+          "url": "https://apexheatingandair.com/services/smart-thermostats",
+          "serviceType": "Smart Thermostat Setup"
+        },
+        copyCurrent: "We install smart thermostats like Nest and Ecobee to help you save power.",
+        copySuggested: "Upgrade to a smart Wi-Fi thermostat and take control of your energy bill. We install advanced Nest and Ecobee controls that learn your heating and cooling preferences, reducing energy waste by up to 15%."
+      },
+      {
+        title: "Emergency HVAC Services",
+        url: "/services/emergency-hvac",
+        score: 89,
+        urgency: "Low",
+        timeline: "In 6 Months",
+        competitor: "patriothomeservices.com/emergency",
+        gapWordsClient: "1,150 words",
+        gapWordsComp: "1,200 words",
+        gapWordsBadge: "Aligned",
+        gapHeadingsClient: "H1: 1 | H2: 8 | H3: 6",
+        gapHeadingsComp: "H1: 1 | H2: 9 | H3: 6",
+        gapHeadingsBadge: "Aligned",
+        gapSchemaClient: "LocalBusiness, Service, FAQ",
+        gapSchemaComp: "LocalBusiness, Service, FAQ",
+        gapSchemaBadge: "Aligned",
+        recommendations: [
+          "<strong>Maintain ranking monitoring monthly</strong>. Ensure tap-to-call mobile buttons remain active.",
+          "<strong>Update emergency response times</strong> on the page to reflect summer dispatch bandwidth."
+        ],
+        linkingMedia: [
+          "<strong>Add sticky tap-to-call banners</strong> visible exclusively on mobile views.",
+          "<strong>Incorporate trust seals</strong> next to emergency dispatch forms."
+        ],
+        webVitals: [
+          "<strong>Ensure critical CSS is inlined</strong> to maintain sub-second First Contentful Paint times."
+        ],
+        schemaCode: {
+          "@context": "https://schema.org",
+          "@type": "HVACBusiness",
+          "name": "Apex Heating & Air",
+          "url": "https://apexheatingandair.com/services/emergency-hvac",
+          "serviceType": "Emergency HVAC Services"
+        },
+        copyCurrent: "We offer 24 hour emergency AC and heating repairs. Call us anytime day or night.",
+        copySuggested: "Stuck in the heat? Our emergency HVAC repair teams are on call 24/7/365 in Montgomery. We dispatch NATE-certified technicians instantly to restore heating and air conditioning when you need it most."
+      }
+    ];
+
+    let selectedServicePageIndex = null;
+
+    window.renderServicePagesTable = function() {
+      const tbody = document.getElementById("service-pages-table-body");
+      if (!tbody) return;
+
+      const urgencyFilter = document.getElementById("opt-filter-urgency").value;
+      const timelineFilter = document.getElementById("opt-filter-timeline").value;
+
+      tbody.innerHTML = "";
+
+      let displayedCount = 0;
+
+      servicePagesData.forEach((page, idx) => {
+        // Apply filters
+        if (urgencyFilter !== "ALL" && page.urgency !== urgencyFilter) return;
+        if (timelineFilter !== "ALL" && page.timeline !== timelineFilter) return;
+
+        displayedCount++;
+
+        // Style priority badges
+        let urgencyBadgeStyle = "";
+        if (page.urgency === "Critical") urgencyBadgeStyle = "color: #dc2626; background: #fee2e2; font-weight: 700;";
+        else if (page.urgency === "High") urgencyBadgeStyle = "color: #ea580c; background: #ffedd5; font-weight: 700;";
+        else if (page.urgency === "Medium") urgencyBadgeStyle = "color: #0284c7; background: #e0f2fe; font-weight: 700;";
+        else urgencyBadgeStyle = "color: #16a34a; background: #dcfce7; font-weight: 700;";
+
+        // Style score colors
+        let scoreColor = "#16a34a";
+        if (page.score < 55) scoreColor = "#dc2626";
+        else if (page.score < 75) scoreColor = "#ea580c";
+
+        // Style timeline color
+        let timelineStyle = "color: #4b5563; font-weight: 500;";
+        if (page.timeline === "Optimize Now") timelineStyle = "color: #dc2626; font-weight: 700;";
+        else if (page.timeline === "In 2 Months") timelineStyle = "color: #ea580c; font-weight: 600;";
+
+        const isSelected = selectedServicePageIndex === idx;
+        const rowBg = isSelected ? "background: #fdfaf1; border-left: 4px solid var(--color-accent);" : "";
+
+        const tr = document.createElement("tr");
+        tr.style.cssText = `border-bottom: 1px solid var(--color-border); cursor: pointer; transition: background 0.15s ease; ${rowBg}`;
+        tr.onclick = () => selectServicePage(idx);
+
+        tr.innerHTML = `
+          <td style="padding: 12px; vertical-align: middle;">
+            <div style="font-weight: 600; color: var(--color-primary);">${page.title}</div>
+            <div style="font-size: 10px; font-family: monospace; color: var(--color-secondary); margin-top: 2px;">${page.url}</div>
+          </td>
+          <td style="padding: 12px; text-align: center; vertical-align: middle; font-weight: 700; color: ${scoreColor}; font-size: 13px;">
+            ${page.score}%
+          </td>
+          <td style="padding: 12px; text-align: center; vertical-align: middle;">
+            <span style="font-size: 9.5px; padding: 2px 8px; border-radius: 4px; display: inline-block; ${urgencyBadgeStyle}">
+              ${page.urgency.toUpperCase()}
+            </span>
+          </td>
+          <td style="padding: 12px; text-align: center; vertical-align: middle; ${timelineStyle}">
+            ${page.timeline}
+          </td>
+          <td style="padding: 12px; text-align: center; vertical-align: middle;">
+            <button class="btn-primary" style="padding: 5px 10px; font-size: 10px; border-radius: 6px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; background: ${isSelected ? 'var(--color-primary)' : 'var(--color-accent)'}; border: none; color: white;">
+              <i data-lucide="${isSelected ? 'check' : 'sparkles'}" style="width: 10px; height: 10px;"></i>
+              Brief
+            </button>
+          </td>
+        `;
+
+        tbody.appendChild(tr);
+      });
+
+      if (displayedCount === 0) {
+        tbody.innerHTML = `<tr><td colspan="5" style="padding: 40px 20px; text-align: center; color: var(--color-secondary); font-style: italic;">No service pages match selected filters.</td></tr>`;
+      }
+
+      if (window.lucide) lucide.createIcons();
+    }
+
+    window.selectServicePage = function(idx) {
+      selectedServicePageIndex = idx;
+      renderServicePagesTable();
+
+      const emptyState = document.getElementById("brief-empty-state");
+      const loadedContent = document.getElementById("brief-loaded-content");
+      if (!emptyState || !loadedContent) return;
+
+      emptyState.style.display = "none";
+      loadedContent.style.display = "flex";
+
+      const page = servicePagesData[idx];
+
+      // Update DOM
+      document.getElementById("brief-page-title").innerText = page.title;
+      document.getElementById("brief-page-url").innerText = page.url;
+      document.getElementById("brief-competitor-ref").innerText = "Competitor Target: " + page.competitor;
+
+      // Update SEO score text and progress circle
+      const scoreText = document.getElementById("brief-score-text");
+      const scoreCircle = document.getElementById("brief-score-circle");
+      
+      let scoreColor = "#16a34a";
+      if (page.score < 55) scoreColor = "#dc2626";
+      else if (page.score < 75) scoreColor = "#ea580c";
+
+      scoreText.innerText = page.score + "%";
+      scoreText.style.color = scoreColor;
+      scoreCircle.style.stroke = scoreColor;
+
+      // Calculate stroke dashoffset (circumference = 100)
+      const offset = 100 - page.score;
+      scoreCircle.setAttribute("stroke-dashoffset", offset);
+
+      // Timeline badge
+      const timelineBadge = document.getElementById("brief-timeline-badge");
+      timelineBadge.innerText = page.timeline;
+      if (page.timeline === "Optimize Now") {
+        timelineBadge.style.cssText = "font-size: 10px; font-weight: 700; background: #fee2e2; color: #dc2626; padding: 2px 6px; border-radius: 4px; text-transform: uppercase;";
+      } else if (page.timeline === "In 2 Months") {
+        timelineBadge.style.cssText = "font-size: 10px; font-weight: 700; background: #ffedd5; color: #ea580c; padding: 2px 6px; border-radius: 4px; text-transform: uppercase;";
+      } else {
+        timelineBadge.style.cssText = "font-size: 10px; font-weight: 700; background: #e0f2fe; color: #0284c7; padding: 2px 6px; border-radius: 4px; text-transform: uppercase;";
+      }
+
+      // Gap analysis table details
+      document.getElementById("brief-gap-words-client").innerText = page.gapWordsClient;
+      document.getElementById("brief-gap-words-comp").innerText = page.gapWordsComp;
+      const wordsBadge = document.getElementById("brief-gap-words-badge");
+      wordsBadge.innerText = page.gapWordsBadge;
+      if (page.gapWordsBadge === "Aligned") {
+        wordsBadge.style.cssText = "color: #16a34a; font-weight: 700; background: #dcfce7; padding: 1px 4px; border-radius: 4px; font-size: 9px;";
+      } else {
+        wordsBadge.style.cssText = "color: #dc2626; font-weight: 700; background: #fee2e2; padding: 1px 4px; border-radius: 4px; font-size: 9px;";
+      }
+
+      document.getElementById("brief-gap-headings-client").innerText = page.gapHeadingsClient;
+      document.getElementById("brief-gap-headings-comp").innerText = page.gapHeadingsComp;
+      const headingsBadge = document.getElementById("brief-gap-headings-badge");
+      headingsBadge.innerText = page.gapHeadingsBadge;
+      if (page.gapHeadingsBadge === "Aligned") {
+        headingsBadge.style.cssText = "color: #16a34a; font-weight: 700; background: #dcfce7; padding: 1px 4px; border-radius: 4px; font-size: 9px;";
+      } else if (page.gapHeadingsBadge === "Minor gap") {
+        headingsBadge.style.cssText = "color: #ea580c; font-weight: 700; background: #ffedd5; padding: 1px 4px; border-radius: 4px; font-size: 9px;";
+      } else {
+        headingsBadge.style.cssText = "color: #dc2626; font-weight: 700; background: #fee2e2; padding: 1px 4px; border-radius: 4px; font-size: 9px;";
+      }
+
+      document.getElementById("brief-gap-schema-client").innerText = page.gapSchemaClient;
+      document.getElementById("brief-gap-schema-comp").innerText = page.gapSchemaComp;
+      const schemaBadge = document.getElementById("brief-gap-schema-badge");
+      schemaBadge.innerText = page.gapSchemaBadge;
+      if (page.gapSchemaBadge === "Aligned") {
+        schemaBadge.style.cssText = "color: #16a34a; font-weight: 700; background: #dcfce7; padding: 1px 4px; border-radius: 4px; font-size: 9px;";
+      } else {
+        schemaBadge.style.cssText = "color: #ea580c; font-weight: 700; background: #ffedd5; padding: 1px 4px; border-radius: 4px; font-size: 9px;";
+      }
+
+      // Recommendations list
+      const recsList = document.getElementById("brief-recommendations-list");
+      recsList.innerHTML = "";
+      page.recommendations.forEach(rec => {
+        const li = document.createElement("li");
+        li.innerHTML = rec;
+        recsList.appendChild(li);
+      });
+
+      // Internal Linking & Media list
+      const linkMediaList = document.getElementById("brief-linking-media-list");
+      if (linkMediaList) {
+        linkMediaList.innerHTML = "";
+        if (page.linkingMedia && page.linkingMedia.length > 0) {
+          page.linkingMedia.forEach(item => {
+            const li = document.createElement("li");
+            li.innerHTML = item;
+            linkMediaList.appendChild(li);
+          });
+        } else {
+          linkMediaList.innerHTML = "<li>No significant linking opportunities identified.</li>";
+        }
+      }
+
+      // Web Vitals list
+      const vitalsList = document.getElementById("brief-web-vitals-list");
+      if (vitalsList) {
+        vitalsList.innerHTML = "";
+        if (page.webVitals && page.webVitals.length > 0) {
+          page.webVitals.forEach(item => {
+            const li = document.createElement("li");
+            li.innerHTML = item;
+            vitalsList.appendChild(li);
+          });
+        } else {
+          vitalsList.innerHTML = "<li>Core Web Vitals are within optimal range.</li>";
+        }
+      }
+      // Copy Proposal
+      document.getElementById("brief-copy-current").innerText = `"${page.copyCurrent}"`;
+      document.getElementById("brief-copy-suggested").innerText = `"${page.copySuggested}"`;
+
+      if (window.lucide) lucide.createIcons();
+    }
+
+    window.filterServicePages = function() {
+      renderServicePagesTable();
+    }
+
+    window.syncBriefToClickUp = function() {
+      if (selectedServicePageIndex === null) return;
+      const page = servicePagesData[selectedServicePageIndex];
+
+      const btn = document.getElementById("btn-sync-brief");
+      const originalText = btn.innerHTML;
+
+      // Show loader spinner on button
+      btn.disabled = true;
+      btn.innerHTML = `<i data-lucide="loader-2" class="animate-spin" style="width: 15px; height: 15px; animation: spin 1s linear infinite;"></i> Synchronizing with ClickUp...`;
+      if (window.lucide) lucide.createIcons();
+
+      setTimeout(() => {
+        // Reset button
+        btn.disabled = false;
+        btn.innerHTML = originalText;
+        if (window.lucide) lucide.createIcons();
+
+        // Show toast
+        const toast = document.getElementById("opt-toast-alert");
+        const toastMsg = document.getElementById("opt-toast-msg");
+        if (toast && toastMsg) {
+          toastMsg.innerText = `"${page.title}" optimization tasks, internal links, speed fixes, and schema templates deployed directly to ClickUp copywriting boards!`;
+          toast.style.display = "flex";
+          
+          // Hide toast after 4 seconds
+          setTimeout(() => {
+            toast.style.display = "none";
+          }, 4000);
+        }
+      }, 1500);
     }
 
     function printAuditReport() {
@@ -11135,6 +11704,24 @@
           }
         })
         .catch(err => console.error("Error loading competitor-seo.html:", err));
+
+      // Load Service Page Optimizer Tab content dynamically
+      fetch("service-pages.html")
+        .then(response => response.text())
+        .then(html => {
+          const container = document.getElementById("tab-service-pages");
+          if (container) {
+            container.innerHTML = html;
+            if (window.lucide) lucide.createIcons();
+            // Initialize rendering
+            if (typeof renderServicePagesTable === 'function') {
+              renderServicePagesTable();
+              // Select first item by default
+              selectServicePage(0);
+            }
+          }
+        })
+        .catch(err => console.error("Error loading service-pages.html:", err));
 
       lucide.createIcons();
     });
