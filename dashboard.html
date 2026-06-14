@@ -1535,6 +1535,13 @@
             Competitor SEO Audit
           </li>
         </ul>
+        <div class="sidebar-section-title" style="margin-top: 24px;">Lead & Call Analysis</div>
+        <ul class="sidebar-nav" style="margin-top: 0">
+          <li onclick="showTab('tab-lsa-calls')">
+            <i data-lucide="phone-call" style="width: 18px; height: 18px"></i>
+            LSA Call Analyzer
+          </li>
+        </ul>
       </div>
 
     </aside>
@@ -4742,6 +4749,11 @@
           <!-- Service Page Optimizer Content will be dynamically loaded here from service-pages.html -->
         </div>
 
+        <!-- LSA CALL ANALYZER TAB -->
+        <div id="tab-lsa-calls" class="tab-content">
+          <!-- Content will be dynamically loaded here from lsa-calls.html -->
+        </div>
+
       </div>
     </main>
   </div> <!-- End of app-layout -->
@@ -5883,6 +5895,433 @@
     function printAuditReport() {
       window.print();
     }
+
+    // LSA CALL ANALYZER DATABASE AND HANDLERS
+    const lsaCallsData = [
+      {
+        phone: "(334) 555-0142",
+        datetime: "June 12, 2026 - 10:14 AM",
+        jobtype: "AC Repair",
+        location: "Eastchase, Montgomery",
+        leadtype: "Google LSA",
+        confidence: "95%",
+        status: "Booked",
+        chargestatus: "Charged",
+        reason: "Customer requested immediate dispatch for AC blowing warm air. NATE technician scheduled for today between 2 PM and 4 PM. Customer name: John Davis.",
+        transcript: [
+          { speaker: "Agent", text: "Apex Heating & Air, this is Sarah. How can I help you today?" },
+          { speaker: "Customer", text: "Hi, yes, my air conditioner just stopped blowing cold air about an hour ago. It's getting really hot in here." },
+          { speaker: "Agent", text: "Oh, I'm sorry to hear that. We can definitely get a technician out to look at that for you. What is your name and address?" },
+          { speaker: "Customer", text: "My name is John Davis, and I'm over in the Eastchase neighborhood. Address is 7420 Halcyon Park Drive." },
+          { speaker: "Agent", text: "Perfect. I have a NATE-certified technician available this afternoon between 2:00 PM and 4:00 PM. Would that work for you?" },
+          { speaker: "Customer", text: "Yes, please! That would be fantastic." },
+          { speaker: "Agent", text: "Great, we've got you scheduled. The tech will call you 15 minutes before arrival." }
+        ]
+      },
+      {
+        phone: "(415) 888-0291",
+        datetime: "June 11, 2026 - 04:30 PM",
+        jobtype: "Telemarketing / Spam",
+        location: "Unknown / San Francisco",
+        leadtype: "Google LSA",
+        confidence: "90%",
+        status: "Dispute Recommended",
+        chargestatus: "Charged",
+        reason: "Call is an automated solicitation from an out-of-state SEO sales agency. Not an HVAC service lead. Refund dispute recommended to claim lead cost back.",
+        transcript: [
+          { speaker: "Agent", text: "Apex Heating & Air, this is Sarah." },
+          { speaker: "Customer", text: "Hello, is this the business owner or marketing manager?" },
+          { speaker: "Agent", text: "This is the dispatcher, how can I help you?" },
+          { speaker: "Customer", text: "I'm calling from digital visibility partners. We noticed your Google map listing is missing key local citations, and we can rank you number one..." },
+          { speaker: "Agent", text: "We are not interested. Please remove us from your list." }
+        ]
+      },
+      {
+        phone: "(334) 555-0188",
+        datetime: "June 11, 2026 - 11:20 AM",
+        jobtype: "Furnace Replacement",
+        location: "Halcyon, Montgomery",
+        leadtype: "Google LSA",
+        confidence: "88%",
+        status: "Booked",
+        chargestatus: "Charged",
+        reason: "Customer requested an estimate for replacing an old 15-year-old gas furnace. Estimate consultation booked for June 15 at 9 AM.",
+        transcript: [
+          { speaker: "Agent", text: "Apex Heating & Air, this is Sarah." },
+          { speaker: "Customer", text: "Hi, I have a gas furnace that's about 15 years old. It worked fine in the winter but my home inspector said it needs replacement soon. Do you do free replacement estimates?" },
+          { speaker: "Agent", text: "Yes, we do! We can send our system advisor out to measure your home and provide options. Does Monday, June 15th at 9:00 AM work?" },
+          { speaker: "Customer", text: "That works perfectly. My name is Linda Geller, address is 901 Woodmere Loop." },
+          { speaker: "Agent", text: "Excellent, Linda. We have you booked for Monday morning." }
+        ]
+      },
+      {
+        phone: "(205) 999-0133",
+        datetime: "June 10, 2026 - 02:15 PM",
+        jobtype: "Out of Service Area",
+        location: "Birmingham, AL",
+        leadtype: "Google LSA",
+        confidence: "92%",
+        status: "Dispute Recommended",
+        chargestatus: "Charged",
+        reason: "Caller is located in Birmingham (90 miles away). Apex Heating & Air only services the Montgomery metro area. Recommended for LSA lead cost dispute.",
+        transcript: [
+          { speaker: "Agent", text: "Apex Heating & Air, this is Sarah." },
+          { speaker: "Customer", text: "Hi, do you service the Vestavia Hills area in Birmingham? My heat pump is acting up." },
+          { speaker: "Agent", text: "Oh, I'm so sorry, but we only service the Montgomery metropolitan area, which is about an hour and a half south of you." },
+          { speaker: "Customer", text: "Oh, okay. Sorry about that, I'll search for someone local." },
+          { speaker: "Agent", text: "No worries at all. Hope you find someone quickly!" }
+        ]
+      }
+    ];
+
+    let selectedLsaCallIndex = null;
+
+    window.renderLsaCallsTable = function() {
+      const tbody = document.getElementById("lsa-calls-table-body");
+      if (!tbody) return;
+
+      tbody.innerHTML = "";
+
+      // Calculate stats based on current database
+      let total = lsaCallsData.length;
+      let booked = lsaCallsData.filter(c => c.status === "Booked").length;
+      let disputed = lsaCallsData.filter(c => c.status === "Disputed" || c.status === "Dispute Recommended").length;
+      
+      // Saved spend: count disputed/refunded leads times $45
+      // Wait, let's count actual "Disputed" (marked) leads times $45
+      let actualDisputed = lsaCallsData.filter(c => c.status === "Disputed").length;
+      let savings = actualDisputed * 45;
+
+      // Update KPIs in the DOM if they exist
+      const kpiTotal = document.getElementById("kpi-lsa-total");
+      const kpiBooked = document.getElementById("kpi-lsa-booked");
+      const kpiDisputed = document.getElementById("kpi-lsa-disputed");
+      const kpiSavings = document.getElementById("kpi-lsa-savings");
+
+      if (kpiTotal) kpiTotal.innerText = total;
+      if (kpiBooked) kpiBooked.innerText = booked;
+      if (kpiDisputed) kpiDisputed.innerText = disputed;
+      if (kpiSavings) kpiSavings.innerText = "$" + savings;
+
+      lsaCallsData.forEach((call, idx) => {
+        const tr = document.createElement("tr");
+        tr.style.borderBottom = "1px solid var(--color-border)";
+        tr.style.cursor = "pointer";
+        tr.style.transition = "all 0.2s ease";
+
+        if (selectedLsaCallIndex === idx) {
+          tr.style.background = "#fffbeb";
+          tr.style.borderLeft = "3.5px solid var(--color-accent)";
+        } else {
+          tr.style.borderLeft = "3.5px solid transparent";
+          tr.addEventListener("mouseover", () => tr.style.background = "#f8fafc");
+          tr.addEventListener("mouseout", () => tr.style.background = "transparent");
+        }
+
+        tr.onclick = function() {
+          selectLsaCall(idx);
+        };
+
+        // Date/Time
+        const tdDate = document.createElement("td");
+        tdDate.style.padding = "10px 14px";
+        tdDate.style.fontWeight = "600";
+        tdDate.style.color = "var(--color-primary)";
+        tdDate.innerText = call.datetime.split(" - ")[0]; // just show date in column
+        tr.appendChild(tdDate);
+
+        // Phone
+        const tdPhone = document.createElement("td");
+        tdPhone.style.padding = "10px 14px";
+        tdPhone.innerText = call.phone;
+        tr.appendChild(tdPhone);
+
+        // Job Type
+        const tdJob = document.createElement("td");
+        tdJob.style.padding = "10px 14px";
+        tdJob.innerText = call.jobtype;
+        tr.appendChild(tdJob);
+
+        // Status Suggested
+        const tdStatus = document.createElement("td");
+        tdStatus.style.padding = "10px 14px";
+        tdStatus.style.textAlign = "center";
+        
+        const badge = document.createElement("span");
+        badge.innerText = call.status;
+        if (call.status === "Booked") {
+          badge.style.cssText = "font-size: 10px; font-weight: 700; background: #dcfce7; color: #16a34a; padding: 2px 6px; border-radius: 4px;";
+        } else if (call.status === "Disputed") {
+          badge.style.cssText = "font-size: 10px; font-weight: 700; background: #fee2e2; color: #b91c1c; padding: 2px 6px; border-radius: 4px;";
+        } else {
+          badge.style.cssText = "font-size: 10px; font-weight: 700; background: #fee2e2; color: #ea580c; padding: 2px 6px; border-radius: 4px;";
+        }
+        tdStatus.appendChild(badge);
+        tr.appendChild(tdStatus);
+
+        // Action view brief
+        const tdAction = document.createElement("td");
+        tdAction.style.padding = "10px 14px";
+        tdAction.style.textAlign = "center";
+        tdAction.innerHTML = `<button style="background: transparent; border: none; color: var(--color-accent); font-weight: 700; cursor: pointer;">Review</button>`;
+        tr.appendChild(tdAction);
+
+        tbody.appendChild(tr);
+      });
+    };
+
+    window.selectLsaCall = function(idx) {
+      selectedLsaCallIndex = idx;
+      renderLsaCallsTable();
+
+      const emptyState = document.getElementById("lsa-brief-empty-state");
+      const loadedContent = document.getElementById("lsa-brief-loaded-content");
+      if (!emptyState || !loadedContent) return;
+
+      emptyState.style.display = "none";
+      loadedContent.style.display = "flex";
+
+      const call = lsaCallsData[idx];
+
+      // Update DOM Text
+      document.getElementById("lsa-brief-phone").innerText = call.phone;
+      document.getElementById("lsa-brief-datetime").innerText = "Received: " + call.datetime;
+      document.getElementById("lsa-brief-confidence").innerText = call.confidence;
+      document.getElementById("lsa-brief-reason").innerText = call.reason;
+      document.getElementById("lsa-brief-location").innerText = call.location;
+      document.getElementById("lsa-brief-jobtype").innerText = call.jobtype;
+
+      // Status Banner Styling
+      const banner = document.getElementById("lsa-status-banner");
+      const chargeBadge = document.getElementById("lsa-status-charge-badge");
+      const disputeBtn = document.getElementById("btn-lsa-dispute");
+
+      if (banner && chargeBadge) {
+        if (call.status === "Booked") {
+          banner.style.cssText = "background: #f0fdf4; border: 1.5px solid #bbf7d0; border-radius: 12px; padding: 16px; display: flex; flex-direction: column; gap: 6px;";
+          banner.firstElementChild.style.color = "#166534";
+          banner.firstElementChild.innerHTML = `<i data-lucide="check-circle" style="width: 14px; height: 14px; margin-right: 6px;"></i> AI SUGGESTED STATUS: BOOKED`;
+          
+          chargeBadge.innerText = call.chargestatus;
+          chargeBadge.style.cssText = "font-size: 10px; font-weight: 700; background: #dcfce7; color: #15803d; padding: 2px 8px; border-radius: 4px;";
+          if (disputeBtn) disputeBtn.style.display = "inline-flex";
+        } else if (call.status === "Disputed") {
+          banner.style.cssText = "background: #fef2f2; border: 1.5px solid #fecaca; border-radius: 12px; padding: 16px; display: flex; flex-direction: column; gap: 6px;";
+          banner.firstElementChild.style.color = "#991b1b";
+          banner.firstElementChild.innerHTML = `<i data-lucide="alert-octagon" style="width: 14px; height: 14px; margin-right: 6px;"></i> STATUS: REFUND DISPUTED`;
+          
+          chargeBadge.innerText = "Refund Pending";
+          chargeBadge.style.cssText = "font-size: 10px; font-weight: 700; background: #fee2e2; color: #b91c1c; padding: 2px 8px; border-radius: 4px;";
+          if (disputeBtn) disputeBtn.style.display = "none";
+        } else {
+          banner.style.cssText = "background: #fff7ed; border: 1.5px solid #ffedd5; border-radius: 12px; padding: 16px; display: flex; flex-direction: column; gap: 6px;";
+          banner.firstElementChild.style.color = "#9a3412";
+          banner.firstElementChild.innerHTML = `<i data-lucide="alert-triangle" style="width: 14px; height: 14px; margin-right: 6px;"></i> AI SUGGESTED STATUS: DISPUTE RECOMMENDED`;
+          
+          chargeBadge.innerText = call.chargestatus;
+          chargeBadge.style.cssText = "font-size: 10px; font-weight: 700; background: #fee2e2; color: #ea580c; padding: 2px 8px; border-radius: 4px;";
+          if (disputeBtn) disputeBtn.style.display = "inline-flex";
+        }
+      }
+
+      // Populate Transcript Playback
+      const transContainer = document.getElementById("lsa-brief-transcript");
+      if (transContainer) {
+        transContainer.innerHTML = "";
+        call.transcript.forEach(line => {
+          const divLine = document.createElement("div");
+          divLine.style.display = "flex";
+          divLine.style.flexDirection = "column";
+          divLine.style.marginBottom = "8px";
+
+          const nameSpan = document.createElement("span");
+          nameSpan.style.fontSize = "10.5px";
+          nameSpan.style.fontWeight = "700";
+          nameSpan.style.marginBottom = "2px";
+          nameSpan.innerText = line.speaker;
+
+          const textDiv = document.createElement("div");
+          textDiv.style.borderRadius = "8px";
+          textDiv.style.padding = "8px 12px";
+          textDiv.innerText = line.text;
+
+          if (line.speaker === "Agent") {
+            divLine.style.alignItems = "flex-start";
+            nameSpan.style.color = "var(--color-primary)";
+            textDiv.style.background = "#e2e8f0";
+            textDiv.style.color = "var(--color-primary)";
+          } else {
+            divLine.style.alignItems = "flex-end";
+            nameSpan.style.color = "var(--color-accent)";
+            textDiv.style.background = "#ffedd5";
+            textDiv.style.color = "#7c2d12";
+          }
+
+          divLine.appendChild(nameSpan);
+          divLine.appendChild(textDiv);
+          transContainer.appendChild(divLine);
+        });
+        
+        // Auto scroll to top of transcript
+        transContainer.scrollTop = 0;
+      }
+
+      if (window.lucide) lucide.createIcons();
+    };
+
+    window.disputeLsaLead = function() {
+      if (selectedLsaCallIndex === null) return;
+      const call = lsaCallsData[selectedLsaCallIndex];
+      call.status = "Disputed";
+      call.chargestatus = "Refund Requested";
+      call.reason = "Lead charge disputed successfully! Filed automated claim inside Google LSA console to recover $45 lead cost. Syncing with ClickUp billing boards.";
+
+      renderLsaCallsTable();
+      selectLsaCall(selectedLsaCallIndex);
+
+      // Trigger Toast Alert
+      const toast = document.getElementById("lsa-toast-alert");
+      const toastTitle = document.getElementById("lsa-toast-title");
+      const toastMsg = document.getElementById("lsa-toast-msg");
+      if (toast && toastTitle && toastMsg) {
+        toastTitle.innerText = "Lead Disputed";
+        toastMsg.innerText = `Refund dispute filed for phone ${call.phone}. Saved $45 in LSA spend!`;
+        toast.style.display = "flex";
+        setTimeout(() => {
+          toast.style.display = "none";
+        }, 3500);
+      }
+    };
+
+    window.approveLsaBooking = function() {
+      if (selectedLsaCallIndex === null) return;
+      const call = lsaCallsData[selectedLsaCallIndex];
+      call.status = "Booked";
+      call.reason = "Lead confirmed and qualified as booked! Direct task sent to HVAC technician scheduling software.";
+
+      renderLsaCallsTable();
+      selectLsaCall(selectedLsaCallIndex);
+
+      // Trigger Toast Alert
+      const toast = document.getElementById("lsa-toast-alert");
+      const toastTitle = document.getElementById("lsa-toast-title");
+      const toastMsg = document.getElementById("lsa-toast-msg");
+      if (toast && toastTitle && toastMsg) {
+        toastTitle.innerText = "Lead Approved";
+        toastMsg.innerText = `LSA booking details pushed directly to scheduling software!`;
+        toast.style.display = "flex";
+        setTimeout(() => {
+          toast.style.display = "none";
+        }, 3500);
+      }
+    };
+
+    window.insertSampleTranscript = function() {
+      const textarea = document.getElementById("lsa-transcript-input");
+      if (textarea) {
+        textarea.value = `Customer: Hello, is this Apex Heating & Air? I have water leaking from my attic under my AC unit.
+Agent: Yes, this is Apex Heating & Air! We can definitely help. Water leaking usually means a clogged condensate drain line. Can I get your address?
+Customer: Sure, I'm at 8110 Halcyon Summit Dr, Montgomery. My name is Mark Thomson.
+Agent: Okay Mark, we can send a technician out this afternoon between 1 PM and 3 PM. Our diagnostic charge is $79, which goes towards the repair.
+Customer: Yes, please book that. It's dripping onto my bedroom ceiling.
+Agent: No problem, Mark. Tech will call you when they're on their way.`;
+      }
+    };
+
+    window.analyzeNewCall = function() {
+      const textarea = document.getElementById("lsa-transcript-input");
+      if (!textarea || !textarea.value.trim()) return;
+
+      const btn = document.getElementById("btn-analyze-lsa");
+      const originalText = btn.innerHTML;
+
+      // Show spinner loader
+      btn.disabled = true;
+      btn.innerHTML = `<i data-lucide="loader-2" class="animate-spin" style="width: 15px; height: 15px; animation: spin 1s linear infinite;"></i> Running AI Qualification...`;
+      if (window.lucide) lucide.createIcons();
+
+      setTimeout(() => {
+        // Build new lead record
+        const textVal = textarea.value;
+        const now = new Date();
+        const timeStr = now.toLocaleDateString() + " - " + now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+        // Simple parser helper to extract info
+        let phoneStr = "(334) 555-0" + Math.floor(100 + Math.random() * 900);
+        let jobType = "AC Repair";
+        let location = "Montgomery, AL";
+        
+        if (textVal.toLowerCase().includes("leak") || textVal.toLowerCase().includes("dripping")) {
+          jobType = "AC Maintenance";
+        }
+        if (textVal.toLowerCase().includes("furnace") || textVal.toLowerCase().includes("heating")) {
+          jobType = "Heating Repair";
+        }
+        if (textVal.toLowerCase().includes("halcyon")) {
+          location = "Halcyon Summit, AL";
+        }
+
+        // Suggested booking status
+        let suggestedStatus = "Booked";
+        let confidence = "94%";
+        let reason = "Customer booked diagnostic visit for water leak in condensate line. Tech scheduled for same-day dispatch.";
+
+        if (textVal.toLowerCase().includes("seo") || textVal.toLowerCase().includes("rank") || textVal.toLowerCase().includes("solicitation")) {
+          suggestedStatus = "Dispute Recommended";
+          jobType = "Spam / Solicit";
+          confidence = "97%";
+          reason = "Lead analyzed as unsolicited B2B solicitation. Not a consumer service inquiry. Recommended for LSA cost refund dispute.";
+        }
+
+        // Add to array
+        const newRecord = {
+          phone: phoneStr,
+          datetime: timeStr,
+          jobtype: jobType,
+          location: location,
+          leadtype: "Google LSA",
+          confidence: confidence,
+          status: suggestedStatus,
+          chargestatus: "Charged",
+          reason: reason,
+          transcript: [
+            { speaker: "Customer", text: "Hi, I need assistance with my cooling system." },
+            { speaker: "Agent", text: "Apex Heating, we can get that scheduled right now." },
+            { speaker: "Customer", text: "Perfect. Here are my details..." }
+          ]
+        };
+
+        // If sample transcript was used, insert full parsed details
+        if (textVal.includes("Mark Thomson")) {
+          newRecord.phone = "(334) 555-0199";
+          newRecord.jobtype = "AC Leaking";
+          newRecord.location = "Halcyon Summit, AL";
+          newRecord.reason = "Mark Thomson booked an emergency visit for attic drain line clogging. Scheduled for today, 1 PM to 3 PM.";
+          newRecord.transcript = [
+            { speaker: "Customer", text: "Hello, is this Apex Heating & Air? I have water leaking from my attic under my AC unit." },
+            { speaker: "Agent", text: "Yes, this is Apex Heating & Air! We can definitely help. Water leaking usually means a clogged condensate drain line. Can I get your address?" },
+            { speaker: "Customer", text: "Sure, I'm at 8110 Halcyon Summit Dr, Montgomery. My name is Mark Thomson." },
+            { speaker: "Agent", text: "Okay Mark, we can send a technician out this afternoon between 1 PM and 3 PM. Our diagnostic charge is $79, which goes towards the repair." },
+            { speaker: "Customer", text: "Yes, please book that. It's dripping onto my bedroom ceiling." },
+            { speaker: "Agent", text: "No problem, Mark. Tech will call you when they're on their way." }
+          ];
+        }
+
+        lsaCallsData.unshift(newRecord);
+
+        // Reset
+        textarea.value = "";
+        btn.disabled = false;
+        btn.innerHTML = originalText;
+        if (window.lucide) lucide.createIcons();
+
+        // Render & Select new first item
+        selectedLsaCallIndex = 0;
+        renderLsaCallsTable();
+        selectLsaCall(0);
+
+      }, 1500);
+    };
 
     let MOCK_DATA = {
       ga4: {
@@ -11722,6 +12161,24 @@
           }
         })
         .catch(err => console.error("Error loading service-pages.html:", err));
+
+      // Load LSA Call Analyzer Tab content dynamically
+      fetch("lsa-calls.html")
+        .then(response => response.text())
+        .then(html => {
+          const container = document.getElementById("tab-lsa-calls");
+          if (container) {
+            container.innerHTML = html;
+            if (window.lucide) lucide.createIcons();
+            // Initialize rendering
+            if (typeof renderLsaCallsTable === 'function') {
+              renderLsaCallsTable();
+              // Select first item by default
+              selectLsaCall(0);
+            }
+          }
+        })
+        .catch(err => console.error("Error loading lsa-calls.html:", err));
 
       lucide.createIcons();
     });
