@@ -1216,7 +1216,7 @@
         height: 297mm !important;
         min-height: 297mm !important;
         margin: 0 !important;
-        padding: 20mm !important;
+        padding: 12mm 15mm !important;
         background: white !important;
         border: none !important;
         box-shadow: none !important;
@@ -1224,10 +1224,84 @@
         flex-direction: column !important;
         justify-content: space-between !important;
         border-radius: 0 !important;
+        overflow: hidden !important;
       }
 
       .pdf-page:last-child {
         page-break-after: avoid !important;
+      }
+
+      /* Compact layouts & smaller gaps during PDF export to prevent overflow onto next page */
+      #printable-audit-report div[style*="flex-grow: 1"] {
+        gap: 10px !important;
+      }
+      #printable-audit-report h1 {
+        font-size: 20px !important;
+        margin-top: 0 !important;
+        margin-bottom: 10px !important;
+      }
+      #printable-audit-report h2 {
+        font-size: 13.5px !important;
+        margin-top: 8px !important;
+        margin-bottom: 6px !important;
+        padding-bottom: 2px !important;
+      }
+      #printable-audit-report h3 {
+        font-size: 12px !important;
+        margin-top: 6px !important;
+        margin-bottom: 4px !important;
+      }
+      #printable-audit-report p {
+        font-size: 11px !important;
+        line-height: 1.4 !important;
+        margin-bottom: 6px !important;
+      }
+      #printable-audit-report ul {
+        margin: 0 !important;
+        gap: 3px !important;
+      }
+      #printable-audit-report li {
+        font-size: 10.5px !important;
+        line-height: 1.4 !important;
+        margin-bottom: 3px !important;
+      }
+      #printable-audit-report li strong {
+        font-size: 10.5px !important;
+      }
+      /* Metadata block on page 1 */
+      #printable-audit-report div[style*="font-size: 12.5px"] {
+        font-size: 11.5px !important;
+        line-height: 1.5 !important;
+        margin-bottom: 12px !important;
+      }
+      /* Monospace URL box on page 4 */
+      #printable-audit-report div[style*="font-family: var(--font-mono)"] {
+        font-size: 9px !important;
+        line-height: 1.3 !important;
+      }
+      /* Prioritized Action Plan phase columns grid and items */
+      #printable-audit-report div[style*="font-size: 10.5px"] {
+        font-size: 10px !important;
+      }
+      #printable-audit-report div[style*="border-left"] {
+        font-size: 9.5px !important;
+      }
+      #printable-audit-report div[style*="border-left"] ul {
+        font-size: 9.5px !important;
+      }
+      #printable-audit-report div[style*="border-left"] li {
+        font-size: 9px !important;
+        line-height: 1.3 !important;
+      }
+      /* Page header wrapper margin reduction */
+      #printable-audit-report div[style*="border-bottom: 1px solid"][style*="margin-bottom: 24px"] {
+        margin-bottom: 12px !important;
+        padding-bottom: 4px !important;
+      }
+      /* Page footer wrapper margin reduction */
+      #printable-audit-report div[style*="border-top: 1px solid"][style*="margin-top: 16px"] {
+        margin-top: 8px !important;
+        padding-top: 4px !important;
       }
     }
 
@@ -1248,6 +1322,91 @@
         border-top: 1px solid var(--color-border) !important;
         padding-top: 24px !important;
         margin-top: 16px !important;
+      }
+    }
+
+    @media screen {
+      /* Increase font sizes in the website audit report for better readability */
+      #printable-audit-report .pdf-page {
+        font-size: 14px !important;
+        line-height: 1.65 !important;
+      }
+      #printable-audit-report h1 {
+        font-size: 28px !important;
+        margin-top: 10px !important;
+        margin-bottom: 22px !important;
+      }
+      #printable-audit-report h2 {
+        font-size: 17.5px !important;
+        margin-top: 22px !important;
+        margin-bottom: 12px !important;
+      }
+      #printable-audit-report h3 {
+        font-size: 15px !important;
+        margin-top: 12px !important;
+        margin-bottom: 8px !important;
+      }
+      #printable-audit-report p {
+        font-size: 13.5px !important;
+        line-height: 1.6 !important;
+        margin-bottom: 12px !important;
+      }
+      #printable-audit-report li {
+        font-size: 13px !important;
+        line-height: 1.6 !important;
+        margin-bottom: 6px !important;
+      }
+      #printable-audit-report li strong {
+        font-size: 13px !important;
+      }
+      #printable-audit-report .dyn-company-name,
+      #printable-audit-report .dyn-company-url,
+      #printable-audit-report .dyn-report-date {
+        font-size: 14px !important;
+      }
+      /* Metadata block on page 1 */
+      #printable-audit-report div[style*="font-size: 12.5px"] {
+        font-size: 14px !important;
+        line-height: 1.8 !important;
+      }
+      /* Monospace URL box on page 4 */
+      #printable-audit-report div[style*="font-family: var(--font-mono)"] {
+        font-size: 11px !important;
+        line-height: 1.5 !important;
+      }
+      /* Header generated date */
+      #printable-audit-report div[style*="font-size: 11px"][style*="color: #666666"] {
+        font-size: 12.5px !important;
+      }
+      /* Footer text */
+      #printable-audit-report div[style*="font-size: 8.5px"] {
+        font-size: 10px !important;
+      }
+      /* Prioritized Action Plan phase columns grid and items */
+      #printable-audit-report div[style*="font-size: 10.5px"] {
+        font-size: 12px !important;
+      }
+      #printable-audit-report div[style*="border-left"] {
+        font-size: 12px !important;
+      }
+      #printable-audit-report div[style*="border-left"] ul {
+        font-size: 12px !important;
+      }
+      #printable-audit-report div[style*="border-left"] li {
+        font-size: 11.5px !important;
+        line-height: 1.45 !important;
+      }
+    }
+
+    /* Keyframes for pulsing ping animation */
+    @keyframes ping {
+      0% {
+        transform: scale(1);
+        opacity: 1;
+      }
+      70%, 100% {
+        transform: scale(2.4);
+        opacity: 0;
       }
     }
   </style>
@@ -1271,8 +1430,9 @@
       style="display: flex; flex: 1; align-items: center; justify-content: space-between; padding: 0 32px; height: 100%; position: relative;">
       <!-- Left side: Back button -->
       <div style="display: flex; align-items: center; gap: 24px;">
-        <button onclick="window.location.href='/'" class="navbar-back-btn">
-          <i data-lucide="arrow-left" style="width: 16px; height: 16px;"></i> Back to Home
+        <button id="navbar-back-btn-main" onclick="handleNavbarBack()" class="navbar-back-btn">
+          <i data-lucide="arrow-left" style="width: 16px; height: 16px;"></i>
+          <span id="navbar-back-label">Back to Home</span>
         </button>
       </div>
 
@@ -1350,7 +1510,7 @@
       <div class="content custom-scroll">
         <!-- Dashboard Filters Bar -->
         <div class="dashboard-filters-bar"
-          style="display: flex; justify-content: center; align-items: center; gap: 24px; margin-bottom: 24px; z-index: 10; position: relative;">
+          style="display: none !important;">
           <!-- Left: Client selector -->
           <div class="custom-dropdown-container" id="client-dropdown-container">
             <div class="custom-dropdown-toggle" onclick="toggleDropdown('client-dropdown-menu', event)">
@@ -3759,141 +3919,124 @@
 
         <!-- HVAC WEBSITE AUDIT TAB -->
         <div id="tab-audit" class="tab-content">
-          <!-- Form Card View -->
-          <div id="audit-form-view" class="chart-card"
-            style="max-width: 1100px; margin: 40px auto; padding: 40px; border-radius: 24px; background: white; border: 1px solid var(--color-border); box-shadow: 0 10px 30px -10px rgba(20,47,69,0.08);">
-            
-            <!-- Header -->
-            <div style="text-align: center; margin-bottom: 36px;">
-              <div
-                style="width: 56px; height: 56px; border-radius: 16px; background: #fdfaf1; color: var(--color-accent); display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto; border: 1px solid var(--color-border);">
-                <i data-lucide="clipboard-check" style="width: 28px; height: 28px;"></i>
-              </div>
-              <h2
-                style="font-family: var(--font-serif); font-size: 26px; font-weight: 700; color: var(--color-primary);">
-                HVAC Onboarding Website Audit</h2>
-              <p style="color: var(--color-secondary); font-size: 14.5px; margin-top: 8px;">Run a semi-automated content
-                and UX audit check for your new HVAC client site.</p>
-            </div>
+          <!-- Two-card row wrapper (transparent, just layout) -->
+          <div id="audit-form-view"
+            style="width: 100%; margin: 32px 0; display: flex; flex-direction: row; gap: 24px; align-items: stretch;">
 
-            <!-- Two Columns Container -->
-            <div style="display: flex; gap: 40px; flex-wrap: wrap; align-items: stretch;">
-              
-              <!-- Left Column: Form -->
-              <div style="flex: 1 1 480px; min-width: 320px; display: flex; flex-direction: column; gap: 20px;">
-                <div style="font-size: 13px; color: var(--color-muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: -8px;">New Audit Request</div>
-                <form onsubmit="runAuditSimulation(event)" style="display: flex; flex-direction: column; gap: 20px; flex-grow: 1; justify-content: space-between;">
+            <!-- CARD LEFT: Icon, Title, Form -->
+            <div style="flex: 1; min-width: 0; background: white; border: 1px solid var(--color-border); border-radius: 20px; box-shadow: 0 8px 24px -8px rgba(20,47,69,0.10); padding: 40px; display: flex; flex-direction: column; gap: 28px;">
+
+              <!-- Header -->
+              <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 14px;">
+                <div style="width: 52px; height: 52px; border-radius: 14px; background: #fdfaf1; color: var(--color-accent); display: flex; align-items: center; justify-content: center; border: 1px solid var(--color-border);">
+                  <i data-lucide="clipboard-check" style="width: 26px; height: 26px;"></i>
+                </div>
+                <div>
+                  <h2 style="font-family: var(--font-serif); font-size: 24px; font-weight: 700; color: var(--color-primary); margin: 0 0 6px 0;">HVAC Onboarding Website Audit</h2>
+                  <p style="color: var(--color-secondary); font-size: 14px; margin: 0;">Run a semi-automated content and UX audit check for your new HVAC client site.</p>
+                </div>
+              </div>
+
+              <!-- Form -->
+              <div style="display: flex; flex-direction: column; gap: 20px; flex: 1;">
+                <div style="font-size: 12px; color: var(--color-muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;">New Audit Request</div>
+                <form onsubmit="runAuditSimulation(event)" style="display: flex; flex-direction: column; gap: 16px; flex: 1; justify-content: space-between;">
                   <div style="display: flex; flex-direction: column; gap: 16px;">
                     <div>
-                      <label
-                        style="display: block; font-size: 13px; font-weight: 600; color: var(--color-text); margin-bottom: 6px;">Client Name</label>
-                      <input type="text" id="audit-client-name" required placeholder="e.g. John Doe" class="form-input"
-                        style="width: 100%;" />
+                      <label style="display: block; font-size: 13px; font-weight: 600; color: var(--color-text); margin-bottom: 6px;">Client Name</label>
+                      <input type="text" id="audit-client-name" required placeholder="e.g. John Doe" class="form-input" style="width: 100%;" />
                     </div>
                     <div>
-                      <label
-                        style="display: block; font-size: 13px; font-weight: 600; color: var(--color-text); margin-bottom: 6px;">Company Name</label>
-                      <input type="text" id="audit-company-name" required placeholder="e.g. Precision HVAC Experts"
-                        class="form-input" style="width: 100%;" />
+                      <label style="display: block; font-size: 13px; font-weight: 600; color: var(--color-text); margin-bottom: 6px;">Company Name</label>
+                      <input type="text" id="audit-company-name" required placeholder="e.g. Precision HVAC Experts" class="form-input" style="width: 100%;" />
                     </div>
                     <div>
-                      <label
-                        style="display: block; font-size: 13px; font-weight: 600; color: var(--color-text); margin-bottom: 6px;">Company Website URL</label>
-                      <input type="url" id="audit-company-url" required placeholder="e.g. https://precisionhvac.com"
-                        class="form-input" style="width: 100%;" />
+                      <label style="display: block; font-size: 13px; font-weight: 600; color: var(--color-text); margin-bottom: 6px;">Company Website URL</label>
+                      <input type="url" id="audit-company-url" required placeholder="e.g. https://precisionhvac.com" class="form-input" style="width: 100%;" />
                     </div>
                   </div>
-
                   <button type="submit" class="btn-primary"
-                    style="padding: 14px; font-size: 14px; font-weight: 600; border-radius: 12px; margin-top: 24px; justify-content: center; width: 100%;">
+                    style="padding: 14px; font-size: 14px; font-weight: 600; border-radius: 12px; justify-content: center; width: 100%; margin-top: 12px;">
                     Generate Audit Report
                   </button>
                 </form>
               </div>
+            </div>
 
-              <!-- Right Column: Recent Audits -->
-              <div style="flex: 1 1 480px; min-width: 320px; display: flex; flex-direction: column; gap: 20px; border-left: 1px solid var(--color-border); padding-left: 40px;" class="recent-audits-col">
-                <div
-                  style="font-size: 13px; color: var(--color-muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; text-align: left;">
-                  Recent Onboarding Audits</div>
-                
-                <div style="display: flex; flex-direction: column; gap: 10px; flex-grow: 1;">
-                  <!-- 1. Rapid Response Air -->
-                  <div onclick="viewQuickReport('John Doe', 'Rapid Response Air', 'https://rapidresponseair.com')"
-                    style="border: 1px solid var(--color-border); border-radius: 12px; padding: 12px 16px; background: white; display: flex; justify-content: space-between; align-items: center; cursor: pointer; text-align: left;"
-                    class="custom-dropdown-item audit-item">
-                    <div>
-                      <div style="font-weight: 600; color: var(--color-primary);">Rapid Response Air</div>
-                      <div style="font-size: 11px; color: var(--color-secondary);">https://rapidresponseair.com •
-                        WordPress / Elementor</div>
-                    </div>
-                    <div
-                      style="font-size: 12px; font-weight: 700; color: var(--color-accent); display: flex; align-items: center; gap: 4px;">
-                      View Report <i data-lucide="arrow-right" style="width: 14px; height: 14px;"></i>
-                    </div>
+            <!-- CARD RIGHT: Recent Audits -->
+            <div style="flex: 1; min-width: 0; background: white; border: 1px solid var(--color-border); border-radius: 20px; box-shadow: 0 8px 24px -8px rgba(20,47,69,0.10); padding: 40px; display: flex; flex-direction: column; gap: 20px;" class="recent-audits-col">
+              <div style="font-size: 12px; color: var(--color-muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;">Recent Onboarding Audits</div>
+
+              <div style="display: flex; flex-direction: column; gap: 10px; flex: 1;">
+                <!-- 1. Rapid Response Air -->
+                <div onclick="viewQuickReport('John Doe', 'Rapid Response Air', 'https://rapidresponseair.com')"
+                  style="border: 1px solid var(--color-border); border-radius: 12px; padding: 14px 16px; background: #fafbfc; display: flex; justify-content: space-between; align-items: center; cursor: pointer;"
+                  class="audit-item">
+                  <div>
+                    <div style="font-weight: 600; font-size: 14px; color: var(--color-primary);">Rapid Response Air</div>
+                    <div style="font-size: 11.5px; color: var(--color-secondary); margin-top: 3px;">https://rapidresponseair.com • WordPress / Elementor</div>
                   </div>
-
-                  <!-- 2. Precision HVAC Experts -->
-                  <div onclick="viewQuickReport('Jane Smith', 'Precision HVAC Experts', 'https://precisionhvac.com')"
-                    style="border: 1px solid var(--color-border); border-radius: 12px; padding: 12px 16px; background: white; display: flex; justify-content: space-between; align-items: center; cursor: pointer; text-align: left;"
-                    class="custom-dropdown-item audit-item">
-                    <div>
-                      <div style="font-weight: 600; color: var(--color-primary);">Precision HVAC Experts</div>
-                      <div style="font-size: 11px; color: var(--color-secondary);">https://precisionhvac.com • WordPress / Elementor</div>
-                    </div>
-                    <div
-                      style="font-size: 12px; font-weight: 700; color: var(--color-accent); display: flex; align-items: center; gap: 4px;">
-                      View Report <i data-lucide="arrow-right" style="width: 14px; height: 14px;"></i>
-                    </div>
+                  <div style="font-size: 12px; font-weight: 700; color: var(--color-accent); display: flex; align-items: center; gap: 4px; white-space: nowrap; margin-left: 16px;">
+                    View Report <i data-lucide="arrow-right" style="width: 13px; height: 13px;"></i>
                   </div>
+                </div>
 
-                  <!-- 3. Apex Climate Control -->
-                  <div onclick="viewQuickReport('Robert Johnson', 'Apex Climate Control', 'https://apexclimatecontrol.com')"
-                    style="border: 1px solid var(--color-border); border-radius: 12px; padding: 12px 16px; background: white; display: flex; justify-content: space-between; align-items: center; cursor: pointer; text-align: left;"
-                    class="custom-dropdown-item audit-item">
-                    <div>
-                      <div style="font-weight: 600; color: var(--color-primary);">Apex Climate Control</div>
-                      <div style="font-size: 11px; color: var(--color-secondary);">https://apexclimatecontrol.com • Webflow / Custom</div>
-                    </div>
-                    <div
-                      style="font-size: 12px; font-weight: 700; color: var(--color-accent); display: flex; align-items: center; gap: 4px;">
-                      View Report <i data-lucide="arrow-right" style="width: 14px; height: 14px;"></i>
-                    </div>
+                <!-- 2. Precision HVAC Experts -->
+                <div onclick="viewQuickReport('Jane Smith', 'Precision HVAC Experts', 'https://precisionhvac.com')"
+                  style="border: 1px solid var(--color-border); border-radius: 12px; padding: 14px 16px; background: #fafbfc; display: flex; justify-content: space-between; align-items: center; cursor: pointer;"
+                  class="audit-item">
+                  <div>
+                    <div style="font-weight: 600; font-size: 14px; color: var(--color-primary);">Precision HVAC Experts</div>
+                    <div style="font-size: 11.5px; color: var(--color-secondary); margin-top: 3px;">https://precisionhvac.com • WordPress / Elementor</div>
                   </div>
-
-                  <!-- 4. Comfort Zone Heating & Air -->
-                  <div onclick="viewQuickReport('Michael Miller', 'Comfort Zone Heating & Air', 'https://comfortzoneheating.com')"
-                    style="border: 1px solid var(--color-border); border-radius: 12px; padding: 12px 16px; background: white; display: flex; justify-content: space-between; align-items: center; cursor: pointer; text-align: left;"
-                    class="custom-dropdown-item audit-item">
-                    <div>
-                      <div style="font-weight: 600; color: var(--color-primary);">Comfort Zone Heating & Air</div>
-                      <div style="font-size: 11px; color: var(--color-secondary);">https://comfortzoneheating.com • Custom HTML / Tailwind</div>
-                    </div>
-                    <div
-                      style="font-size: 12px; font-weight: 700; color: var(--color-accent); display: flex; align-items: center; gap: 4px;">
-                      View Report <i data-lucide="arrow-right" style="width: 14px; height: 14px;"></i>
-                    </div>
+                  <div style="font-size: 12px; font-weight: 700; color: var(--color-accent); display: flex; align-items: center; gap: 4px; white-space: nowrap; margin-left: 16px;">
+                    View Report <i data-lucide="arrow-right" style="width: 13px; height: 13px;"></i>
                   </div>
+                </div>
 
-                  <!-- 5. Elite Air Systems -->
-                  <div onclick="viewQuickReport('Sarah Davis', 'Elite Air Systems', 'https://eliteairsystems.com')"
-                    style="border: 1px solid var(--color-border); border-radius: 12px; padding: 12px 16px; background: white; display: flex; justify-content: space-between; align-items: center; cursor: pointer; text-align: left;"
-                    class="custom-dropdown-item audit-item">
-                    <div>
-                      <div style="font-weight: 600; color: var(--color-primary);">Elite Air Systems</div>
-                      <div style="font-size: 11px; color: var(--color-secondary);">https://eliteairsystems.com • Wix / Builder</div>
-                    </div>
-                    <div
-                      style="font-size: 12px; font-weight: 700; color: var(--color-accent); display: flex; align-items: center; gap: 4px;">
-                      View Report <i data-lucide="arrow-right" style="width: 14px; height: 14px;"></i>
-                    </div>
+                <!-- 3. Apex Climate Control -->
+                <div onclick="viewQuickReport('Robert Johnson', 'Apex Climate Control', 'https://apexclimatecontrol.com')"
+                  style="border: 1px solid var(--color-border); border-radius: 12px; padding: 14px 16px; background: #fafbfc; display: flex; justify-content: space-between; align-items: center; cursor: pointer;"
+                  class="audit-item">
+                  <div>
+                    <div style="font-weight: 600; font-size: 14px; color: var(--color-primary);">Apex Climate Control</div>
+                    <div style="font-size: 11.5px; color: var(--color-secondary); margin-top: 3px;">https://apexclimatecontrol.com • Webflow / Custom</div>
+                  </div>
+                  <div style="font-size: 12px; font-weight: 700; color: var(--color-accent); display: flex; align-items: center; gap: 4px; white-space: nowrap; margin-left: 16px;">
+                    View Report <i data-lucide="arrow-right" style="width: 13px; height: 13px;"></i>
+                  </div>
+                </div>
+
+                <!-- 4. Comfort Zone Heating & Air -->
+                <div onclick="viewQuickReport('Michael Miller', 'Comfort Zone Heating &amp; Air', 'https://comfortzoneheating.com')"
+                  style="border: 1px solid var(--color-border); border-radius: 12px; padding: 14px 16px; background: #fafbfc; display: flex; justify-content: space-between; align-items: center; cursor: pointer;"
+                  class="audit-item">
+                  <div>
+                    <div style="font-weight: 600; font-size: 14px; color: var(--color-primary);">Comfort Zone Heating &amp; Air</div>
+                    <div style="font-size: 11.5px; color: var(--color-secondary); margin-top: 3px;">https://comfortzoneheating.com • Custom HTML / Tailwind</div>
+                  </div>
+                  <div style="font-size: 12px; font-weight: 700; color: var(--color-accent); display: flex; align-items: center; gap: 4px; white-space: nowrap; margin-left: 16px;">
+                    View Report <i data-lucide="arrow-right" style="width: 13px; height: 13px;"></i>
+                  </div>
+                </div>
+
+                <!-- 5. Elite Air Systems -->
+                <div onclick="viewQuickReport('Sarah Davis', 'Elite Air Systems', 'https://eliteairsystems.com')"
+                  style="border: 1px solid var(--color-border); border-radius: 12px; padding: 14px 16px; background: #fafbfc; display: flex; justify-content: space-between; align-items: center; cursor: pointer;"
+                  class="audit-item">
+                  <div>
+                    <div style="font-weight: 600; font-size: 14px; color: var(--color-primary);">Elite Air Systems</div>
+                    <div style="font-size: 11.5px; color: var(--color-secondary); margin-top: 3px;">https://eliteairsystems.com • Wix / Builder</div>
+                  </div>
+                  <div style="font-size: 12px; font-weight: 700; color: var(--color-accent); display: flex; align-items: center; gap: 4px; white-space: nowrap; margin-left: 16px;">
+                    View Report <i data-lucide="arrow-right" style="width: 13px; height: 13px;"></i>
                   </div>
                 </div>
               </div>
-              
             </div>
+
           </div>
-          </div>
+
 
           <!-- Simulated Crawler Loading State -->
           <div id="audit-loading-view" class="chart-card"
@@ -3940,16 +4083,36 @@
 
             <!-- Report Actions Bar (Non-Printable) -->
             <div class="no-print"
-              style="display: flex; justify-content: space-between; align-items: center; padding: 16px 32px; background: #f8fafc; border-bottom: 1px solid var(--color-border); border-radius: 12px; margin-bottom: 24px; border: 1px solid var(--color-border); box-shadow: 0 2px 8px rgba(0,0,0,0.02);">
-              <span style="font-size: 13px; font-weight: 600; color: var(--color-secondary);">Report Ready</span>
+              style="display: flex; justify-content: space-between; align-items: center; padding: 20px 32px; background: rgba(255,255,255,0.85); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(230,222,201,0.6); border-radius: 16px; margin-bottom: 24px; box-shadow: 0 10px 30px -10px rgba(20,47,69,0.08), 0 1px 3px rgba(20,47,69,0.03);">
+              <!-- Status Badge -->
+              <div style="display: flex; align-items: center; gap: 12px;">
+                <div style="display: flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 50%; background: rgba(57,181,74,0.1);">
+                  <div style="position: relative; display: flex; align-items: center; justify-content: center; width: 12px; height: 12px;">
+                    <span style="position: absolute; display: inline-flex; width: 100%; height: 100%; border-radius: 50%; background-color: var(--color-success); opacity: 0.75; animation: ping 1.5s cubic-bezier(0,0,0.2,1) infinite;"></span>
+                    <span style="position: relative; display: inline-flex; border-radius: 50%; width: 9px; height: 9px; background-color: var(--color-success);"></span>
+                  </div>
+                </div>
+                <div style="display: flex; flex-direction: column;">
+                  <span style="font-size: 15px; font-weight: 700; color: var(--color-primary); letter-spacing: -0.01em;">Website Audit Report Ready</span>
+                  <span style="font-size: 12px; color: var(--color-secondary); font-weight: 500; margin-top: 2px;">Ready for online viewing or PDF export</span>
+                </div>
+              </div>
+              <!-- Action Buttons -->
               <div style="display: flex; gap: 12px;">
                 <button onclick="resetAuditForm()" class="btn-primary"
-                  style="background: transparent; color: var(--color-primary); border: 1px solid var(--color-border); font-weight: 600; border-radius: 10px; padding: 8px 16px; font-size: 13px;">
+                  style="background: white; color: var(--color-primary); border: 1.5px solid var(--color-border); font-weight: 600; border-radius: 10px; padding: 10px 20px; font-size: 13.5px; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; transition: all 0.2s ease; box-shadow: 0 1px 3px rgba(0,0,0,0.04);"
+                  onmouseover="this.style.borderColor='var(--color-primary)'; this.style.background='rgba(20,47,69,0.04)'; this.style.transform='translateY(-1px)';"
+                  onmouseout="this.style.borderColor='var(--color-border)'; this.style.background='white'; this.style.transform='none';">
+                  <!-- File-plus icon: new document with a plus sign -->
+                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
                   New Audit
                 </button>
                 <button onclick="printAuditReport()" class="btn-primary"
-                  style="background: var(--color-accent); border: none; font-weight: 600; border-radius: 10px; padding: 8px 16px; font-size: 13px;">
-                  <i data-lucide="download" style="width: 16px; height: 16px; margin-right: 4px;"></i> Download PDF
+                  style="background: var(--color-accent); color: white; border: none; font-weight: 600; border-radius: 10px; padding: 10px 22px; font-size: 13.5px; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; transition: all 0.2s ease; box-shadow: 0 4px 14px rgba(238,104,59,0.28);"
+                  onmouseover="this.style.background='#e35424'; this.style.boxShadow='0 6px 20px rgba(238,104,59,0.38)'; this.style.transform='translateY(-1px)';"
+                  onmouseout="this.style.background='var(--color-accent)'; this.style.boxShadow='0 4px 14px rgba(238,104,59,0.28)'; this.style.transform='none';">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                  Download PDF
                 </button>
               </div>
             </div>
@@ -4719,6 +4882,7 @@
       document.getElementById("audit-form-view").style.display = "none";
       document.getElementById("audit-loading-view").style.display = "none";
       document.getElementById("audit-report-view").style.display = "block";
+      setNavbarBack(true);
     }
 
     function runAuditSimulation(event) {
@@ -4873,6 +5037,7 @@
         // Switch view to report
         document.getElementById("audit-loading-view").style.display = "none";
         document.getElementById("audit-report-view").style.display = "block";
+        setNavbarBack(true);
       }, 5500);
     }
 
@@ -4894,7 +5059,28 @@
 
       document.getElementById("audit-report-view").style.display = "none";
       document.getElementById("audit-loading-view").style.display = "none";
-      document.getElementById("audit-form-view").style.display = "block";
+      document.getElementById("audit-form-view").style.display = "flex";
+
+      // Reset navbar back button to home
+      setNavbarBack(false);
+    }
+
+    // Track whether user is on the report page
+    function setNavbarBack(onReport) {
+      const label = document.getElementById("navbar-back-label");
+      if (!label) return;
+      label.textContent = onReport ? "Back to Report Generation" : "Back to Home";
+      document.getElementById("navbar-back-btn-main").dataset.onReport = onReport ? "1" : "0";
+    }
+
+    function handleNavbarBack() {
+      const btn = document.getElementById("navbar-back-btn-main");
+      if (btn && btn.dataset.onReport === "1") {
+        // User is on report — go back to form (same as New Audit reset)
+        resetAuditForm();
+      } else {
+        window.location.href = '/';
+      }
     }
 
     function printAuditReport() {
