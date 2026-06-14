@@ -1180,16 +1180,16 @@
         margin: 0 !important;
       }
 
-      #tab-audit {
+      #tab-audit.active {
         display: block !important;
       }
 
-      #audit-form-view,
-      #audit-loading-view {
+      #tab-audit.active #audit-form-view,
+      #tab-audit.active #audit-loading-view {
         display: none !important;
       }
 
-      #audit-report-view {
+      #tab-audit.active #audit-report-view {
         display: block !important;
         border: none !important;
         box-shadow: none !important;
@@ -1200,7 +1200,35 @@
         background: transparent !important;
       }
 
-      #printable-audit-report {
+      #tab-audit.active #printable-audit-report {
+        padding: 0 !important;
+        margin: 0 !important;
+        background: transparent !important;
+        display: block !important;
+        gap: 0 !important;
+      }
+
+      #tab-competitor-seo.active {
+        display: block !important;
+      }
+
+      #tab-competitor-seo.active #competitor-form-view,
+      #tab-competitor-seo.active #competitor-loading-view {
+        display: none !important;
+      }
+
+      #tab-competitor-seo.active #competitor-report-view {
+        display: block !important;
+        border: none !important;
+        box-shadow: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        max-width: 100% !important;
+        width: 100% !important;
+        background: transparent !important;
+      }
+
+      #tab-competitor-seo.active #printable-competitor-report {
         padding: 0 !important;
         margin: 0 !important;
         background: transparent !important;
@@ -1494,6 +1522,13 @@
           <li onclick="showTab('tab-audit')">
             <i data-lucide="clipboard-check" style="width: 18px; height: 18px"></i>
             HVAC Website Audit
+          </li>
+        </ul>
+        <div class="sidebar-section-title" style="margin-top: 24px;">Competitor Analysis</div>
+        <ul class="sidebar-nav" style="margin-top: 0">
+          <li onclick="showTab('tab-competitor-seo')">
+            <i data-lucide="swords" style="width: 18px; height: 18px"></i>
+            Competitor SEO Audit
           </li>
         </ul>
       </div>
@@ -4693,6 +4728,11 @@
           </div>
         </div>
 
+        <!-- COMPETITOR SEO AUDIT TAB -->
+        <div id="tab-competitor-seo" class="tab-content">
+          <!-- Competitor SEO Content will be dynamically loaded here from competitor-seo.html -->
+        </div>
+
       </div>
     </main>
   </div> <!-- End of app-layout -->
@@ -5066,11 +5106,15 @@
     }
 
     // Track whether user is on the report page
-    function setNavbarBack(onReport) {
+    function setNavbarBack(onReport, isCompetitor = false) {
       const label = document.getElementById("navbar-back-label");
       if (!label) return;
       label.textContent = onReport ? "Back to Report Generation" : "Back to Home";
-      document.getElementById("navbar-back-btn-main").dataset.onReport = onReport ? "1" : "0";
+      const btn = document.getElementById("navbar-back-btn-main");
+      if (btn) {
+        btn.dataset.onReport = (onReport && !isCompetitor) ? "1" : "0";
+        btn.dataset.onCompetitorReport = (onReport && isCompetitor) ? "1" : "0";
+      }
     }
 
     function handleNavbarBack() {
@@ -5078,9 +5122,193 @@
       if (btn && btn.dataset.onReport === "1") {
         // User is on report — go back to form (same as New Audit reset)
         resetAuditForm();
+      } else if (btn && btn.dataset.onCompetitorReport === "1") {
+        // User is on competitor report — go back to competitor form
+        resetCompetitorForm();
       } else {
         window.location.href = '/';
       }
+    }
+
+    // COMPETITOR SEO AUDIT FUNCTIONS
+    function runCompetitorSimulation(event) {
+      if (event && event.preventDefault) event.preventDefault();
+
+      const clientName = document.getElementById("competitor-client-name").value.trim() || "Apex Climate Control";
+      const companyUrl = document.getElementById("competitor-company-url").value.trim() || "www.apexclimatecontrol.com";
+      const keyword = document.getElementById("competitor-target-keyword").value.trim() || "HVAC repair Alabama";
+      const rank = document.getElementById("competitor-current-rank").value.trim() || "5th Place";
+
+      // Show loader, hide form
+      document.getElementById("competitor-form-view").style.display = "none";
+      document.getElementById("competitor-loading-view").style.display = "block";
+      document.getElementById("competitor-report-view").style.display = "none";
+
+      const statusEl = document.getElementById("competitor-loading-status");
+
+      // Reset steps visual indicators
+      const steps = [1, 2, 3, 4, 5];
+      steps.forEach(num => {
+        const el = document.getElementById("competitor-step-" + num);
+        if (el) {
+          el.style.color = "var(--color-secondary)";
+          el.innerHTML = `<i data-lucide="circle" style="width: 16px; height: 16px;"></i> ` + getCompetitorStepName(num);
+        }
+      });
+      if (window.lucide) lucide.createIcons();
+
+      // Step 1
+      setTimeout(() => {
+        statusEl.innerText = "Crawling competitor sites & extracting metadata...";
+        const el = document.getElementById("competitor-step-1");
+        if (el) {
+          el.style.color = "var(--color-accent)";
+          el.innerHTML = `<i data-lucide="loader-2" class="animate-spin" style="width: 16px; height: 16px; animation: spin 1s linear infinite;"></i> Initializing competitor SEO crawl...`;
+        }
+        if (window.lucide) lucide.createIcons();
+      }, 0);
+
+      // Step 2
+      setTimeout(() => {
+        const el1 = document.getElementById("competitor-step-1");
+        if (el1) {
+          el1.style.color = "var(--color-success)";
+          el1.innerHTML = `<i data-lucide="check-circle-2" style="width: 16px; height: 16px; color: var(--color-success);"></i> Initializing competitor SEO crawl...`;
+        }
+
+        statusEl.innerText = "Extracting SERP positions for keyword: " + keyword;
+        const el2 = document.getElementById("competitor-step-2");
+        if (el2) {
+          el2.style.color = "var(--color-accent)";
+          el2.innerHTML = `<i data-lucide="loader-2" class="animate-spin" style="width: 16px; height: 16px; animation: spin 1s linear infinite;"></i> Extracting search term rankings...`;
+        }
+        if (window.lucide) lucide.createIcons();
+      }, 1000);
+
+      // Step 3
+      setTimeout(() => {
+        const el2 = document.getElementById("competitor-step-2");
+        if (el2) {
+          el2.style.color = "var(--color-success)";
+          el2.innerHTML = `<i data-lucide="check-circle-2" style="width: 16px; height: 16px; color: var(--color-success);"></i> Extracting search term rankings...`;
+        }
+
+        statusEl.innerText = "Comparing landing pages and H1-H3 layout structures...";
+        const el3 = document.getElementById("competitor-step-3");
+        if (el3) {
+          el3.style.color = "var(--color-accent)";
+          el3.innerHTML = `<i data-lucide="loader-2" class="animate-spin" style="width: 16px; height: 16px; animation: spin 1s linear infinite;"></i> Comparing pages and heading tags...`;
+        }
+        if (window.lucide) lucide.createIcons();
+      }, 2000);
+
+      // Step 4
+      setTimeout(() => {
+        const el3 = document.getElementById("competitor-step-3");
+        if (el3) {
+          el3.style.color = "var(--color-success)";
+          el3.innerHTML = `<i data-lucide="check-circle-2" style="width: 16px; height: 16px; color: var(--color-success);"></i> Comparing pages and heading tags...`;
+        }
+
+        statusEl.innerText = "Querying Gemini API for content optimization opportunities...";
+        const el4 = document.getElementById("competitor-step-4");
+        if (el4) {
+          el4.style.color = "var(--color-accent)";
+          el4.innerHTML = `<i data-lucide="loader-2" class="animate-spin" style="width: 16px; height: 16px; animation: spin 1s linear infinite;"></i> Running content gap checks in Gemini...`;
+        }
+        if (window.lucide) lucide.createIcons();
+      }, 3000);
+
+      // Step 5
+      setTimeout(() => {
+        const el4 = document.getElementById("competitor-step-4");
+        if (el4) {
+          el4.style.color = "var(--color-success)";
+          el4.innerHTML = `<i data-lucide="check-circle-2" style="width: 16px; height: 16px; color: var(--color-success);"></i> Running content gap checks in Gemini...`;
+        }
+
+        statusEl.innerText = "Creating optimization checklists in ClickUp workspace...";
+        const el5 = document.getElementById("competitor-step-5");
+        if (el5) {
+          el5.style.color = "var(--color-accent)";
+          el5.innerHTML = `<i data-lucide="loader-2" class="animate-spin" style="width: 16px; height: 16px; animation: spin 1s linear infinite;"></i> Mapping action tasks in ClickUp...`;
+        }
+        if (window.lucide) lucide.createIcons();
+      }, 4200);
+
+      // Finish & Show Report
+      setTimeout(() => {
+        const el5 = document.getElementById("competitor-step-5");
+        if (el5) {
+          el5.style.color = "var(--color-success)";
+          el5.innerHTML = `<i data-lucide="check-circle-2" style="width: 16px; height: 16px; color: var(--color-success);"></i> Mapping action tasks in ClickUp...`;
+        }
+        if (window.lucide) lucide.createIcons();
+
+        viewCompetitorReport(clientName, "Regional Competitors", companyUrl, keyword, rank);
+      }, 5500);
+    }
+
+    function getCompetitorStepName(num) {
+      switch (num) {
+        case 1: return "Initializing competitor SEO crawl...";
+        case 2: return "Extracting search term rankings...";
+        case 3: return "Comparing pages and heading tags...";
+        case 4: return "Running content gap checks in Gemini...";
+        case 5: return "Mapping action tasks in ClickUp...";
+      }
+      return "";
+    }
+
+    function viewCompetitorQuickReport(clientName, companyName, companyUrl) {
+      viewCompetitorReport(clientName, companyName, companyUrl, "HVAC repair Alabama", "5th Place");
+    }
+
+    function viewCompetitorReport(clientName, companyName, companyUrl, keyword, rank) {
+      document.querySelectorAll(".dyn-comp-client-name").forEach(el => {
+        el.innerText = clientName;
+      });
+      document.querySelectorAll(".dyn-comp-company-url").forEach(el => {
+        el.innerText = companyUrl;
+        if (el.tagName === 'A') el.href = "https://" + companyUrl.replace(/^(https?:\/\/)?(www\.)?/, "");
+      });
+      
+      const kwEl = document.getElementById("dyn-comp-keyword");
+      if (kwEl) kwEl.innerText = keyword;
+      
+      const rankEl = document.getElementById("dyn-comp-rank");
+      if (rankEl) rankEl.innerText = rank;
+
+      document.querySelectorAll(".dyn-comp-kw-text").forEach(el => {
+        el.innerText = keyword;
+      });
+
+      const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
+      const formattedDate = new Date().toLocaleDateString('en-US', dateOptions);
+      document.querySelectorAll(".dyn-competitor-date").forEach(el => {
+        el.innerText = formattedDate;
+      });
+
+      document.getElementById("competitor-form-view").style.display = "none";
+      document.getElementById("competitor-loading-view").style.display = "none";
+      document.getElementById("competitor-report-view").style.display = "block";
+
+      setNavbarBack(true, true);
+    }
+
+    function resetCompetitorForm() {
+      document.getElementById("competitor-target-keyword").value = "HVAC repair Alabama";
+      document.getElementById("competitor-current-rank").value = "5th Place";
+
+      document.getElementById("competitor-report-view").style.display = "none";
+      document.getElementById("competitor-loading-view").style.display = "none";
+      document.getElementById("competitor-form-view").style.display = "flex";
+
+      setNavbarBack(false, true);
+    }
+
+    function printCompetitorReport() {
+      window.print();
     }
 
     function printAuditReport() {
@@ -10895,6 +11123,18 @@
       Chart.defaults.scale.grid.lineWidth = 1;
 
       updateDashboardData();
+
+      // Load Competitor SEO Tab content dynamically
+      fetch("competitor-seo.html")
+        .then(response => response.text())
+        .then(html => {
+          const container = document.getElementById("tab-competitor-seo");
+          if (container) {
+            container.innerHTML = html;
+            if (window.lucide) lucide.createIcons();
+          }
+        })
+        .catch(err => console.error("Error loading competitor-seo.html:", err));
 
       lucide.createIcons();
     });
