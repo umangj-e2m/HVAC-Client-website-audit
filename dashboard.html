@@ -1180,16 +1180,16 @@
         margin: 0 !important;
       }
 
-      #tab-audit {
+      #tab-audit.active {
         display: block !important;
       }
 
-      #audit-form-view,
-      #audit-loading-view {
+      #tab-audit.active #audit-form-view,
+      #tab-audit.active #audit-loading-view {
         display: none !important;
       }
 
-      #audit-report-view {
+      #tab-audit.active #audit-report-view {
         display: block !important;
         border: none !important;
         box-shadow: none !important;
@@ -1200,7 +1200,35 @@
         background: transparent !important;
       }
 
-      #printable-audit-report {
+      #tab-audit.active #printable-audit-report {
+        padding: 0 !important;
+        margin: 0 !important;
+        background: transparent !important;
+        display: block !important;
+        gap: 0 !important;
+      }
+
+      #tab-competitor-seo.active {
+        display: block !important;
+      }
+
+      #tab-competitor-seo.active #competitor-form-view,
+      #tab-competitor-seo.active #competitor-loading-view {
+        display: none !important;
+      }
+
+      #tab-competitor-seo.active #competitor-report-view {
+        display: block !important;
+        border: none !important;
+        box-shadow: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        max-width: 100% !important;
+        width: 100% !important;
+        background: transparent !important;
+      }
+
+      #tab-competitor-seo.active #printable-competitor-report {
         padding: 0 !important;
         margin: 0 !important;
         background: transparent !important;
@@ -1216,7 +1244,7 @@
         height: 297mm !important;
         min-height: 297mm !important;
         margin: 0 !important;
-        padding: 20mm !important;
+        padding: 12mm 15mm !important;
         background: white !important;
         border: none !important;
         box-shadow: none !important;
@@ -1224,10 +1252,84 @@
         flex-direction: column !important;
         justify-content: space-between !important;
         border-radius: 0 !important;
+        overflow: hidden !important;
       }
 
       .pdf-page:last-child {
         page-break-after: avoid !important;
+      }
+
+      /* Compact layouts & smaller gaps during PDF export to prevent overflow onto next page */
+      #printable-audit-report div[style*="flex-grow: 1"] {
+        gap: 10px !important;
+      }
+      #printable-audit-report h1 {
+        font-size: 20px !important;
+        margin-top: 0 !important;
+        margin-bottom: 10px !important;
+      }
+      #printable-audit-report h2 {
+        font-size: 13.5px !important;
+        margin-top: 8px !important;
+        margin-bottom: 6px !important;
+        padding-bottom: 2px !important;
+      }
+      #printable-audit-report h3 {
+        font-size: 12px !important;
+        margin-top: 6px !important;
+        margin-bottom: 4px !important;
+      }
+      #printable-audit-report p {
+        font-size: 11px !important;
+        line-height: 1.4 !important;
+        margin-bottom: 6px !important;
+      }
+      #printable-audit-report ul {
+        margin: 0 !important;
+        gap: 3px !important;
+      }
+      #printable-audit-report li {
+        font-size: 10.5px !important;
+        line-height: 1.4 !important;
+        margin-bottom: 3px !important;
+      }
+      #printable-audit-report li strong {
+        font-size: 10.5px !important;
+      }
+      /* Metadata block on page 1 */
+      #printable-audit-report div[style*="font-size: 12.5px"] {
+        font-size: 11.5px !important;
+        line-height: 1.5 !important;
+        margin-bottom: 12px !important;
+      }
+      /* Monospace URL box on page 4 */
+      #printable-audit-report div[style*="font-family: var(--font-mono)"] {
+        font-size: 9px !important;
+        line-height: 1.3 !important;
+      }
+      /* Prioritized Action Plan phase columns grid and items */
+      #printable-audit-report div[style*="font-size: 10.5px"] {
+        font-size: 10px !important;
+      }
+      #printable-audit-report div[style*="border-left"] {
+        font-size: 9.5px !important;
+      }
+      #printable-audit-report div[style*="border-left"] ul {
+        font-size: 9.5px !important;
+      }
+      #printable-audit-report div[style*="border-left"] li {
+        font-size: 9px !important;
+        line-height: 1.3 !important;
+      }
+      /* Page header wrapper margin reduction */
+      #printable-audit-report div[style*="border-bottom: 1px solid"][style*="margin-bottom: 24px"] {
+        margin-bottom: 12px !important;
+        padding-bottom: 4px !important;
+      }
+      /* Page footer wrapper margin reduction */
+      #printable-audit-report div[style*="border-top: 1px solid"][style*="margin-top: 16px"] {
+        margin-top: 8px !important;
+        padding-top: 4px !important;
       }
     }
 
@@ -1248,6 +1350,91 @@
         border-top: 1px solid var(--color-border) !important;
         padding-top: 24px !important;
         margin-top: 16px !important;
+      }
+    }
+
+    @media screen {
+      /* Increase font sizes in the website audit report for better readability */
+      #printable-audit-report .pdf-page {
+        font-size: 14px !important;
+        line-height: 1.65 !important;
+      }
+      #printable-audit-report h1 {
+        font-size: 28px !important;
+        margin-top: 10px !important;
+        margin-bottom: 22px !important;
+      }
+      #printable-audit-report h2 {
+        font-size: 17.5px !important;
+        margin-top: 22px !important;
+        margin-bottom: 12px !important;
+      }
+      #printable-audit-report h3 {
+        font-size: 15px !important;
+        margin-top: 12px !important;
+        margin-bottom: 8px !important;
+      }
+      #printable-audit-report p {
+        font-size: 13.5px !important;
+        line-height: 1.6 !important;
+        margin-bottom: 12px !important;
+      }
+      #printable-audit-report li {
+        font-size: 13px !important;
+        line-height: 1.6 !important;
+        margin-bottom: 6px !important;
+      }
+      #printable-audit-report li strong {
+        font-size: 13px !important;
+      }
+      #printable-audit-report .dyn-company-name,
+      #printable-audit-report .dyn-company-url,
+      #printable-audit-report .dyn-report-date {
+        font-size: 14px !important;
+      }
+      /* Metadata block on page 1 */
+      #printable-audit-report div[style*="font-size: 12.5px"] {
+        font-size: 14px !important;
+        line-height: 1.8 !important;
+      }
+      /* Monospace URL box on page 4 */
+      #printable-audit-report div[style*="font-family: var(--font-mono)"] {
+        font-size: 11px !important;
+        line-height: 1.5 !important;
+      }
+      /* Header generated date */
+      #printable-audit-report div[style*="font-size: 11px"][style*="color: #666666"] {
+        font-size: 12.5px !important;
+      }
+      /* Footer text */
+      #printable-audit-report div[style*="font-size: 8.5px"] {
+        font-size: 10px !important;
+      }
+      /* Prioritized Action Plan phase columns grid and items */
+      #printable-audit-report div[style*="font-size: 10.5px"] {
+        font-size: 12px !important;
+      }
+      #printable-audit-report div[style*="border-left"] {
+        font-size: 12px !important;
+      }
+      #printable-audit-report div[style*="border-left"] ul {
+        font-size: 12px !important;
+      }
+      #printable-audit-report div[style*="border-left"] li {
+        font-size: 11.5px !important;
+        line-height: 1.45 !important;
+      }
+    }
+
+    /* Keyframes for pulsing ping animation */
+    @keyframes ping {
+      0% {
+        transform: scale(1);
+        opacity: 1;
+      }
+      70%, 100% {
+        transform: scale(2.4);
+        opacity: 0;
       }
     }
   </style>
@@ -1271,8 +1458,9 @@
       style="display: flex; flex: 1; align-items: center; justify-content: space-between; padding: 0 32px; height: 100%; position: relative;">
       <!-- Left side: Back button -->
       <div style="display: flex; align-items: center; gap: 24px;">
-        <button onclick="window.location.href='/'" class="navbar-back-btn">
-          <i data-lucide="arrow-left" style="width: 16px; height: 16px;"></i> Back to Home
+        <button id="navbar-back-btn-main" onclick="handleNavbarBack()" class="navbar-back-btn">
+          <i data-lucide="arrow-left" style="width: 16px; height: 16px;"></i>
+          <span id="navbar-back-label">Back to Home</span>
         </button>
       </div>
 
@@ -1310,30 +1498,29 @@
     <!-- Sidebar -->
     <aside class="sidebar">
       <div style="flex: 1; overflow-y: auto; padding-bottom: 24px;" class="custom-scroll">
-        <div class="sidebar-section-title" style="margin-top: 24px;">Analytics</div>
-        <ul class="sidebar-nav" style="margin-top: 0">
-          <li onclick="showTab('tab-ga4')" class="active">
-            <i data-lucide="bar-chart-2" style="width: 18px; height: 18px"></i>
-            Google Analytics (GA4)
-          </li>
-          <li onclick="showTab('tab-gsc')">
-            <i data-lucide="search" style="width: 18px; height: 18px"></i> Search
-            Console
-          </li>
-          <li onclick="showTab('tab-ads')">
-            <i data-lucide="megaphone" style="width: 18px; height: 18px"></i>
-            Google Ads
-          </li>
-          <li onclick="showTab('tab-gbp')">
-            <i data-lucide="store" style="width: 18px; height: 18px"></i> Business
-            Profile
-          </li>
-        </ul>
         <div class="sidebar-section-title" style="margin-top: 24px;">Audit & Onboarding</div>
         <ul class="sidebar-nav" style="margin-top: 0">
+          <li onclick="showTab('tab-service-pages')" class="active">
+            <i data-lucide="sparkles" style="width: 18px; height: 18px"></i>
+            Service Page Optimizer
+          </li>
           <li onclick="showTab('tab-audit')">
             <i data-lucide="clipboard-check" style="width: 18px; height: 18px"></i>
             HVAC Website Audit
+          </li>
+        </ul>
+        <div class="sidebar-section-title" style="margin-top: 24px;">Competitor Analysis</div>
+        <ul class="sidebar-nav" style="margin-top: 0">
+          <li onclick="showTab('tab-competitor-seo')">
+            <i data-lucide="swords" style="width: 18px; height: 18px"></i>
+            Competitor SEO Audit
+          </li>
+        </ul>
+        <div class="sidebar-section-title" style="margin-top: 24px;">Lead & Call Analysis</div>
+        <ul class="sidebar-nav" style="margin-top: 0">
+          <li onclick="showTab('tab-lsa-calls'); if(typeof resetLsaView === 'function') resetLsaView();">
+            <i data-lucide="phone-call" style="width: 18px; height: 18px"></i>
+            LSA/SEM Call Analyzer
           </li>
         </ul>
       </div>
@@ -1350,7 +1537,7 @@
       <div class="content custom-scroll">
         <!-- Dashboard Filters Bar -->
         <div class="dashboard-filters-bar"
-          style="display: flex; justify-content: center; align-items: center; gap: 24px; margin-bottom: 24px; z-index: 10; position: relative;">
+          style="display: none !important;">
           <!-- Left: Client selector -->
           <div class="custom-dropdown-container" id="client-dropdown-container">
             <div class="custom-dropdown-toggle" onclick="toggleDropdown('client-dropdown-menu', event)">
@@ -1523,7 +1710,7 @@
         </div>
 
         <!-- GA4 TAB -->
-        <div id="tab-ga4" class="tab-content active">
+        <div id="tab-ga4" class="tab-content">
           <div class="sub-tabs" style="
               display: flex;
               overflow-x: auto;
@@ -3759,141 +3946,124 @@
 
         <!-- HVAC WEBSITE AUDIT TAB -->
         <div id="tab-audit" class="tab-content">
-          <!-- Form Card View -->
-          <div id="audit-form-view" class="chart-card"
-            style="max-width: 1100px; margin: 40px auto; padding: 40px; border-radius: 24px; background: white; border: 1px solid var(--color-border); box-shadow: 0 10px 30px -10px rgba(20,47,69,0.08);">
-            
-            <!-- Header -->
-            <div style="text-align: center; margin-bottom: 36px;">
-              <div
-                style="width: 56px; height: 56px; border-radius: 16px; background: #fdfaf1; color: var(--color-accent); display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto; border: 1px solid var(--color-border);">
-                <i data-lucide="clipboard-check" style="width: 28px; height: 28px;"></i>
-              </div>
-              <h2
-                style="font-family: var(--font-serif); font-size: 26px; font-weight: 700; color: var(--color-primary);">
-                HVAC Onboarding Website Audit</h2>
-              <p style="color: var(--color-secondary); font-size: 14.5px; margin-top: 8px;">Run a semi-automated content
-                and UX audit check for your new HVAC client site.</p>
-            </div>
+          <!-- Two-card row wrapper (transparent, just layout) -->
+          <div id="audit-form-view"
+            style="width: 100%; margin: 32px 0; display: flex; flex-direction: row; gap: 24px; align-items: stretch;">
 
-            <!-- Two Columns Container -->
-            <div style="display: flex; gap: 40px; flex-wrap: wrap; align-items: stretch;">
-              
-              <!-- Left Column: Form -->
-              <div style="flex: 1 1 480px; min-width: 320px; display: flex; flex-direction: column; gap: 20px;">
-                <div style="font-size: 13px; color: var(--color-muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: -8px;">New Audit Request</div>
-                <form onsubmit="runAuditSimulation(event)" style="display: flex; flex-direction: column; gap: 20px; flex-grow: 1; justify-content: space-between;">
+            <!-- CARD LEFT: Icon, Title, Form -->
+            <div style="flex: 1; min-width: 0; background: white; border: 1px solid var(--color-border); border-radius: 20px; box-shadow: 0 8px 24px -8px rgba(20,47,69,0.10); padding: 40px; display: flex; flex-direction: column; gap: 28px;">
+
+              <!-- Header -->
+              <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 14px;">
+                <div style="width: 52px; height: 52px; border-radius: 14px; background: #fdfaf1; color: var(--color-accent); display: flex; align-items: center; justify-content: center; border: 1px solid var(--color-border);">
+                  <i data-lucide="clipboard-check" style="width: 26px; height: 26px;"></i>
+                </div>
+                <div>
+                  <h2 style="font-family: var(--font-serif); font-size: 24px; font-weight: 700; color: var(--color-primary); margin: 0 0 6px 0;">HVAC Onboarding Website Audit</h2>
+                  <p style="color: var(--color-secondary); font-size: 14px; margin: 0;">Run a semi-automated content and UX audit check for your new HVAC client site.</p>
+                </div>
+              </div>
+
+              <!-- Form -->
+              <div style="display: flex; flex-direction: column; gap: 20px; flex: 1;">
+                <div style="font-size: 12px; color: var(--color-muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;">New Audit Request</div>
+                <form onsubmit="runAuditSimulation(event)" style="display: flex; flex-direction: column; gap: 16px; flex: 1; justify-content: space-between;">
                   <div style="display: flex; flex-direction: column; gap: 16px;">
                     <div>
-                      <label
-                        style="display: block; font-size: 13px; font-weight: 600; color: var(--color-text); margin-bottom: 6px;">Client Name</label>
-                      <input type="text" id="audit-client-name" required placeholder="e.g. John Doe" class="form-input"
-                        style="width: 100%;" />
+                      <label style="display: block; font-size: 13px; font-weight: 600; color: var(--color-text); margin-bottom: 6px;">Client Name</label>
+                      <input type="text" id="audit-client-name" required placeholder="e.g. John Doe" class="form-input" style="width: 100%;" />
                     </div>
                     <div>
-                      <label
-                        style="display: block; font-size: 13px; font-weight: 600; color: var(--color-text); margin-bottom: 6px;">Company Name</label>
-                      <input type="text" id="audit-company-name" required placeholder="e.g. Precision HVAC Experts"
-                        class="form-input" style="width: 100%;" />
+                      <label style="display: block; font-size: 13px; font-weight: 600; color: var(--color-text); margin-bottom: 6px;">Company Name</label>
+                      <input type="text" id="audit-company-name" required placeholder="e.g. Precision HVAC Experts" class="form-input" style="width: 100%;" />
                     </div>
                     <div>
-                      <label
-                        style="display: block; font-size: 13px; font-weight: 600; color: var(--color-text); margin-bottom: 6px;">Company Website URL</label>
-                      <input type="url" id="audit-company-url" required placeholder="e.g. https://precisionhvac.com"
-                        class="form-input" style="width: 100%;" />
+                      <label style="display: block; font-size: 13px; font-weight: 600; color: var(--color-text); margin-bottom: 6px;">Company Website URL</label>
+                      <input type="url" id="audit-company-url" required placeholder="e.g. https://precisionhvac.com" class="form-input" style="width: 100%;" />
                     </div>
                   </div>
-
                   <button type="submit" class="btn-primary"
-                    style="padding: 14px; font-size: 14px; font-weight: 600; border-radius: 12px; margin-top: 24px; justify-content: center; width: 100%;">
+                    style="padding: 14px; font-size: 14px; font-weight: 600; border-radius: 12px; justify-content: center; width: 100%; margin-top: 12px;">
                     Generate Audit Report
                   </button>
                 </form>
               </div>
+            </div>
 
-              <!-- Right Column: Recent Audits -->
-              <div style="flex: 1 1 480px; min-width: 320px; display: flex; flex-direction: column; gap: 20px; border-left: 1px solid var(--color-border); padding-left: 40px;" class="recent-audits-col">
-                <div
-                  style="font-size: 13px; color: var(--color-muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; text-align: left;">
-                  Recent Onboarding Audits</div>
-                
-                <div style="display: flex; flex-direction: column; gap: 10px; flex-grow: 1;">
-                  <!-- 1. Rapid Response Air -->
-                  <div onclick="viewQuickReport('John Doe', 'Rapid Response Air', 'https://rapidresponseair.com')"
-                    style="border: 1px solid var(--color-border); border-radius: 12px; padding: 12px 16px; background: white; display: flex; justify-content: space-between; align-items: center; cursor: pointer; text-align: left;"
-                    class="custom-dropdown-item audit-item">
-                    <div>
-                      <div style="font-weight: 600; color: var(--color-primary);">Rapid Response Air</div>
-                      <div style="font-size: 11px; color: var(--color-secondary);">https://rapidresponseair.com •
-                        WordPress / Elementor</div>
-                    </div>
-                    <div
-                      style="font-size: 12px; font-weight: 700; color: var(--color-accent); display: flex; align-items: center; gap: 4px;">
-                      View Report <i data-lucide="arrow-right" style="width: 14px; height: 14px;"></i>
-                    </div>
+            <!-- CARD RIGHT: Recent Audits -->
+            <div style="flex: 1; min-width: 0; background: white; border: 1px solid var(--color-border); border-radius: 20px; box-shadow: 0 8px 24px -8px rgba(20,47,69,0.10); padding: 40px; display: flex; flex-direction: column; gap: 20px;" class="recent-audits-col">
+              <div style="font-size: 12px; color: var(--color-muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;">Recent Onboarding Audits</div>
+
+              <div style="display: flex; flex-direction: column; gap: 10px; flex: 1;">
+                <!-- 1. Rapid Response Air -->
+                <div onclick="viewQuickReport('John Doe', 'Rapid Response Air', 'https://rapidresponseair.com')"
+                  style="border: 1px solid var(--color-border); border-radius: 12px; padding: 14px 16px; background: #fafbfc; display: flex; justify-content: space-between; align-items: center; cursor: pointer;"
+                  class="audit-item">
+                  <div>
+                    <div style="font-weight: 600; font-size: 14px; color: var(--color-primary);">Rapid Response Air</div>
+                    <div style="font-size: 11.5px; color: var(--color-secondary); margin-top: 3px;">https://rapidresponseair.com • WordPress / Elementor</div>
                   </div>
-
-                  <!-- 2. Precision HVAC Experts -->
-                  <div onclick="viewQuickReport('Jane Smith', 'Precision HVAC Experts', 'https://precisionhvac.com')"
-                    style="border: 1px solid var(--color-border); border-radius: 12px; padding: 12px 16px; background: white; display: flex; justify-content: space-between; align-items: center; cursor: pointer; text-align: left;"
-                    class="custom-dropdown-item audit-item">
-                    <div>
-                      <div style="font-weight: 600; color: var(--color-primary);">Precision HVAC Experts</div>
-                      <div style="font-size: 11px; color: var(--color-secondary);">https://precisionhvac.com • WordPress / Elementor</div>
-                    </div>
-                    <div
-                      style="font-size: 12px; font-weight: 700; color: var(--color-accent); display: flex; align-items: center; gap: 4px;">
-                      View Report <i data-lucide="arrow-right" style="width: 14px; height: 14px;"></i>
-                    </div>
+                  <div style="font-size: 12px; font-weight: 700; color: var(--color-accent); display: flex; align-items: center; gap: 4px; white-space: nowrap; margin-left: 16px;">
+                    View Report <i data-lucide="arrow-right" style="width: 13px; height: 13px;"></i>
                   </div>
+                </div>
 
-                  <!-- 3. Apex Climate Control -->
-                  <div onclick="viewQuickReport('Robert Johnson', 'Apex Climate Control', 'https://apexclimatecontrol.com')"
-                    style="border: 1px solid var(--color-border); border-radius: 12px; padding: 12px 16px; background: white; display: flex; justify-content: space-between; align-items: center; cursor: pointer; text-align: left;"
-                    class="custom-dropdown-item audit-item">
-                    <div>
-                      <div style="font-weight: 600; color: var(--color-primary);">Apex Climate Control</div>
-                      <div style="font-size: 11px; color: var(--color-secondary);">https://apexclimatecontrol.com • Webflow / Custom</div>
-                    </div>
-                    <div
-                      style="font-size: 12px; font-weight: 700; color: var(--color-accent); display: flex; align-items: center; gap: 4px;">
-                      View Report <i data-lucide="arrow-right" style="width: 14px; height: 14px;"></i>
-                    </div>
+                <!-- 2. Precision HVAC Experts -->
+                <div onclick="viewQuickReport('Jane Smith', 'Precision HVAC Experts', 'https://precisionhvac.com')"
+                  style="border: 1px solid var(--color-border); border-radius: 12px; padding: 14px 16px; background: #fafbfc; display: flex; justify-content: space-between; align-items: center; cursor: pointer;"
+                  class="audit-item">
+                  <div>
+                    <div style="font-weight: 600; font-size: 14px; color: var(--color-primary);">Precision HVAC Experts</div>
+                    <div style="font-size: 11.5px; color: var(--color-secondary); margin-top: 3px;">https://precisionhvac.com • WordPress / Elementor</div>
                   </div>
-
-                  <!-- 4. Comfort Zone Heating & Air -->
-                  <div onclick="viewQuickReport('Michael Miller', 'Comfort Zone Heating & Air', 'https://comfortzoneheating.com')"
-                    style="border: 1px solid var(--color-border); border-radius: 12px; padding: 12px 16px; background: white; display: flex; justify-content: space-between; align-items: center; cursor: pointer; text-align: left;"
-                    class="custom-dropdown-item audit-item">
-                    <div>
-                      <div style="font-weight: 600; color: var(--color-primary);">Comfort Zone Heating & Air</div>
-                      <div style="font-size: 11px; color: var(--color-secondary);">https://comfortzoneheating.com • Custom HTML / Tailwind</div>
-                    </div>
-                    <div
-                      style="font-size: 12px; font-weight: 700; color: var(--color-accent); display: flex; align-items: center; gap: 4px;">
-                      View Report <i data-lucide="arrow-right" style="width: 14px; height: 14px;"></i>
-                    </div>
+                  <div style="font-size: 12px; font-weight: 700; color: var(--color-accent); display: flex; align-items: center; gap: 4px; white-space: nowrap; margin-left: 16px;">
+                    View Report <i data-lucide="arrow-right" style="width: 13px; height: 13px;"></i>
                   </div>
+                </div>
 
-                  <!-- 5. Elite Air Systems -->
-                  <div onclick="viewQuickReport('Sarah Davis', 'Elite Air Systems', 'https://eliteairsystems.com')"
-                    style="border: 1px solid var(--color-border); border-radius: 12px; padding: 12px 16px; background: white; display: flex; justify-content: space-between; align-items: center; cursor: pointer; text-align: left;"
-                    class="custom-dropdown-item audit-item">
-                    <div>
-                      <div style="font-weight: 600; color: var(--color-primary);">Elite Air Systems</div>
-                      <div style="font-size: 11px; color: var(--color-secondary);">https://eliteairsystems.com • Wix / Builder</div>
-                    </div>
-                    <div
-                      style="font-size: 12px; font-weight: 700; color: var(--color-accent); display: flex; align-items: center; gap: 4px;">
-                      View Report <i data-lucide="arrow-right" style="width: 14px; height: 14px;"></i>
-                    </div>
+                <!-- 3. Apex Climate Control -->
+                <div onclick="viewQuickReport('Robert Johnson', 'Apex Climate Control', 'https://apexclimatecontrol.com')"
+                  style="border: 1px solid var(--color-border); border-radius: 12px; padding: 14px 16px; background: #fafbfc; display: flex; justify-content: space-between; align-items: center; cursor: pointer;"
+                  class="audit-item">
+                  <div>
+                    <div style="font-weight: 600; font-size: 14px; color: var(--color-primary);">Apex Climate Control</div>
+                    <div style="font-size: 11.5px; color: var(--color-secondary); margin-top: 3px;">https://apexclimatecontrol.com • Webflow / Custom</div>
+                  </div>
+                  <div style="font-size: 12px; font-weight: 700; color: var(--color-accent); display: flex; align-items: center; gap: 4px; white-space: nowrap; margin-left: 16px;">
+                    View Report <i data-lucide="arrow-right" style="width: 13px; height: 13px;"></i>
+                  </div>
+                </div>
+
+                <!-- 4. Comfort Zone Heating & Air -->
+                <div onclick="viewQuickReport('Michael Miller', 'Comfort Zone Heating &amp; Air', 'https://comfortzoneheating.com')"
+                  style="border: 1px solid var(--color-border); border-radius: 12px; padding: 14px 16px; background: #fafbfc; display: flex; justify-content: space-between; align-items: center; cursor: pointer;"
+                  class="audit-item">
+                  <div>
+                    <div style="font-weight: 600; font-size: 14px; color: var(--color-primary);">Comfort Zone Heating &amp; Air</div>
+                    <div style="font-size: 11.5px; color: var(--color-secondary); margin-top: 3px;">https://comfortzoneheating.com • Custom HTML / Tailwind</div>
+                  </div>
+                  <div style="font-size: 12px; font-weight: 700; color: var(--color-accent); display: flex; align-items: center; gap: 4px; white-space: nowrap; margin-left: 16px;">
+                    View Report <i data-lucide="arrow-right" style="width: 13px; height: 13px;"></i>
+                  </div>
+                </div>
+
+                <!-- 5. Elite Air Systems -->
+                <div onclick="viewQuickReport('Sarah Davis', 'Elite Air Systems', 'https://eliteairsystems.com')"
+                  style="border: 1px solid var(--color-border); border-radius: 12px; padding: 14px 16px; background: #fafbfc; display: flex; justify-content: space-between; align-items: center; cursor: pointer;"
+                  class="audit-item">
+                  <div>
+                    <div style="font-weight: 600; font-size: 14px; color: var(--color-primary);">Elite Air Systems</div>
+                    <div style="font-size: 11.5px; color: var(--color-secondary); margin-top: 3px;">https://eliteairsystems.com • Wix / Builder</div>
+                  </div>
+                  <div style="font-size: 12px; font-weight: 700; color: var(--color-accent); display: flex; align-items: center; gap: 4px; white-space: nowrap; margin-left: 16px;">
+                    View Report <i data-lucide="arrow-right" style="width: 13px; height: 13px;"></i>
                   </div>
                 </div>
               </div>
-              
             </div>
+
           </div>
-          </div>
+
 
           <!-- Simulated Crawler Loading State -->
           <div id="audit-loading-view" class="chart-card"
@@ -3940,16 +4110,36 @@
 
             <!-- Report Actions Bar (Non-Printable) -->
             <div class="no-print"
-              style="display: flex; justify-content: space-between; align-items: center; padding: 16px 32px; background: #f8fafc; border-bottom: 1px solid var(--color-border); border-radius: 12px; margin-bottom: 24px; border: 1px solid var(--color-border); box-shadow: 0 2px 8px rgba(0,0,0,0.02);">
-              <span style="font-size: 13px; font-weight: 600; color: var(--color-secondary);">Report Ready</span>
+              style="display: flex; justify-content: space-between; align-items: center; padding: 20px 32px; background: rgba(255,255,255,0.85); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(230,222,201,0.6); border-radius: 16px; margin-bottom: 24px; box-shadow: 0 10px 30px -10px rgba(20,47,69,0.08), 0 1px 3px rgba(20,47,69,0.03);">
+              <!-- Status Badge -->
+              <div style="display: flex; align-items: center; gap: 12px;">
+                <div style="display: flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 50%; background: rgba(57,181,74,0.1);">
+                  <div style="position: relative; display: flex; align-items: center; justify-content: center; width: 12px; height: 12px;">
+                    <span style="position: absolute; display: inline-flex; width: 100%; height: 100%; border-radius: 50%; background-color: var(--color-success); opacity: 0.75; animation: ping 1.5s cubic-bezier(0,0,0.2,1) infinite;"></span>
+                    <span style="position: relative; display: inline-flex; border-radius: 50%; width: 9px; height: 9px; background-color: var(--color-success);"></span>
+                  </div>
+                </div>
+                <div style="display: flex; flex-direction: column;">
+                  <span style="font-size: 15px; font-weight: 700; color: var(--color-primary); letter-spacing: -0.01em;">Website Audit Report Ready</span>
+                  <span style="font-size: 12px; color: var(--color-secondary); font-weight: 500; margin-top: 2px;">Ready for online viewing or PDF export</span>
+                </div>
+              </div>
+              <!-- Action Buttons -->
               <div style="display: flex; gap: 12px;">
                 <button onclick="resetAuditForm()" class="btn-primary"
-                  style="background: transparent; color: var(--color-primary); border: 1px solid var(--color-border); font-weight: 600; border-radius: 10px; padding: 8px 16px; font-size: 13px;">
+                  style="background: white; color: var(--color-primary); border: 1.5px solid var(--color-border); font-weight: 600; border-radius: 10px; padding: 10px 20px; font-size: 13.5px; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; transition: all 0.2s ease; box-shadow: 0 1px 3px rgba(0,0,0,0.04);"
+                  onmouseover="this.style.borderColor='var(--color-primary)'; this.style.background='rgba(20,47,69,0.04)'; this.style.transform='translateY(-1px)';"
+                  onmouseout="this.style.borderColor='var(--color-border)'; this.style.background='white'; this.style.transform='none';">
+                  <!-- File-plus icon: new document with a plus sign -->
+                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
                   New Audit
                 </button>
                 <button onclick="printAuditReport()" class="btn-primary"
-                  style="background: var(--color-accent); border: none; font-weight: 600; border-radius: 10px; padding: 8px 16px; font-size: 13px;">
-                  <i data-lucide="download" style="width: 16px; height: 16px; margin-right: 4px;"></i> Download PDF
+                  style="background: var(--color-accent); color: white; border: none; font-weight: 600; border-radius: 10px; padding: 10px 22px; font-size: 13.5px; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; transition: all 0.2s ease; box-shadow: 0 4px 14px rgba(238,104,59,0.28);"
+                  onmouseover="this.style.background='#e35424'; this.style.boxShadow='0 6px 20px rgba(238,104,59,0.38)'; this.style.transform='translateY(-1px)';"
+                  onmouseout="this.style.background='var(--color-accent)'; this.style.boxShadow='0 4px 14px rgba(238,104,59,0.28)'; this.style.transform='none';">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                  Download PDF
                 </button>
               </div>
             </div>
@@ -4530,6 +4720,21 @@
           </div>
         </div>
 
+        <!-- COMPETITOR SEO AUDIT TAB -->
+        <div id="tab-competitor-seo" class="tab-content">
+          <!-- Competitor SEO Content will be dynamically loaded here from competitor-seo.html -->
+        </div>
+
+        <!-- SERVICE PAGE OPTIMIZER TAB -->
+        <div id="tab-service-pages" class="tab-content active">
+          <!-- Service Page Optimizer Content will be dynamically loaded here from service-pages.html -->
+        </div>
+
+        <!-- LSA CALL ANALYZER TAB -->
+        <div id="tab-lsa-calls" class="tab-content">
+          <!-- Content will be dynamically loaded here from lsa-calls.html -->
+        </div>
+
       </div>
     </main>
   </div> <!-- End of app-layout -->
@@ -4719,6 +4924,7 @@
       document.getElementById("audit-form-view").style.display = "none";
       document.getElementById("audit-loading-view").style.display = "none";
       document.getElementById("audit-report-view").style.display = "block";
+      setNavbarBack(true);
     }
 
     function runAuditSimulation(event) {
@@ -4873,6 +5079,7 @@
         // Switch view to report
         document.getElementById("audit-loading-view").style.display = "none";
         document.getElementById("audit-report-view").style.display = "block";
+        setNavbarBack(true);
       }, 5500);
     }
 
@@ -4894,13 +5101,1624 @@
 
       document.getElementById("audit-report-view").style.display = "none";
       document.getElementById("audit-loading-view").style.display = "none";
-      document.getElementById("audit-form-view").style.display = "block";
+      document.getElementById("audit-form-view").style.display = "flex";
+
+      // Reset navbar back button to home
+      setNavbarBack(false);
+    }
+
+    // Track whether user is on the report page
+    function setNavbarBack(onReport, isCompetitor = false) {
+      const label = document.getElementById("navbar-back-label");
+      if (!label) return;
+      label.textContent = onReport ? "Back to Report Generation" : "Back to Home";
+      const btn = document.getElementById("navbar-back-btn-main");
+      if (btn) {
+        btn.dataset.onReport = (onReport && !isCompetitor) ? "1" : "0";
+        btn.dataset.onCompetitorReport = (onReport && isCompetitor) ? "1" : "0";
+      }
+    }
+
+    function handleNavbarBack() {
+      const btn = document.getElementById("navbar-back-btn-main");
+      
+      // Check if user is currently viewing the single client details in LSA tab
+      const lsaSingleLayout = document.getElementById("lsa-single-analysis-layout");
+      const lsaTab = document.getElementById("tab-lsa-calls");
+      
+      if (lsaTab && lsaTab.classList.contains("active") && lsaSingleLayout && lsaSingleLayout.style.display === "flex") {
+        if (typeof showLsaQueue === 'function') {
+          showLsaQueue();
+          return;
+        }
+      }
+
+      // Check if user is currently viewing the details page in Service Pages tab
+      const optDetailLayout = document.getElementById("service-pages-detail-view");
+      const optTab = document.getElementById("tab-service-pages");
+      
+      if (optTab && optTab.classList.contains("active") && optDetailLayout && optDetailLayout.style.display === "flex") {
+        if (typeof showServicePagesQueue === 'function') {
+          showServicePagesQueue();
+          return;
+        }
+      }
+
+      if (btn && btn.dataset.onReport === "1") {
+        // User is on report — go back to form (same as New Audit reset)
+        resetAuditForm();
+      } else if (btn && btn.dataset.onCompetitorReport === "1") {
+        // User is on competitor report — go back to competitor form
+        resetCompetitorForm();
+      } else {
+        window.location.href = '/';
+      }
+    }
+
+    // COMPETITOR SEO AUDIT FUNCTIONS
+    function runCompetitorSimulation(event) {
+      if (event && event.preventDefault) event.preventDefault();
+
+      const clientName = document.getElementById("competitor-client-name").value.trim() || "Apex Climate Control";
+      const companyUrl = document.getElementById("competitor-company-url").value.trim() || "www.apexclimatecontrol.com";
+      const keyword = document.getElementById("competitor-target-keyword").value.trim() || "HVAC repair Alabama";
+      const rank = document.getElementById("competitor-current-rank").value.trim() || "5th Place";
+
+      // Show loader, hide form
+      document.getElementById("competitor-form-view").style.display = "none";
+      document.getElementById("competitor-loading-view").style.display = "block";
+      document.getElementById("competitor-report-view").style.display = "none";
+
+      const statusEl = document.getElementById("competitor-loading-status");
+
+      // Reset steps visual indicators
+      const steps = [1, 2, 3, 4, 5];
+      steps.forEach(num => {
+        const el = document.getElementById("competitor-step-" + num);
+        if (el) {
+          el.style.color = "var(--color-secondary)";
+          el.innerHTML = `<i data-lucide="circle" style="width: 16px; height: 16px;"></i> ` + getCompetitorStepName(num);
+        }
+      });
+      if (window.lucide) lucide.createIcons();
+
+      // Step 1
+      setTimeout(() => {
+        statusEl.innerText = "Crawling competitor sites & extracting metadata...";
+        const el = document.getElementById("competitor-step-1");
+        if (el) {
+          el.style.color = "var(--color-accent)";
+          el.innerHTML = `<i data-lucide="loader-2" class="animate-spin" style="width: 16px; height: 16px; animation: spin 1s linear infinite;"></i> Initializing competitor SEO crawl...`;
+        }
+        if (window.lucide) lucide.createIcons();
+      }, 0);
+
+      // Step 2
+      setTimeout(() => {
+        const el1 = document.getElementById("competitor-step-1");
+        if (el1) {
+          el1.style.color = "var(--color-success)";
+          el1.innerHTML = `<i data-lucide="check-circle-2" style="width: 16px; height: 16px; color: var(--color-success);"></i> Initializing competitor SEO crawl...`;
+        }
+
+        statusEl.innerText = "Extracting SERP positions for keyword: " + keyword;
+        const el2 = document.getElementById("competitor-step-2");
+        if (el2) {
+          el2.style.color = "var(--color-accent)";
+          el2.innerHTML = `<i data-lucide="loader-2" class="animate-spin" style="width: 16px; height: 16px; animation: spin 1s linear infinite;"></i> Extracting search term rankings...`;
+        }
+        if (window.lucide) lucide.createIcons();
+      }, 1000);
+
+      // Step 3
+      setTimeout(() => {
+        const el2 = document.getElementById("competitor-step-2");
+        if (el2) {
+          el2.style.color = "var(--color-success)";
+          el2.innerHTML = `<i data-lucide="check-circle-2" style="width: 16px; height: 16px; color: var(--color-success);"></i> Extracting search term rankings...`;
+        }
+
+        statusEl.innerText = "Comparing landing pages and H1-H3 layout structures...";
+        const el3 = document.getElementById("competitor-step-3");
+        if (el3) {
+          el3.style.color = "var(--color-accent)";
+          el3.innerHTML = `<i data-lucide="loader-2" class="animate-spin" style="width: 16px; height: 16px; animation: spin 1s linear infinite;"></i> Comparing pages and heading tags...`;
+        }
+        if (window.lucide) lucide.createIcons();
+      }, 2000);
+
+      // Step 4
+      setTimeout(() => {
+        const el3 = document.getElementById("competitor-step-3");
+        if (el3) {
+          el3.style.color = "var(--color-success)";
+          el3.innerHTML = `<i data-lucide="check-circle-2" style="width: 16px; height: 16px; color: var(--color-success);"></i> Comparing pages and heading tags...`;
+        }
+
+        statusEl.innerText = "Querying Gemini API for content optimization opportunities...";
+        const el4 = document.getElementById("competitor-step-4");
+        if (el4) {
+          el4.style.color = "var(--color-accent)";
+          el4.innerHTML = `<i data-lucide="loader-2" class="animate-spin" style="width: 16px; height: 16px; animation: spin 1s linear infinite;"></i> Running content gap checks in Gemini...`;
+        }
+        if (window.lucide) lucide.createIcons();
+      }, 3000);
+
+      // Step 5
+      setTimeout(() => {
+        const el4 = document.getElementById("competitor-step-4");
+        if (el4) {
+          el4.style.color = "var(--color-success)";
+          el4.innerHTML = `<i data-lucide="check-circle-2" style="width: 16px; height: 16px; color: var(--color-success);"></i> Running content gap checks in Gemini...`;
+        }
+
+        statusEl.innerText = "Creating optimization checklists in ClickUp workspace...";
+        const el5 = document.getElementById("competitor-step-5");
+        if (el5) {
+          el5.style.color = "var(--color-accent)";
+          el5.innerHTML = `<i data-lucide="loader-2" class="animate-spin" style="width: 16px; height: 16px; animation: spin 1s linear infinite;"></i> Mapping action tasks in ClickUp...`;
+        }
+        if (window.lucide) lucide.createIcons();
+      }, 4200);
+
+      // Finish & Show Report
+      setTimeout(() => {
+        const el5 = document.getElementById("competitor-step-5");
+        if (el5) {
+          el5.style.color = "var(--color-success)";
+          el5.innerHTML = `<i data-lucide="check-circle-2" style="width: 16px; height: 16px; color: var(--color-success);"></i> Mapping action tasks in ClickUp...`;
+        }
+        if (window.lucide) lucide.createIcons();
+
+        viewCompetitorReport(clientName, "Regional Competitors", companyUrl, keyword, rank);
+      }, 5500);
+    }
+
+    function getCompetitorStepName(num) {
+      switch (num) {
+        case 1: return "Initializing competitor SEO crawl...";
+        case 2: return "Extracting search term rankings...";
+        case 3: return "Comparing pages and heading tags...";
+        case 4: return "Running content gap checks in Gemini...";
+        case 5: return "Mapping action tasks in ClickUp...";
+      }
+      return "";
+    }
+
+    function viewCompetitorQuickReport(clientName, companyName, companyUrl) {
+      viewCompetitorReport(clientName, companyName, companyUrl, "HVAC repair Alabama", "5th Place");
+    }
+
+    function viewCompetitorReport(clientName, companyName, companyUrl, keyword, rank) {
+      document.querySelectorAll(".dyn-comp-client-name").forEach(el => {
+        el.innerText = clientName;
+      });
+      document.querySelectorAll(".dyn-comp-company-url").forEach(el => {
+        el.innerText = companyUrl;
+        if (el.tagName === 'A') el.href = "https://" + companyUrl.replace(/^(https?:\/\/)?(www\.)?/, "");
+      });
+      
+      const kwEl = document.getElementById("dyn-comp-keyword");
+      if (kwEl) kwEl.innerText = keyword;
+      
+      const rankEl = document.getElementById("dyn-comp-rank");
+      if (rankEl) rankEl.innerText = rank;
+
+      document.querySelectorAll(".dyn-comp-kw-text").forEach(el => {
+        el.innerText = keyword;
+      });
+
+      const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
+      const formattedDate = new Date().toLocaleDateString('en-US', dateOptions);
+      document.querySelectorAll(".dyn-competitor-date").forEach(el => {
+        el.innerText = formattedDate;
+      });
+
+      document.getElementById("competitor-form-view").style.display = "none";
+      document.getElementById("competitor-loading-view").style.display = "none";
+      document.getElementById("competitor-report-view").style.display = "block";
+
+      setNavbarBack(true, true);
+    }
+
+    function resetCompetitorForm() {
+      document.getElementById("competitor-target-keyword").value = "HVAC repair Alabama";
+      document.getElementById("competitor-current-rank").value = "5th Place";
+
+      document.getElementById("competitor-report-view").style.display = "none";
+      document.getElementById("competitor-loading-view").style.display = "none";
+      document.getElementById("competitor-form-view").style.display = "flex";
+
+      setNavbarBack(false, true);
+    }
+
+    function printCompetitorReport() {
+      window.print();
+    }
+
+    // SERVICE PAGE OPTIMIZER FUNCTIONS
+    const BASE_SERVICE_PAGES_DATA = [
+      {
+        title: "AC Repair",
+        url: "/services/ac-repair",
+        score: 45,
+        urgency: "Critical",
+        timeline: "Optimize Now",
+        competitor: "comfortmastershvac.com/services/ac-repair",
+        gapWordsClient: "610 words",
+        gapWordsComp: "1,850 words",
+        gapWordsBadge: "3x Gap",
+        gapHeadingsClient: "H1: 1 | H2: 3 | H3: 0",
+        gapHeadingsComp: "H1: 1 | H2: 12 | H3: 15",
+        gapHeadingsBadge: "Missing H3s",
+        gapSchemaClient: "LocalBusiness only",
+        gapSchemaComp: "LocalBusiness, FAQPage, Service",
+        gapSchemaBadge: "No FAQs",
+        recommendations: [
+          "<strong>Add H3 sub-headings</strong> for Montgomery neighborhoods (e.g., Eastchase, Halcyon, Deer Creek) to capture localized long-tail searches.",
+          "<strong>Integrate LocalBusiness schema markup</strong> and service schema tags in the header metadata.",
+          "<strong>Insert 4 local FAQ accordions</strong> at the bottom covering AC emergency calls, pricing guides, and same-day availability."
+        ],
+        linkingMedia: [
+          "<strong>Link from blog post</strong> <code>/blog/ac-maintenance-tips</code> with anchor text 'professional AC repair'.",
+          "<strong>Embed a customer video testimonial</strong> from a Montgomery homeowner directly in the middle of the service steps.",
+          "<strong>Add 3 local images</strong> of AC compressors with geographical metadata tags."
+        ],
+        webVitals: [
+          "<strong>Compress heavy hero image</strong> (currently 1.8MB PNG) to WebP format to save 85% bandwidth.",
+          "<strong>Leverage browser caching</strong> for static resources (CSS, JS, images) by updating the <code>.htaccess</code> rules."
+        ],
+        schemaCode: {
+          "@context": "https://schema.org",
+          "@type": "HVACBusiness",
+          "name": "Apex Heating & Air",
+          "url": "https://apexheatingandair.com/services/ac-repair",
+          "telephone": "+1-334-555-0199",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Montgomery",
+            "addressRegion": "AL",
+            "postalCode": "36104",
+            "addressCountry": "US"
+          },
+          "areaServed": "Montgomery, Alabama",
+          "serviceType": "AC Repair"
+        },
+        copyCurrent: "We offer professional AC repair in Montgomery, Alabama. Our technicians are certified. Call us for service.",
+        copySuggested: "Need emergency AC repair in Montgomery, AL? Our NATE-certified technicians provide 24/7 same-day HVAC repair, servicing all air conditioning models with upfront pricing and lifetime workmanship guarantees."
+      },
+      {
+        title: "Furnace & Heating Repair",
+        url: "/services/heating-repair",
+        score: 52,
+        urgency: "Critical",
+        timeline: "Optimize Now",
+        competitor: "comfortmastershvac.com/services/heating",
+        gapWordsClient: "580 words",
+        gapWordsComp: "1,450 words",
+        gapWordsBadge: "2.5x Gap",
+        gapHeadingsClient: "H1: 1 | H2: 2 | H3: 0",
+        gapHeadingsComp: "H1: 1 | H2: 10 | H3: 8",
+        gapHeadingsBadge: "Missing H3s",
+        gapSchemaClient: "LocalBusiness only",
+        gapSchemaComp: "LocalBusiness, Service",
+        gapSchemaBadge: "Missing Service",
+        recommendations: [
+          "<strong>Add a 4-step furnace troubleshooting checklist</strong> (filters, thermostat batteries, breakers) to capture DIY users.",
+          "<strong>Embed a local heating service reviews widget</strong> showing local Montgomery area furnace replacements.",
+          "<strong>Create clear CTA sections</strong> promoting seasonal furnace checkups and pre-winter packages."
+        ],
+        linkingMedia: [
+          "<strong>Link from homepage</strong> hero section under seasonal comfort offers.",
+          "<strong>Embed a comparison infographic</strong> showing Gas Furnaces vs. Heat Pumps efficiency."
+        ],
+        webVitals: [
+          "<strong>Reduce render-blocking resources</strong> by deferring non-essential CSS stylesheets.",
+          "<strong>Minify main stylesheet</strong> to improve mobile page loading speeds."
+        ],
+        schemaCode: {
+          "@context": "https://schema.org",
+          "@type": "HVACBusiness",
+          "name": "Apex Heating & Air",
+          "url": "https://apexheatingandair.com/services/heating-repair",
+          "telephone": "+1-334-555-0199",
+          "areaServed": "Montgomery, AL",
+          "serviceType": "Furnace Repair"
+        },
+        copyCurrent: "We do furnace and heating repair in Montgomery. Our staff can fix your heat pump or gas furnace.",
+        copySuggested: "Is your furnace blowing cold air? Our certified heating specialists provide rapid gas furnace repair and heat pump troubleshooting in Montgomery, restoring warm air with transparent pricing and zero hidden fees."
+      },
+      {
+        title: "Duct Cleaning & Air Quality",
+        url: "/services/duct-cleaning",
+        score: 61,
+        urgency: "High",
+        timeline: "Optimize Now",
+        competitor: "guardianairsolutions.com/iaq-ducts",
+        gapWordsClient: "680 words",
+        gapWordsComp: "1,520 words",
+        gapWordsBadge: "2.2x Gap",
+        gapHeadingsClient: "H1: 1 | H2: 4 | H3: 1",
+        gapHeadingsComp: "H1: 1 | H2: 9 | H3: 6",
+        gapHeadingsBadge: "Weak H3 depth",
+        gapSchemaClient: "LocalBusiness only",
+        gapSchemaComp: "LocalBusiness, FAQPage, Service",
+        gapSchemaBadge: "No FAQ Schema",
+        recommendations: [
+          "<strong>Add indoor air quality (IAQ) facts</strong> detailing dust, allergen, and pet dander benefits.",
+          "<strong>Implement FAQ schema</strong> targeting local air quality standards and duct cleaning cycles.",
+          "<strong>List specialized sanitization methods</strong> used by our team to assure clean ducts."
+        ],
+        linkingMedia: [
+          "<strong>Link from AC Tune-up page</strong> suggesting duct inspections during routine maintenance checks.",
+          "<strong>Add interactive before/after sliders</strong> showcasing dirty vs clean air ducts."
+        ],
+        webVitals: [
+          "<strong>Optimize image loading</strong> by implementing <code>loading='lazy'</code> on all air filter pictures.",
+          "<strong>Eliminate unused JavaScript</strong> in the third-party review widgets."
+        ],
+        schemaCode: {
+          "@context": "https://schema.org",
+          "@type": "HVACBusiness",
+          "name": "Apex Heating & Air",
+          "url": "https://apexheatingandair.com/services/duct-cleaning",
+          "areaServed": "Montgomery, AL",
+          "serviceType": "Duct Cleaning"
+        },
+        copyCurrent: "We clean air ducts and check indoor air quality. We remove dust and debris from your system.",
+        copySuggested: "Breathe cleaner air today. Our high-power duct cleaning and indoor air sanitization services remove 99% of dust, pollen, and pet dander from your HVAC system, improving airflow and HVAC efficiency."
+      },
+      {
+        title: "Heat Pump Services",
+        url: "/services/heat-pump",
+        score: 74,
+        urgency: "High",
+        timeline: "In 2 Months",
+        competitor: "comfortmastershvac.com/heat-pumps",
+        gapWordsClient: "820 words",
+        gapWordsComp: "1,200 words",
+        gapWordsBadge: "1.5x Gap",
+        gapHeadingsClient: "H1: 1 | H2: 5 | H3: 2",
+        gapHeadingsComp: "H1: 1 | H2: 8 | H3: 5",
+        gapHeadingsBadge: "Minor gap",
+        gapSchemaClient: "LocalBusiness, Service",
+        gapSchemaComp: "LocalBusiness, Service, Product",
+        gapSchemaBadge: "No Product Schema",
+        recommendations: [
+          "<strong>Build a SEER & COP comparison table</strong> to visually explain energy efficiency differences.",
+          "<strong>Detail local utility rebates</strong> (e.g. Alabama Power) for high-efficiency heat pump upgrades.",
+          "<strong>Explain dual-fuel heating systems</strong> and their benefits in southern climates."
+        ],
+        linkingMedia: [
+          "<strong>Link from AC Repair page</strong> under 'When to Replace' sections.",
+          "<strong>Embed a custom video guide</strong> explaining the dual-heating hybrid system."
+        ],
+        webVitals: [
+          "<strong>Eliminate layout shifts (CLS)</strong> by reserving explicit width/height ratios on product icons."
+        ],
+        schemaCode: {
+          "@context": "https://schema.org",
+          "@type": "HVACBusiness",
+          "name": "Apex Heating & Air",
+          "url": "https://apexheatingandair.com/services/heat-pump",
+          "serviceType": "Heat Pump Installation"
+        },
+        copyCurrent: "We install and repair heat pumps. Heat pumps work for both heating and cooling.",
+        copySuggested: "Get year-round comfort with professional heat pump installation and repair in Montgomery. Save up to 30% on utility bills using our high-efficiency hybrid heat pump setups, backed by local energy rebates."
+      },
+      {
+        title: "AC Maintenance & Tune-Up",
+        url: "/services/ac-tune-up",
+        score: 78,
+        urgency: "Medium",
+        timeline: "In 2 Months",
+        competitor: "southerncomforthvac.com/ac-tune-ups",
+        gapWordsClient: "890 words",
+        gapWordsComp: "1,100 words",
+        gapWordsBadge: "1.2x Gap",
+        gapHeadingsClient: "H1: 1 | H2: 6 | H3: 3",
+        gapHeadingsComp: "H1: 1 | H2: 8 | H3: 4",
+        gapHeadingsBadge: "Aligned",
+        gapSchemaClient: "LocalBusiness, Service",
+        gapSchemaComp: "LocalBusiness, FAQPage, Service",
+        gapSchemaBadge: "No FAQ Schema",
+        recommendations: [
+          "<strong>Incorporate a 21-point checklist</strong> detailing the exact steps in our seasonal tune-up.",
+          "<strong>Add local testimonial quotes</strong> focused on preventive cooling maintenance plans.",
+          "<strong>Link to the Comfort Club membership page</strong> to drive recurring agreements."
+        ],
+        linkingMedia: [
+          "<strong>Link from blog posts</strong> discussing spring preparation advice.",
+          "<strong>Embed a printable 21-point checklist PDF</strong> for download to boost conversion metrics."
+        ],
+        webVitals: [
+          "<strong>Pre-connect to Google Fonts</strong> to speed up typography rendering times on mobile devices."
+        ],
+        schemaCode: {
+          "@context": "https://schema.org",
+          "@type": "HVACBusiness",
+          "name": "Apex Heating & Air",
+          "url": "https://apexheatingandair.com/services/ac-tune-up",
+          "serviceType": "AC Maintenance"
+        },
+        copyCurrent: "Get your air conditioner tuned up for the summer. We do a full inspection of your AC unit.",
+        copySuggested: "Prevent unexpected cooling failures with our comprehensive 21-point AC maintenance tune-up. We clean coils, check coolant pressures, and calibrate thermostats to guarantee peak performance during hot Alabama summers."
+      },
+      {
+        title: "Commercial HVAC Systems",
+        url: "/services/commercial-hvac",
+        score: 82,
+        urgency: "Medium",
+        timeline: "In 6 Months",
+        competitor: "guardianairsolutions.com/commercial",
+        gapWordsClient: "950 words",
+        gapWordsComp: "1,250 words",
+        gapWordsBadge: "1.3x Gap",
+        gapHeadingsClient: "H1: 1 | H2: 7 | H3: 4",
+        gapHeadingsComp: "H1: 1 | H2: 10 | H3: 6",
+        gapHeadingsBadge: "Minor gap",
+        gapSchemaClient: "LocalBusiness, Service",
+        gapSchemaComp: "LocalBusiness, Service",
+        gapSchemaBadge: "Aligned",
+        recommendations: [
+          "<strong>Add client logos</strong> of local businesses, offices, and commercial spaces serviced.",
+          "<strong>Incorporate commercial project galleries</strong> showing heavy cooling unit installs.",
+          "<strong>Detail customizable custom contracts</strong> for routine business HVAC servicing."
+        ],
+        linkingMedia: [
+          "<strong>Link from corporate partner logos</strong> in case study pages.",
+          "<strong>Embed high-resolution galleries</strong> showing industrial cooling installs."
+        ],
+        webVitals: [
+          "<strong>Enable GZIP compression</strong> on text-based assets via server settings."
+        ],
+        schemaCode: {
+          "@context": "https://schema.org",
+          "@type": "HVACBusiness",
+          "name": "Apex Heating & Air",
+          "url": "https://apexheatingandair.com/services/commercial-hvac",
+          "serviceType": "Commercial HVAC"
+        },
+        copyCurrent: "We offer commercial heating and air repair for businesses. We handle large scale commercial projects.",
+        copySuggested: "Keep your commercial property comfortable and compliant. Our commercial HVAC contractors specialize in high-capacity systems, custom maintenance contracts, and emergency repair for offices and retail storefronts."
+      },
+      {
+        title: "Thermostats & Smart Controls",
+        url: "/services/smart-thermostats",
+        score: 85,
+        urgency: "Low",
+        timeline: "In 6 Months",
+        competitor: "totalhomecomfort.com/smart-controls",
+        gapWordsClient: "910 words",
+        gapWordsComp: "1,050 words",
+        gapWordsBadge: "1.1x Gap",
+        gapHeadingsClient: "H1: 1 | H2: 5 | H3: 4",
+        gapHeadingsComp: "H1: 1 | H2: 6 | H3: 5",
+        gapHeadingsBadge: "Aligned",
+        gapSchemaClient: "LocalBusiness, Service",
+        gapSchemaComp: "LocalBusiness, Service",
+        gapSchemaBadge: "Aligned",
+        recommendations: [
+          "<strong>Integrate an interactive smart thermostat comparison widget</strong> (Google Nest vs. Ecobee).",
+          "<strong>Explain home zoning systems</strong> and how smart controls reduce energy consumption."
+        ],
+        linkingMedia: [
+          "<strong>Link from AC Tune-up page</strong> suggesting smart thermostat add-ons.",
+          "<strong>Embed standard manufacturer video</strong> for Nest thermostat setup."
+        ],
+        webVitals: [
+          "<strong>Reduce third-party script impacts</strong> from the Google Map embed iframe."
+        ],
+        schemaCode: {
+          "@context": "https://schema.org",
+          "@type": "HVACBusiness",
+          "name": "Apex Heating & Air",
+          "url": "https://apexheatingandair.com/services/smart-thermostats",
+          "serviceType": "Smart Thermostat Setup"
+        },
+        copyCurrent: "We install smart thermostats like Nest and Ecobee to help you save power.",
+        copySuggested: "Upgrade to a smart Wi-Fi thermostat and take control of your energy bill. We install advanced Nest and Ecobee controls that learn your heating and cooling preferences, reducing energy waste by up to 15%."
+      },
+      {
+        title: "Emergency HVAC Services",
+        url: "/services/emergency-hvac",
+        score: 89,
+        urgency: "Low",
+        timeline: "In 6 Months",
+        competitor: "patriothomeservices.com/emergency",
+        gapWordsClient: "1,150 words",
+        gapWordsComp: "1,200 words",
+        gapWordsBadge: "Aligned",
+        gapHeadingsClient: "H1: 1 | H2: 8 | H3: 6",
+        gapHeadingsComp: "H1: 1 | H2: 9 | H3: 6",
+        gapHeadingsBadge: "Aligned",
+        gapSchemaClient: "LocalBusiness, Service, FAQ",
+        gapSchemaComp: "LocalBusiness, Service, FAQ",
+        gapSchemaBadge: "Aligned",
+        recommendations: [
+          "<strong>Maintain ranking monitoring monthly</strong>. Ensure tap-to-call mobile buttons remain active.",
+          "<strong>Update emergency response times</strong> on the page to reflect summer dispatch bandwidth."
+        ],
+        linkingMedia: [
+          "<strong>Add sticky tap-to-call banners</strong> visible exclusively on mobile views.",
+          "<strong>Incorporate trust seals</strong> next to emergency dispatch forms."
+        ],
+        webVitals: [
+          "<strong>Ensure critical CSS is inlined</strong> to maintain sub-second First Contentful Paint times."
+        ],
+        schemaCode: {
+          "@context": "https://schema.org",
+          "@type": "HVACBusiness",
+          "name": "Apex Heating & Air",
+          "url": "https://apexheatingandair.com/services/emergency-hvac",
+          "serviceType": "Emergency HVAC Services"
+        },
+        copyCurrent: "We offer 24 hour emergency AC and heating repairs. Call us anytime day or night.",
+        copySuggested: "Stuck in the heat? Our emergency HVAC repair teams are on call 24/7/365 in Montgomery. We dispatch NATE-certified technicians instantly to restore heating and air conditioning when you need it most."
+      }
+    ];
+
+    let servicePagesData = [];
+
+    const CLIENTS_INFO = [
+      { name: "Apex Climate Control", city: "Montgomery", state: "AL", competitor: "comfortmastershvac.com", neighborhoods: "Eastchase, Halcyon, Deer Creek", baseDomain: "apexclimatecontrol.com" },
+      { name: "Precision HVAC Experts", city: "Birmingham", state: "AL", competitor: "birminghamhvacpros.com", neighborhoods: "Hoover, Vestavia Hills, Homewood", baseDomain: "precisionhvac.com" },
+      { name: "Comfort Zone Heating & Air", city: "Huntsville", state: "AL", competitor: "huntsvilleacservice.com", neighborhoods: "Madison, Decatur, Athens", baseDomain: "comfortzoneheating.com" },
+      { name: "Elite Air Systems", city: "Mobile", state: "AL", competitor: "mobilesuperiorair.com", neighborhoods: "Daphne, Fairhope, Prichard", baseDomain: "eliteairsystems.com" },
+      { name: "Rapid Response Air", city: "Tuscaloosa", state: "AL", competitor: "tuscaloosatemps.com", neighborhoods: "Northport, Cottondale, Holt", baseDomain: "rapidresponseair.com" },
+      { name: "Pure Air Solutions", city: "Auburn", state: "AL", competitor: "auburnclimate.com", neighborhoods: "Opelika, Phenix City, Smiths Station", baseDomain: "pureairsolutions.com" },
+      { name: "Airflow Masters", city: "Prattville", state: "AL", competitor: "prattvillehvac.com", neighborhoods: "Millbrook, Deatsville, Autaugaville", baseDomain: "airflowmasters.com" },
+      { name: "Frosty Systems", city: "Wetumpka", state: "AL", competitor: "wetumpkaheating.com", neighborhoods: "Elmore, Coosada, Blue Ridge", baseDomain: "frostysystems.com" },
+      { name: "Prime Comfort HVAC", city: "Selma", state: "AL", competitor: "selmaairconditioning.com", neighborhoods: "Valley Grande, Beloit, Sardis", baseDomain: "primecomforthvac.com" },
+      { name: "EcoTemp Climate Services", city: "Troy", state: "AL", competitor: "troytemperature.com", neighborhoods: "Brundidge, Banks, Goshen", baseDomain: "ecotempclimate.com" }
+    ];
+
+    window.changeClientOptimizer = function() {
+      const selectEl = document.getElementById("opt-filter-client");
+      if (!selectEl) return;
+      
+      const clientName = selectEl.value;
+      const clientInfo = CLIENTS_INFO.find(c => c.name === clientName) || CLIENTS_INFO[0];
+      const clientIndex = CLIENTS_INFO.indexOf(clientInfo);
+
+      servicePagesData = BASE_SERVICE_PAGES_DATA.map(basePage => {
+        const offset = (clientIndex * 4 + basePage.title.length) % 15 - 7;
+        let newScore = Math.max(30, Math.min(95, basePage.score + offset));
+        
+        let newUrgency = basePage.urgency;
+        let newTimeline = basePage.timeline;
+        if (newScore < 55) {
+          newUrgency = "Critical";
+          newTimeline = "Optimize Now";
+        } else if (newScore < 75) {
+          newUrgency = "High";
+          newTimeline = "In 2 Months";
+        } else if (newScore < 85) {
+          newUrgency = "Medium";
+          newTimeline = "In 2 Months";
+        } else {
+          newUrgency = "Low";
+          newTimeline = "In 6 Months";
+        }
+
+        const replaceGeo = (text) => {
+          return text
+            .replace(/Montgomery, Alabama/g, `${clientInfo.city}, Alabama`)
+            .replace(/Montgomery, AL/g, `${clientInfo.city}, ${clientInfo.state}`)
+            .replace(/Montgomery/g, clientInfo.city)
+            .replace(/Eastchase, Halcyon, Deer Creek/g, clientInfo.neighborhoods);
+        };
+
+        const newRecs = basePage.recommendations.map(replaceGeo);
+        const newLinking = basePage.linkingMedia.map(replaceGeo);
+        const newVitals = basePage.webVitals.map(replaceGeo);
+        const newCopyCurrent = replaceGeo(basePage.copyCurrent);
+        const newCopySuggested = replaceGeo(basePage.copySuggested);
+
+        let gapWordsClient = basePage.gapWordsClient;
+        let gapWordsComp = basePage.gapWordsComp;
+        let gapWordsBadge = basePage.gapWordsBadge;
+
+        if (basePage.gapWordsBadge !== "Aligned") {
+          const baseWords = parseInt(basePage.gapWordsClient);
+          const compWords = parseInt(basePage.gapWordsComp);
+          const newBaseWords = Math.round(baseWords * (1 + offset * 0.03));
+          const newCompWords = Math.round(compWords * (1 - offset * 0.02));
+          gapWordsClient = `${newBaseWords} words`;
+          gapWordsComp = `${newCompWords} words`;
+          const gapRatio = (newCompWords / newBaseWords).toFixed(1);
+          gapWordsBadge = gapRatio > 1.2 ? `${gapRatio}x Gap` : "Aligned";
+        }
+
+        // Dynamically replace original competitor domain with this client's competitor domain
+        let competitorUrl = basePage.competitor;
+        const slashIdx = competitorUrl.indexOf('/');
+        if (slashIdx !== -1) {
+          competitorUrl = clientInfo.competitor + competitorUrl.substring(slashIdx);
+        } else {
+          competitorUrl = clientInfo.competitor;
+        }
+
+        const newSchema = JSON.parse(JSON.stringify(basePage.schemaCode));
+        newSchema.name = clientInfo.name;
+        newSchema.url = `https://${clientInfo.baseDomain}${basePage.url}`;
+        newSchema.areaServed = `${clientInfo.city}, Alabama`;
+        if (newSchema.address) {
+          newSchema.address.addressLocality = clientInfo.city;
+        }
+
+        // Generate customized title with client's city
+        const newTitle = basePage.title.includes(clientInfo.city) ? basePage.title : basePage.title + " " + clientInfo.city;
+
+        return {
+          ...basePage,
+          title: newTitle,
+          score: newScore,
+          urgency: newUrgency,
+          timeline: newTimeline,
+          competitor: competitorUrl,
+          gapWordsClient,
+          gapWordsComp,
+          gapWordsBadge,
+          recommendations: newRecs,
+          linkingMedia: newLinking,
+          webVitals: newVitals,
+          copyCurrent: newCopyCurrent,
+          copySuggested: newCopySuggested,
+          schemaCode: newSchema
+        };
+      });
+
+      // User requested: do NOT select first item by default
+      selectedServicePageIndex = null;
+      renderServicePagesTable();
+
+      // Dynamically calculate and update metric cards
+      const totalPages = servicePagesData.length;
+      const criticalOrHighCount = servicePagesData.filter(p => p.urgency === "Critical" || p.urgency === "High").length;
+      const optimizedCount = servicePagesData.filter(p => p.score > 70).length;
+      const avgScore = totalPages > 0 ? Math.round(servicePagesData.reduce((acc, p) => acc + p.score, 0) / totalPages) : 0;
+
+      const trackedEl = document.getElementById("opt-metric-tracked");
+      if (trackedEl) trackedEl.innerText = totalPages;
+
+      const urgencyEl = document.getElementById("opt-metric-urgency");
+      if (urgencyEl) urgencyEl.innerText = criticalOrHighCount;
+
+      const optimizedEl = document.getElementById("opt-metric-optimized");
+      if (optimizedEl) optimizedEl.innerText = optimizedCount;
+
+      const avgScoreEl = document.getElementById("opt-metric-avg-score");
+      if (avgScoreEl) avgScoreEl.innerText = avgScore + "%";
+
+      const headerClientName = document.getElementById("opt-header-client-name");
+      if (headerClientName) {
+        headerClientName.innerText = clientName;
+      }
+
+      const mainView = document.getElementById("service-pages-main-view");
+      const detailView = document.getElementById("service-pages-detail-view");
+      if (mainView) mainView.style.display = "flex";
+      if (detailView) detailView.style.display = "none";
+      const label = document.getElementById("navbar-back-label");
+      if (label) label.innerText = "Back to Home";
+
+      // Sync back to main dashboard inputs and report elements in the background
+      const companyNameEl = document.getElementById("audit-company-name");
+      if (companyNameEl && companyNameEl.value !== clientInfo.name) {
+        const contactMap = {
+          "Apex Climate Control": "Robert Johnson",
+          "Precision HVAC Experts": "Jane Smith",
+          "Comfort Zone Heating & Air": "Michael Miller",
+          "Elite Air Systems": "Sarah Davis",
+          "Rapid Response Air": "John Doe",
+          "Pure Air Solutions": "Alice Williams",
+          "Airflow Masters": "Bob Brown",
+          "Frosty Systems": "Charlie Davis",
+          "Prime Comfort HVAC": "David Evans",
+          "EcoTemp Climate Services": "Eva Green"
+        };
+        const contactName = contactMap[clientInfo.name] || "John Doe";
+        const companyUrl = `https://${clientInfo.baseDomain}`;
+
+        document.getElementById("audit-client-name").value = contactName;
+        document.getElementById("audit-company-name").value = clientInfo.name;
+        document.getElementById("audit-company-url").value = companyUrl;
+
+        if (document.getElementById("report-client-name")) {
+          document.getElementById("report-client-name").innerText = contactName;
+        }
+        if (document.getElementById("report-company-name")) {
+          document.getElementById("report-company-name").innerText = clientInfo.name;
+        }
+        if (document.getElementById("report-company-url")) {
+          document.getElementById("report-company-url").innerText = companyUrl;
+          document.getElementById("report-company-url").href = companyUrl;
+        }
+        document.querySelectorAll('.dyn-company-name').forEach(el => {
+          el.innerText = clientInfo.name;
+        });
+        document.querySelectorAll('.dyn-company-url').forEach(el => {
+          el.innerText = companyUrl;
+          if (el.tagName === 'A') el.href = companyUrl;
+        });
+
+        // Update link elements in dashboard report
+        const homepageLinkEl = document.getElementById("report-link-homepage");
+        if (homepageLinkEl) {
+          homepageLinkEl.innerText = companyUrl + "/";
+          homepageLinkEl.href = companyUrl;
+        }
+        const acLinkEl = document.getElementById("report-link-ac");
+        if (acLinkEl) {
+          acLinkEl.innerText = companyUrl + "/ac-repair";
+          acLinkEl.href = companyUrl + "/ac-repair";
+        }
+        const contactLinkEl = document.getElementById("report-link-contact");
+        if (contactLinkEl) {
+          contactLinkEl.innerText = companyUrl + "/contact";
+          contactLinkEl.href = companyUrl + "/contact";
+        }
+      }
+    };
+
+    window.syncDashboardClientToOptimizer = function() {
+      const companyNameEl = document.getElementById("audit-company-name");
+      const optSelectEl = document.getElementById("opt-filter-client");
+      if (!companyNameEl || !optSelectEl) return;
+      
+      const currentCompany = companyNameEl.value.trim();
+      if (!currentCompany) return;
+
+      // Find match in CLIENTS_INFO
+      const match = CLIENTS_INFO.find(c => c.name.toLowerCase() === currentCompany.toLowerCase() || c.baseDomain.toLowerCase() === currentCompany.toLowerCase());
+      if (match) {
+        if (optSelectEl.value !== match.name) {
+          optSelectEl.value = match.name;
+          changeClientOptimizer();
+        }
+      }
+    };
+
+    let selectedServicePageIndex = null;
+
+    window.renderServicePagesTable = function() {
+      const tbody = document.getElementById("service-pages-table-body");
+      if (!tbody) return;
+
+      const urgencyFilter = document.getElementById("opt-filter-urgency").value;
+      const timelineFilter = document.getElementById("opt-filter-timeline").value;
+
+      tbody.innerHTML = "";
+
+      let displayedCount = 0;
+
+      servicePagesData.forEach((page, idx) => {
+        // Apply filters
+        if (urgencyFilter !== "ALL" && page.urgency !== urgencyFilter) return;
+        if (timelineFilter !== "ALL" && page.timeline !== timelineFilter) return;
+
+        displayedCount++;
+
+        // Style priority badges
+        let urgencyBadgeStyle = "";
+        if (page.urgency === "Critical") urgencyBadgeStyle = "color: #dc2626; background: #fee2e2; font-weight: 700;";
+        else if (page.urgency === "High") urgencyBadgeStyle = "color: #ea580c; background: #ffedd5; font-weight: 700;";
+        else if (page.urgency === "Medium") urgencyBadgeStyle = "color: #0284c7; background: #e0f2fe; font-weight: 700;";
+        else urgencyBadgeStyle = "color: #16a34a; background: #dcfce7; font-weight: 700;";
+
+        // Style score colors
+        let scoreColor = "#16a34a";
+        if (page.score < 55) scoreColor = "#dc2626";
+        else if (page.score < 75) scoreColor = "#ea580c";
+
+        // Style timeline color
+        let timelineStyle = "color: #4b5563; font-weight: 555; font-size: 14.5px;";
+        if (page.timeline === "Optimize Now") timelineStyle = "color: #dc2626; font-weight: 700; font-size: 14.5px;";
+        else if (page.timeline === "In 2 Months") timelineStyle = "color: #ea580c; font-weight: 600; font-size: 14.5px;";
+
+        const isSelected = selectedServicePageIndex === idx;
+        const rowBg = isSelected ? "background: #fdfaf1; border-left: 4px solid var(--color-accent);" : "";
+
+        const tr = document.createElement("tr");
+        tr.style.cssText = `border-bottom: 1px solid var(--color-border); cursor: pointer; transition: background 0.15s ease; ${rowBg}`;
+        tr.onclick = () => selectServicePage(idx);
+
+        tr.innerHTML = `
+          <td style="padding: 14px 16px; vertical-align: middle;">
+            <div style="font-weight: 600; color: var(--color-primary); font-size: 15px;">${page.title}</div>
+            <div style="font-size: 11.5px; font-family: monospace; color: var(--color-secondary); margin-top: 2px;">${page.url}</div>
+          </td>
+          <td style="padding: 14px 16px; text-align: center; vertical-align: middle; font-weight: 700; color: ${scoreColor}; font-size: 15px;">
+            ${page.score}%
+          </td>
+          <td style="padding: 14px 16px; text-align: center; vertical-align: middle;">
+            <span style="font-size: 11.5px; padding: 4px 10px; border-radius: 6px; display: inline-block; ${urgencyBadgeStyle}">
+              ${page.urgency.toUpperCase()}
+            </span>
+          </td>
+          <td style="padding: 14px 16px; text-align: center; vertical-align: middle; ${timelineStyle}">
+            ${page.timeline}
+          </td>
+          <td style="padding: 14px 16px; text-align: center; vertical-align: middle;">
+            <button class="btn-primary" style="padding: 6px 12px; font-size: 12px; border-radius: 8px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; background: ${isSelected ? 'var(--color-primary)' : 'var(--color-accent)'}; border: none; color: white;">
+              <i data-lucide="${isSelected ? 'check' : 'sparkles'}" style="width: 12px; height: 12px;"></i>
+              Brief
+            </button>
+          </td>
+        `;
+
+        tbody.appendChild(tr);
+      });
+
+      if (displayedCount === 0) {
+        tbody.innerHTML = `<tr><td colspan="5" style="padding: 40px 20px; text-align: center; color: var(--color-secondary); font-style: italic;">No service pages match selected filters.</td></tr>`;
+      }
+
+      if (window.lucide) lucide.createIcons();
+    }
+
+    window.selectServicePage = function(idx, showDetail = true) {
+      selectedServicePageIndex = idx;
+      renderServicePagesTable();
+
+      const mainView = document.getElementById("service-pages-main-view");
+      const detailView = document.getElementById("service-pages-detail-view");
+
+      if (showDetail) {
+        if (mainView) mainView.style.display = "none";
+        if (detailView) {
+          detailView.style.display = "flex";
+          const label = document.getElementById("navbar-back-label");
+          if (label) label.innerText = "Back to Optimization Queue";
+        }
+      }
+
+      const page = servicePagesData[idx];
+
+      // Update DOM
+      document.getElementById("brief-page-title").innerText = page.title;
+      document.getElementById("brief-page-url").innerText = page.url;
+      document.getElementById("brief-competitor-ref").innerText = "Competitor Target: " + page.competitor;
+
+      // Update SEO score text and progress circle
+      const scoreText = document.getElementById("brief-score-text");
+      const scoreCircle = document.getElementById("brief-score-circle");
+      
+      let scoreColor = "#16a34a";
+      if (page.score < 55) scoreColor = "#dc2626";
+      else if (page.score < 75) scoreColor = "#ea580c";
+
+      scoreText.innerText = page.score + "%";
+      scoreText.style.color = scoreColor;
+      scoreCircle.style.stroke = scoreColor;
+
+      // Calculate stroke dashoffset (circumference = 100)
+      const offset = 100 - page.score;
+      scoreCircle.setAttribute("stroke-dashoffset", offset);
+
+      // Timeline badge
+      const timelineBadge = document.getElementById("brief-timeline-badge");
+      timelineBadge.innerText = page.timeline;
+      if (page.timeline === "Optimize Now") {
+        timelineBadge.style.cssText = "font-size: 13px; font-weight: 700; background: #fee2e2; color: #dc2626; padding: 4px 10px; border-radius: 6px; text-transform: uppercase;";
+      } else if (page.timeline === "In 2 Months") {
+        timelineBadge.style.cssText = "font-size: 13px; font-weight: 700; background: #ffedd5; color: #ea580c; padding: 4px 10px; border-radius: 6px; text-transform: uppercase;";
+      } else {
+        timelineBadge.style.cssText = "font-size: 13px; font-weight: 700; background: #e0f2fe; color: #0284c7; padding: 4px 10px; border-radius: 6px; text-transform: uppercase;";
+      }
+
+      // Gap analysis table details
+      document.getElementById("brief-gap-words-client").innerText = page.gapWordsClient;
+      document.getElementById("brief-gap-words-comp").innerText = page.gapWordsComp;
+      const wordsBadge = document.getElementById("brief-gap-words-badge");
+      wordsBadge.innerText = page.gapWordsBadge;
+      if (page.gapWordsBadge === "Aligned") {
+        wordsBadge.style.cssText = "color: #16a34a; font-weight: 700; background: #dcfce7; padding: 4px 8px; border-radius: 6px; font-size: 12px;";
+      } else {
+        wordsBadge.style.cssText = "color: #dc2626; font-weight: 700; background: #fee2e2; padding: 4px 8px; border-radius: 6px; font-size: 12px;";
+      }
+
+      document.getElementById("brief-gap-headings-client").innerText = page.gapHeadingsClient;
+      document.getElementById("brief-gap-headings-comp").innerText = page.gapHeadingsComp;
+      const headingsBadge = document.getElementById("brief-gap-headings-badge");
+      headingsBadge.innerText = page.gapHeadingsBadge;
+      if (page.gapHeadingsBadge === "Aligned") {
+        headingsBadge.style.cssText = "color: #16a34a; font-weight: 700; background: #dcfce7; padding: 4px 8px; border-radius: 6px; font-size: 12px;";
+      } else if (page.gapHeadingsBadge === "Minor gap") {
+        headingsBadge.style.cssText = "color: #ea580c; font-weight: 700; background: #ffedd5; padding: 4px 8px; border-radius: 6px; font-size: 12px;";
+      } else {
+        headingsBadge.style.cssText = "color: #dc2626; font-weight: 700; background: #fee2e2; padding: 4px 8px; border-radius: 6px; font-size: 12px;";
+      }
+
+      document.getElementById("brief-gap-schema-client").innerText = page.gapSchemaClient;
+      document.getElementById("brief-gap-schema-comp").innerText = page.gapSchemaComp;
+      const schemaBadge = document.getElementById("brief-gap-schema-badge");
+      schemaBadge.innerText = page.gapSchemaBadge;
+      if (page.gapSchemaBadge === "Aligned") {
+        schemaBadge.style.cssText = "color: #16a34a; font-weight: 700; background: #dcfce7; padding: 4px 8px; border-radius: 6px; font-size: 12px;";
+      } else {
+        schemaBadge.style.cssText = "color: #ea580c; font-weight: 700; background: #ffedd5; padding: 4px 8px; border-radius: 6px; font-size: 12px;";
+      }
+
+      // Recommendations list
+      const recsList = document.getElementById("brief-recommendations-list");
+      recsList.innerHTML = "";
+      page.recommendations.forEach(rec => {
+        const li = document.createElement("li");
+        li.innerHTML = rec;
+        recsList.appendChild(li);
+      });
+
+      // Internal Linking & Media list
+      const linkMediaList = document.getElementById("brief-linking-media-list");
+      if (linkMediaList) {
+        linkMediaList.innerHTML = "";
+        if (page.linkingMedia && page.linkingMedia.length > 0) {
+          page.linkingMedia.forEach(item => {
+            const li = document.createElement("li");
+            li.innerHTML = item;
+            linkMediaList.appendChild(li);
+          });
+        } else {
+          linkMediaList.innerHTML = "<li>No significant linking opportunities identified.</li>";
+        }
+      }
+
+      // Web Vitals list
+      const vitalsList = document.getElementById("brief-web-vitals-list");
+      if (vitalsList) {
+        vitalsList.innerHTML = "";
+        if (page.webVitals && page.webVitals.length > 0) {
+          page.webVitals.forEach(item => {
+            const li = document.createElement("li");
+            li.innerHTML = item;
+            vitalsList.appendChild(li);
+          });
+        } else {
+          vitalsList.innerHTML = "<li>Core Web Vitals are within optimal range.</li>";
+        }
+      }
+      // Copy Proposal
+      document.getElementById("brief-copy-current").innerText = `"${page.copyCurrent}"`;
+      document.getElementById("brief-copy-suggested").innerText = `"${page.copySuggested}"`;
+
+      if (window.lucide) lucide.createIcons();
+    }
+
+    window.showServicePagesQueue = function() {
+      const mainView = document.getElementById("service-pages-main-view");
+      const detailView = document.getElementById("service-pages-detail-view");
+      if (mainView) mainView.style.display = "flex";
+      if (detailView) detailView.style.display = "none";
+      const label = document.getElementById("navbar-back-label");
+      if (label) label.innerText = "Back to Home";
+    };
+
+    window.filterServicePages = function() {
+      renderServicePagesTable();
+    }
+
+    window.syncBriefToClickUp = function() {
+      if (selectedServicePageIndex === null) return;
+      const page = servicePagesData[selectedServicePageIndex];
+
+      const btn = document.getElementById("btn-sync-brief");
+      const originalText = btn.innerHTML;
+
+      // Show loader spinner on button
+      btn.disabled = true;
+      btn.innerHTML = `<i data-lucide="loader-2" class="animate-spin" style="width: 15px; height: 15px; animation: spin 1s linear infinite;"></i> Synchronizing with ClickUp...`;
+      if (window.lucide) lucide.createIcons();
+
+      setTimeout(() => {
+        // Reset button
+        btn.disabled = false;
+        btn.innerHTML = originalText;
+        if (window.lucide) lucide.createIcons();
+
+        // Show toast
+        const toast = document.getElementById("opt-toast-alert");
+        const toastMsg = document.getElementById("opt-toast-msg");
+        if (toast && toastMsg) {
+          toastMsg.innerText = `"${page.title}" optimization tasks, internal links, speed fixes, and schema templates deployed directly to ClickUp copywriting boards!`;
+          toast.style.display = "flex";
+          
+          // Hide toast after 4 seconds
+          setTimeout(() => {
+            toast.style.display = "none";
+          }, 4000);
+        }
+      }, 1500);
     }
 
     function printAuditReport() {
       window.print();
     }
 
+    // LSA CALL ANALYZER DATABASE AND HANDLERS
+    const lsaCallsData = [
+      {
+        phone: "(334) 555-0199",
+        datetime: "06/15/2026 - 11:22 AM",
+        leadtype: "Google LSA",
+        jobtype: "AC Leaking",
+        location: "Halcyon Summit, AL",
+        status: "Booked",
+        chargestatus: "Charged ($45)",
+        confidence: "94%",
+        reason: "Mark Thomson booked an emergency visit for attic drain line clogging. Scheduled for today, 1 PM to 3 PM.",
+        transcript: [
+          { speaker: "Customer", text: "Hello, is this Apex Heating & Air? I have water leaking from my attic under my AC unit." },
+          { speaker: "Agent", text: "Yes, this is Apex Heating & Air! We can definitely help. Water leaking usually means a clogged condensate drain line. Can I get your address?" },
+          { speaker: "Customer", text: "Sure, I'm at 8110 Halcyon Summit Dr, Montgomery. My name is Mark Thomson." },
+          { speaker: "Agent", text: "Okay Mark, we can send a technician out this afternoon between 1 PM and 3 PM. Our diagnostic charge is $79, which goes towards the repair." },
+          { speaker: "Customer", text: "Yes, please book that. It's dripping onto my bedroom ceiling and I'm worried it will ruin the drywall." },
+          { speaker: "Agent", text: "I completely understand. While the technician is on the way, I recommend turning off your AC system at the thermostat. That will stop it from producing more water." },
+          { speaker: "Customer", text: "Good idea. I'll go turn it off right now. Do you know which technician is coming out?" },
+          { speaker: "Agent", text: "Yes, it will be Justin. He's one of our senior techs and handles a lot of drain line repairs in your neighborhood. He will text you a tracking link when he's on his way." },
+          { speaker: "Customer", text: "Perfect, thank you so much. I'll be waiting for his call." },
+          { speaker: "Agent", text: "You're welcome, Mark! Justin will see you this afternoon. Have a good day." }
+        ]
+      },
+      {
+        phone: "(334) 555-0144",
+        datetime: "06/15/2026 - 10:45 AM",
+        leadtype: "Google SEM",
+        jobtype: "Spam / Solicit",
+        location: "Atlanta, GA",
+        status: "Dispute Recommended",
+        chargestatus: "Charged ($45)",
+        confidence: "98%",
+        reason: "Caller is selling SEO/marketing services. No HVAC service requested. Refund recommended under advertising lead dispute guidelines.",
+        transcript: [
+          { speaker: "Customer", text: "Hi, I'm calling from SEO Grow. I wanted to speak to the owner about getting more leads for your AC repair business." },
+          { speaker: "Agent", text: "We are currently not interested in marketing services. This line is reserved for HVAC customer bookings." },
+          { speaker: "Customer", text: "Are you sure? We can guarantee page 1 rankings on Google search within 30 days or your money back." },
+          { speaker: "Agent", text: "Yes, we already have an in-house marketing agency that handles our SEO and Google Search campaigns." },
+          { speaker: "Customer", text: "Well, our strategy is different. We target local high-intent keywords that get you calls today. Let me send you a free audit report." },
+          { speaker: "Agent", text: "Again, this line is strictly for customer support and service calls. Please remove our number from your outreach list immediately." },
+          { speaker: "Customer", text: "Okay, can I get the owner's email address to send the proposal over?" },
+          { speaker: "Agent", text: "No, we do not distribute internal contact information. Thank you for your call. Goodbye." }
+        ]
+      },
+      {
+        phone: "(334) 555-0212",
+        datetime: "06/15/2026 - 09:15 AM",
+        leadtype: "Google LSA",
+        jobtype: "Out of Area",
+        location: "Birmingham, AL",
+        status: "Disputed",
+        chargestatus: "Refund Requested",
+        confidence: "96%",
+        reason: "Lead charge disputed successfully! Filed automated claim inside Google LSA console to recover $45 lead cost. Caller is located 90 miles outside service territory.",
+        transcript: [
+          { speaker: "Customer", text: "Hello, do you service the North Birmingham area? My heat pump is making a loud clicking sound." },
+          { speaker: "Agent", text: "I'm sorry, we only service Montgomery and surrounding areas within a 30-mile radius. Birmingham is outside our territory." },
+          { speaker: "Customer", text: "Oh, alright. I saw your ad and thought you serviced the whole state. Thanks anyway." },
+          { speaker: "Agent", text: "Yes, our Google Ads are configured for the River Region, but occasionally they get shown outside our target zone. Is there anything else I can help with?" },
+          { speaker: "Customer", text: "No, I just need a local repair company to look at it today. Do you know anyone in Birmingham you could recommend?" },
+          { speaker: "Agent", text: "You might want to call Birmingham Heating & Cooling or Express HVAC. They both have good reputations in that area." },
+          { speaker: "Customer", text: "Great, I will give them a call. Thanks for your help!" },
+          { speaker: "Agent", text: "You're welcome! Hope you get your heat pump fixed quickly." }
+        ]
+      },
+      {
+        phone: "(334) 555-0305",
+        datetime: "06/15/2026 - 08:30 AM",
+        leadtype: "Google SEM",
+        jobtype: "AC Tune-Up",
+        location: "East Montgomery, AL",
+        status: "Booked",
+        chargestatus: "Charged ($45)",
+        confidence: "92%",
+        reason: "Sarah Jenkins scheduled a standard seasonal AC tune-up and maintenance plan for June 17th morning.",
+        transcript: [
+          { speaker: "Customer", text: "Hi, I saw your Google Search ad for a $99 AC tune-up. Is that special still running?" },
+          { speaker: "Agent", text: "Yes, absolutely! We are running our seasonal maintenance special all month. We can schedule a technician to do a full 25-point inspection." },
+          { speaker: "Customer", text: "Great, I'd like to book that. Can we do Wednesday morning?" },
+          { speaker: "Agent", text: "Sure, we have an opening between 8 AM and 12 PM. Let me get your name and address." },
+          { speaker: "Customer", text: "My name is Sarah Jenkins, 425 Deer Creek Dr." },
+          { speaker: "Agent", text: "Thank you, Sarah. I have that address in our system. Is this a residential property?" },
+          { speaker: "Customer", text: "Yes, it's a single-family house. We haven't had the AC serviced in about two years, so it's definitely due." },
+          { speaker: "Agent", text: "It's definitely good practice to get it cleaned before the summer heat. Our technician will clean the condenser coils, check refrigerant levels, and test the electrical components." },
+          { speaker: "Customer", text: "That sounds very thorough. Will they also replace the filters?" },
+          { speaker: "Agent", text: "Yes, we include a standard 1-inch filter replacement. If you have a media cabinet or dynamic filters, we can replace those for the cost of the filter." },
+          { speaker: "Customer", text: "Ours is just a standard filter. Excellent. What is the total price again?" },
+          { speaker: "Agent", text: "It is exactly $99. You can pay the technician directly via credit card, check, or cash once the service is complete." },
+          { speaker: "Customer", text: "Perfect, Wednesday morning works great for me." },
+          { speaker: "Agent", text: "Wonderful, Sarah. Tech will call you when they're on their way. Thank you for choosing Apex!" }
+        ]
+      },
+      {
+        phone: "(334) 555-0182",
+        datetime: "06/14/2026 - 04:55 PM",
+        leadtype: "Google LSA",
+        jobtype: "Wrong Number / Job",
+        location: "Montgomery, AL",
+        status: "Dispute Recommended",
+        chargestatus: "Charged ($45)",
+        confidence: "95%",
+        reason: "Caller was trying to reach a different business for auto repair. Recommended for LSA cost refund dispute.",
+        transcript: [
+          { speaker: "Customer", text: "Hey, is this the mechanic shop? I need my brakes checked." },
+          { speaker: "Agent", text: "No, sorry, this is Apex Heating & Air. We only service residential heating and air conditioning units." },
+          { speaker: "Customer", text: "Oh, my bad, I must have clicked the wrong number on the map." },
+          { speaker: "Agent", text: "No worries at all! It happens all the time on mobile search results." },
+          { speaker: "Customer", text: "Yeah, I was searching for Apex Auto Repair and must have clicked your ad instead." },
+          { speaker: "Agent", text: "Totally understandable. They are located just a few blocks away from our offices. Hope you find their number!" },
+          { speaker: "Customer", text: "Thanks, man. Have a good one." },
+          { speaker: "Agent", text: "You too! Take care." }
+        ]
+      },
+      {
+        phone: "(334) 555-0741",
+        datetime: "06/14/2026 - 02:10 PM",
+        leadtype: "Google SEM",
+        jobtype: "Furnace Repair",
+        location: "Prattville, AL",
+        status: "Booked",
+        chargestatus: "Charged ($45)",
+        confidence: "91%",
+        reason: "David Lee booked diagnostic dispatch for furnace blowing cold air. Scheduled for June 15th morning.",
+        transcript: [
+          { speaker: "Customer", text: "Hello, my furnace is blowing cold air even though the thermostat is set to heat." },
+          { speaker: "Agent", text: "We can send a tech out to diagnose that. It could be an ignition issue or a bad sensor. Does tomorrow morning work?" },
+          { speaker: "Customer", text: "Yes, please. I'm in Prattville at 102 Doster St. My name is David Lee." },
+          { speaker: "Agent", text: "Got it, David. Our diagnostic dispatch fee is $79, which covers the visit and troubleshooting. If you approve the repair, we can get started right away." },
+          { speaker: "Customer", text: "That's fine. It's getting quite cold inside, so the sooner the better." },
+          { speaker: "Agent", text: "I completely understand. I will put this as a priority dispatch for tomorrow morning. Our technician, Mark, will call you around 7:30 AM." },
+          { speaker: "Customer", text: "Great, I will make sure someone is home to let him in." },
+          { speaker: "Agent", text: "Excellent. Do you have any pets we should be aware of?" },
+          { speaker: "Customer", text: "Just a small dog, but I'll keep her in the bedroom while he works." },
+          { speaker: "Agent", text: "Perfect. Mark will see you tomorrow morning, David. Stay warm tonight!" },
+          { speaker: "Customer", text: "Thank you, I appreciate it." }
+        ]
+      },
+      {
+        phone: "(334) 555-0622",
+        datetime: "06/14/2026 - 11:05 AM",
+        leadtype: "Google LSA",
+        jobtype: "Thermostat Install",
+        location: "Wetumpka, AL",
+        status: "Booked",
+        chargestatus: "Charged ($45)",
+        confidence: "97%",
+        reason: "James Carter booked a smart thermostat installation. Customer purchased the unit and needs integration with HVAC.",
+        transcript: [
+          { speaker: "Customer", text: "Hi, I just bought a Nest thermostat and need someone to install it and wire it correctly." },
+          { speaker: "Agent", text: "We can definitely do that for you. James, what is your address?" },
+          { speaker: "Customer", text: "It's 230 Red Eagle Dr, Wetumpka." },
+          { speaker: "Agent", text: "We have an opening today at 3 PM. Cost is $129 for standard installation." },
+          { speaker: "Customer", text: "That sounds good. Let's do today at 3 PM." },
+          { speaker: "Agent", text: "Great. Do you already have a C-wire running to your current thermostat? Nest usually requires a common wire for charging." },
+          { speaker: "Customer", text: "I'm not sure. The old thermostat is pretty basic, just two wires." },
+          { speaker: "Agent", text: "No problem, our technician will check. If there isn't a C-wire, he can install a power adapter or run a new wire for you." },
+          { speaker: "Customer", text: "Okay, is there an extra charge for that?" },
+          { speaker: "Agent", text: "Yes, the C-wire adapter is an additional $45, but the technician will confirm if it's necessary before doing any work." },
+          { speaker: "Customer", text: "That's fair. I'd rather have it done right so it doesn't shut down in the winter." },
+          { speaker: "Agent", text: "Absolutely. I'll have our technician, Tyler, head out to you at 3 PM today." },
+          { speaker: "Customer", text: "Perfect, see you then." }
+        ]
+      },
+      {
+        phone: "(334) 555-0900",
+        datetime: "06/14/2026 - 09:30 AM",
+        leadtype: "Google SEM",
+        jobtype: "Price Shopping",
+        location: "Millbrook, AL",
+        status: "Dispute Recommended",
+        chargestatus: "Charged ($45)",
+        confidence: "93%",
+        reason: "Caller hung up immediately after hearing diagnostic fee. Unengaged lead, eligible for cost recovery dispute.",
+        transcript: [
+          { speaker: "Customer", text: "Hi, how much do you charge to look at an AC unit?" },
+          { speaker: "Agent", text: "Our standard diagnostic dispatch fee is $79." },
+          { speaker: "Customer", text: "Oh, that's too high. The other place does it for $49. *click*" },
+          { speaker: "Agent", text: "Hello? Sir? Are you still there?" },
+          { speaker: "System", text: "*Line disconnected by caller after 18 seconds of conversation. No engagement, no booking.*" }
+        ]
+      },
+      {
+        phone: "(334) 555-0888",
+        datetime: "06/13/2026 - 03:15 PM",
+        leadtype: "Google LSA",
+        jobtype: "Duct Cleaning",
+        location: "Pike Road, AL",
+        status: "Booked",
+        chargestatus: "Charged ($45)",
+        confidence: "95%",
+        reason: "Linda Watson booked full-house air duct cleaning service for June 16th.",
+        transcript: [
+          { speaker: "Customer", text: "Hi, I'd like to schedule an air duct cleaning. My family has been having bad allergies lately." },
+          { speaker: "Agent", text: "Absolutely, Linda. We do a full duct cleaning and sanitization. What's your address?" },
+          { speaker: "Customer", text: "We are at 910 Meriwether Rd in Pike Road." },
+          { speaker: "Agent", text: "Excellent. We can schedule that for Tuesday, June 16th. It takes about 3 hours." },
+          { speaker: "Customer", text: "Perfect, please lock that in." },
+          { speaker: "Agent", text: "Sure thing, Linda. How many return vents and supply vents do you have in the home?" },
+          { speaker: "Customer", text: "I think we have about 14 supply vents and 2 large returns." },
+          { speaker: "Agent", text: "Got it. Our standard package covers up to 15 vents total, so it will be our base rate of $399." },
+          { speaker: "Customer", text: "Does that include sanitizing the ducts for mold and mildew?" },
+          { speaker: "Agent", text: "Yes, we run an antimicrobial fogger through the system to kill any lingering mold spores or bacteria. It's very effective for allergies." },
+          { speaker: "Customer", text: "That's exactly what we need. I'm glad it's included." },
+          { speaker: "Agent", text: "Perfect. I have you scheduled for Tuesday, June 16th at 9 AM. Our crew will text you when they are in route." },
+          { speaker: "Customer", text: "Excellent, thank you so much!" },
+          { speaker: "Agent", text: "Thank you, Linda. Have a wonderful day!" }
+        ]
+      },
+      {
+        phone: "(334) 555-0456",
+        datetime: "06/13/2026 - 11:40 AM",
+        leadtype: "Google SEM",
+        jobtype: "Job Applicant",
+        location: "Montgomery, AL",
+        status: "Dispute Recommended",
+        chargestatus: "Charged ($45)",
+        confidence: "99%",
+        reason: "Caller seeking employment as an apprentice. Non-customer inquiry, eligible for SEM cost credit.",
+        transcript: [
+          { speaker: "Customer", text: "Hello, are you guys hiring any HVAC apprentices or helpers right now?" },
+          { speaker: "Agent", text: "Yes, you can apply on our website under the careers tab. Do you have any prior experience?" },
+          { speaker: "Customer", text: "Yes, I just finished trade school. I'll submit my resume online." },
+          { speaker: "Agent", text: "That's great! We have a structured program for new graduates where you shadow our senior techs for the first six months." },
+          { speaker: "Customer", text: "That sounds perfect. Do I need to bring my own tools?" },
+          { speaker: "Agent", text: "We provide a basic tool bag and all major power tools, but we do recommend buying a set of hand tools over time." },
+          { speaker: "Customer", text: "Alright, I will go ahead and fill out the application today. Who should I address it to?" },
+          { speaker: "Agent", text: "You can address it to human resources, or just submit it online and it will route to our hiring manager, Keith." },
+          { speaker: "Customer", text: "Great, thank you for the information." },
+          { speaker: "Agent", text: "You're welcome! Good luck with your application." }
+        ]
+      }
+    ];
+    let currentFilter = 'All';
+    let selectedLsaCallIndex = null;
+
+    window.filterHistory = function(source) {
+      currentFilter = source;
+      
+      const btnAll = document.getElementById("btn-filter-all");
+      const btnLsa = document.getElementById("btn-filter-lsa");
+      const btnSem = document.getElementById("btn-filter-sem");
+      
+      if (btnAll && btnLsa && btnSem) {
+        btnAll.style.background = "#f1f5f9";
+        btnAll.style.color = "var(--color-secondary)";
+        btnLsa.style.background = "#f1f5f9";
+        btnLsa.style.color = "var(--color-secondary)";
+        btnSem.style.background = "#f1f5f9";
+        btnSem.style.color = "var(--color-secondary)";
+        
+        if (source === 'All') {
+          btnAll.style.background = "var(--color-primary)";
+          btnAll.style.color = "white";
+        } else if (source === 'Google LSA') {
+          btnLsa.style.background = "var(--color-primary)";
+          btnLsa.style.color = "white";
+        } else if (source === 'Google SEM') {
+          btnSem.style.background = "var(--color-primary)";
+          btnSem.style.color = "white";
+        }
+      }
+      
+      renderLsaCallsTable();
+    };
+
+    window.renderLsaCallsTable = function() {
+      const tbody = document.getElementById("lsa-history-table-body");
+      if (!tbody) return;
+
+      tbody.innerHTML = "";
+
+      lsaCallsData.forEach((call, idx) => {
+        if (currentFilter !== 'All' && call.leadtype !== currentFilter) {
+          return;
+        }
+
+        const tr = document.createElement("tr");
+        tr.className = "history-row";
+        tr.style.borderBottom = "1px solid var(--color-border)";
+        tr.style.cursor = "pointer";
+        tr.style.transition = "all 0.2s ease";
+        tr.onclick = function() {
+          selectLsaCall(idx);
+        };
+
+        // Date/Time
+        const tdDate = document.createElement("td");
+        tdDate.style.padding = "12px 16px";
+        tdDate.style.fontWeight = "600";
+        tdDate.style.color = "var(--color-primary)";
+        tdDate.innerText = call.datetime;
+        tr.appendChild(tdDate);
+
+        // Phone Number
+        const tdPhone = document.createElement("td");
+        tdPhone.style.padding = "12px 16px";
+        tdPhone.style.color = "var(--color-primary)";
+        tdPhone.innerText = call.phone;
+        tr.appendChild(tdPhone);
+
+        // Lead Source
+        const tdSource = document.createElement("td");
+        tdSource.style.padding = "12px 16px";
+        
+        const sourceBadge = document.createElement("span");
+        sourceBadge.innerText = call.leadtype;
+        if (call.leadtype === "Google LSA") {
+          sourceBadge.style.cssText = "font-size: 11px; font-weight: 700; color: var(--color-accent); background: rgba(238,104,59,0.1); padding: 4px 8px; border-radius: 6px;";
+        } else {
+          sourceBadge.style.cssText = "font-size: 11px; font-weight: 700; color: #0ea5e9; background: rgba(14,165,233,0.1); padding: 4px 8px; border-radius: 6px;";
+        }
+        tdSource.appendChild(sourceBadge);
+        tr.appendChild(tdSource);
+
+        // Job Type
+        const tdJob = document.createElement("td");
+        tdJob.style.padding = "12px 16px";
+        tdJob.style.color = "var(--color-primary)";
+        tdJob.innerText = call.jobtype;
+        tr.appendChild(tdJob);
+
+        // Location
+        const tdLoc = document.createElement("td");
+        tdLoc.style.padding = "12px 16px";
+        tdLoc.style.color = "var(--color-secondary)";
+        tdLoc.innerText = call.location;
+        tr.appendChild(tdLoc);
+
+        // Qualification Status
+        const tdStatus = document.createElement("td");
+        tdStatus.style.padding = "12px 16px";
+        tdStatus.style.textAlign = "center";
+        
+        const badge = document.createElement("span");
+        badge.innerText = call.status;
+        if (call.status === "Booked") {
+          badge.style.cssText = "font-size: 11px; font-weight: 700; background: #dcfce7; color: #16a34a; padding: 4px 10px; border-radius: 6px; display: inline-block; min-width: 90px; text-align: center;";
+        } else if (call.status === "Disputed") {
+          badge.style.cssText = "font-size: 11px; font-weight: 700; background: #fee2e2; color: #b91c1c; padding: 4px 10px; border-radius: 6px; display: inline-block; min-width: 90px; text-align: center;";
+        } else {
+          badge.style.cssText = "font-size: 11px; font-weight: 700; background: #fff7ed; color: #ea580c; padding: 4px 10px; border-radius: 6px; display: inline-block; min-width: 90px; text-align: center;";
+        }
+        tdStatus.appendChild(badge);
+        tr.appendChild(tdStatus);
+
+        // Action Review button
+        const tdAction = document.createElement("td");
+        tdAction.style.padding = "12px 16px";
+        tdAction.style.textAlign = "center";
+        tdAction.innerHTML = '<button style="background: white; border: 1px solid var(--color-border); color: var(--color-primary); font-weight: 600; padding: 4px 12px; border-radius: 6px; cursor: pointer; transition: all 0.2s;">Review</button>';
+        tr.appendChild(tdAction);
+
+        tbody.appendChild(tr);
+      });
+    };
+
+    window.selectLsaCall = function(idx) {
+      selectedLsaCallIndex = idx;
+      const call = lsaCallsData[idx];
+      showSingleClientAnalysis(call);
+    };
+
+    window.showSingleClientAnalysis = function(call) {
+      const mainView = document.getElementById("lsa-main-view");
+      const singleLayout = document.getElementById("lsa-single-analysis-layout");
+      if (mainView) mainView.style.display = "none";
+      if (singleLayout) {
+        singleLayout.style.display = "flex";
+        const label = document.getElementById("navbar-back-label");
+        if (label) label.innerText = "Back to Call History";
+        
+        // Populate Phone
+        const phoneEl = document.getElementById("lsa-single-phone");
+        if (phoneEl) phoneEl.innerText = call.phone || "-";
+        
+        // Populate Lead Type
+        const leadTypeEl = document.getElementById("lsa-single-leadtype");
+        if (leadTypeEl) leadTypeEl.innerText = call.leadtype || "-";
+        
+        // Populate DateTime
+        const datetimeEl = document.getElementById("lsa-single-datetime");
+        if (datetimeEl) datetimeEl.innerText = call.datetime || "-";
+        
+        // Populate Charge Status
+        const chargeEl = document.getElementById("lsa-single-chargestatus");
+        if (chargeEl) {
+          chargeEl.innerText = call.chargestatus || "-";
+          if (call.chargestatus.includes("Refunded") || call.chargestatus.includes("Requested")) {
+            chargeEl.style.color = "#b91c1c";
+          } else {
+            chargeEl.style.color = "var(--color-primary)";
+          }
+        }
+        
+        // Populate Status Badge
+        const badge = document.getElementById("lsa-single-status-badge");
+        if (badge) {
+          badge.innerText = call.status;
+          if (call.status === "Booked") {
+            badge.style.cssText = "font-size: 14px; font-weight: 700; background: #dcfce7; color: #16a34a; padding: 4px 12px; border-radius: 6px;";
+          } else if (call.status === "Disputed") {
+            badge.style.cssText = "font-size: 14px; font-weight: 700; background: #fee2e2; color: #b91c1c; padding: 4px 12px; border-radius: 6px;";
+          } else {
+            badge.style.cssText = "font-size: 14px; font-weight: 700; background: #fff7ed; color: #ea580c; padding: 4px 12px; border-radius: 6px;";
+          }
+        }
+        
+        // Populate Confidence
+        const confidenceEl = document.getElementById("lsa-single-confidence");
+        if (confidenceEl) {
+          confidenceEl.innerText = call.confidence || "95%";
+          if (call.status === "Booked") {
+            confidenceEl.style.color = "#16a34a";
+          } else if (call.status === "Disputed") {
+            confidenceEl.style.color = "#b91c1c";
+          } else {
+            confidenceEl.style.color = "#ea580c";
+          }
+        }
+        
+        // Populate Reason
+        const reasonEl = document.getElementById("lsa-single-reason");
+        if (reasonEl) reasonEl.innerText = call.reason || "-";
+        
+        // Populate Job Type
+        const jobTypeEl = document.getElementById("lsa-single-jobtype");
+        if (jobTypeEl) jobTypeEl.innerText = call.jobtype || "-";
+        
+        // Populate Location
+        const locationEl = document.getElementById("lsa-single-location");
+        if (locationEl) locationEl.innerText = call.location || "-";
+        
+        // Populate Structured Lead Review Summary
+        const reviewStatus = document.getElementById("lsa-single-review-status");
+        const reviewRefund = document.getElementById("lsa-single-review-refund");
+        const reviewAction = document.getElementById("lsa-single-review-action");
+        
+        if (reviewStatus && reviewRefund && reviewAction) {
+          if (call.status === "Booked") {
+            reviewStatus.innerText = "Qualified Lead";
+            reviewStatus.style.color = "#16a34a";
+            reviewRefund.innerText = "Ineligible (Valid Lead)";
+            reviewRefund.style.color = "var(--color-primary)";
+            reviewAction.innerText = "Approve and Sync to CRM";
+            reviewAction.style.color = "#16a34a";
+          } else if (call.status === "Disputed") {
+            reviewStatus.innerText = "Disputed Refund Pending";
+            reviewStatus.style.color = "#b91c1c";
+            reviewRefund.innerText = "Refund Pending";
+            reviewRefund.style.color = "#b91c1c";
+            reviewAction.innerText = "Dispute Filed on Console";
+            reviewAction.style.color = "#b91c1c";
+          } else {
+            reviewStatus.innerText = "Dispute Recommended";
+            reviewStatus.style.color = "#ea580c";
+            reviewRefund.innerText = "Eligible for Refund";
+            reviewRefund.style.color = "#ea580c";
+            reviewAction.innerText = "File LSA/SEM refund dispute";
+            reviewAction.style.color = "#ea580c";
+          }
+        }
+        
+        // Populate Transcript Playback
+        const transContainer = document.getElementById("lsa-single-transcript");
+        if (transContainer) {
+          transContainer.innerHTML = "";
+          if (call.transcript && call.transcript.length > 0) {
+            call.transcript.forEach(line => {
+              const divLine = document.createElement("div");
+              divLine.style.display = "flex";
+              divLine.style.flexDirection = "column";
+              divLine.style.marginBottom = "8px";
+
+              const nameSpan = document.createElement("span");
+              nameSpan.style.fontSize = "10.5px";
+              nameSpan.style.fontWeight = "700";
+              nameSpan.style.marginBottom = "2px";
+              nameSpan.innerText = line.speaker;
+
+              const textDiv = document.createElement("div");
+              textDiv.style.borderRadius = "8px";
+              textDiv.style.padding = "8px 12px";
+              textDiv.innerText = line.text;
+
+              if (line.speaker === "Agent") {
+                divLine.style.alignItems = "flex-start";
+                nameSpan.style.color = "var(--color-primary)";
+                textDiv.style.background = "#e2e8f0";
+                textDiv.style.color = "var(--color-primary)";
+              } else {
+                divLine.style.alignItems = "flex-end";
+                nameSpan.style.color = "var(--color-accent)";
+                textDiv.style.background = "#ffedd5";
+                textDiv.style.color = "#7c2d12";
+              }
+
+              divLine.appendChild(nameSpan);
+              divLine.appendChild(textDiv);
+              transContainer.appendChild(divLine);
+            });
+            transContainer.scrollTop = 0;
+          } else {
+            transContainer.innerHTML = "<div style='color: var(--color-secondary); font-style: italic; text-align: center; margin-top: 40px;'>No transcript data available.</div>";
+          }
+        }
+        
+        // Toggle dispute button visibility in bottom bar
+        const disputeBtn = document.getElementById("btn-lsa-single-dispute");
+        if (disputeBtn) {
+          if (call.status === "Disputed") {
+            disputeBtn.style.display = "none";
+          } else {
+            disputeBtn.style.display = "inline-flex";
+          }
+        }
+      }
+      
+      if (window.lucide) lucide.createIcons();
+    };
+
+    window.disputeSingleLsaLead = function() {
+      if (selectedLsaCallIndex === null) return;
+      const call = lsaCallsData[selectedLsaCallIndex];
+      call.status = "Disputed";
+      call.chargestatus = "Refund Requested";
+      call.reason = "Lead charge disputed successfully! Filed automated claim inside Google LSA/SEM console to recover $45 lead cost. Syncing with ClickUp billing boards.";
+
+      renderLsaCallsTable();
+      showSingleClientAnalysis(call);
+
+      // Trigger Toast Alert
+      const toast = document.getElementById("lsa-toast-alert");
+      const toastTitle = document.getElementById("lsa-toast-title");
+      const toastMsg = document.getElementById("lsa-toast-msg");
+      if (toast && toastTitle && toastMsg) {
+        toastTitle.innerText = "Lead Disputed";
+        toastMsg.innerText = `Refund dispute filed for phone ${call.phone}. Saved $45 in LSA/SEM spend!`;
+        toast.style.display = "flex";
+        setTimeout(() => {
+          toast.style.display = "none";
+        }, 3500);
+      }
+    };
+
+    window.approveSingleLsaBooking = function() {
+      if (selectedLsaCallIndex === null) return;
+      const call = lsaCallsData[selectedLsaCallIndex];
+      call.status = "Booked";
+      call.chargestatus = "Charged ($45)";
+      call.reason = "Lead confirmed and qualified as booked! Direct task sent to HVAC technician scheduling software.";
+
+      renderLsaCallsTable();
+      showSingleClientAnalysis(call);
+
+      // Trigger Toast Alert
+      const toast = document.getElementById("lsa-toast-alert");
+      const toastTitle = document.getElementById("lsa-toast-title");
+      const toastMsg = document.getElementById("lsa-toast-msg");
+      if (toast && toastTitle && toastMsg) {
+        toastTitle.innerText = "Lead Approved";
+        toastMsg.innerText = `LSA/SEM booking details pushed directly to scheduling software!`;
+        toast.style.display = "flex";
+        setTimeout(() => {
+          toast.style.display = "none";
+        }, 3500);
+      }
+    };
+
+    window.showLsaQueue = function() {
+      const mainView = document.getElementById("lsa-main-view");
+      const singleLayout = document.getElementById("lsa-single-analysis-layout");
+      if (mainView) mainView.style.display = "flex";
+      if (singleLayout) singleLayout.style.display = "none";
+      const label = document.getElementById("navbar-back-label");
+      if (label) label.innerText = "Back to Home";
+    };
+
+    window.resetLsaView = function() {
+      showLsaQueue();
+      filterHistory('All');
+    };
     let MOCK_DATA = {
       ga4: {
         summary: {
@@ -5728,6 +7546,8 @@
         .querySelectorAll(".tab-content")
         .forEach((el) => el.classList.remove("active"));
       document.getElementById(tabId).classList.add("active");
+      const label = document.getElementById("navbar-back-label");
+      if (label) label.innerText = "Back to Home";
 
       document
         .querySelectorAll(".sidebar-nav li")
@@ -5736,6 +7556,12 @@
         `.sidebar-nav li[onclick="showTab('${tabId}')"]`,
       );
       if (activeBtn) activeBtn.classList.add("active");
+
+      if (tabId === 'tab-service-pages') {
+        if (typeof syncDashboardClientToOptimizer === 'function') {
+          syncDashboardClientToOptimizer();
+        }
+      }
 
       // Trigger render and resize for ChartJS AFTER layout finishes
       setTimeout(() => {
@@ -10709,6 +12535,66 @@
       Chart.defaults.scale.grid.lineWidth = 1;
 
       updateDashboardData();
+
+      // Load Competitor SEO Tab content dynamically
+      fetch("competitor-seo.html")
+        .then(response => response.text())
+        .then(html => {
+          const container = document.getElementById("tab-competitor-seo");
+          if (container) {
+            container.innerHTML = html;
+            if (window.lucide) lucide.createIcons();
+          }
+        })
+        .catch(err => console.error("Error loading competitor-seo.html:", err));
+
+      // Load Service Page Optimizer Tab content dynamically
+      fetch("service-pages.html")
+        .then(response => response.text())
+        .then(html => {
+          const container = document.getElementById("tab-service-pages");
+          if (container) {
+            container.innerHTML = html;
+            if (window.lucide) lucide.createIcons();
+
+            // Set the dropdown to match the active dashboard client before running changeClientOptimizer
+            const companyNameEl = document.getElementById("audit-company-name");
+            const optSelectEl = document.getElementById("opt-filter-client");
+            if (companyNameEl && optSelectEl && companyNameEl.value.trim()) {
+              const currentCompany = companyNameEl.value.trim();
+              const match = CLIENTS_INFO.find(c => c.name.toLowerCase() === currentCompany.toLowerCase() || c.baseDomain.toLowerCase() === currentCompany.toLowerCase());
+              if (match) {
+                optSelectEl.value = match.name;
+              }
+            }
+
+            // Initialize rendering
+            if (typeof changeClientOptimizer === 'function') {
+              changeClientOptimizer();
+            } else if (typeof renderServicePagesTable === 'function') {
+              selectedServicePageIndex = null;
+              renderServicePagesTable();
+            }
+          }
+        })
+        .catch(err => console.error("Error loading service-pages.html:", err));
+
+      // Load LSA Call Analyzer Tab content dynamically
+      fetch("lsa-calls.html")
+        .then(response => response.text())
+        .then(html => {
+          const container = document.getElementById("tab-lsa-calls");
+          if (container) {
+            container.innerHTML = html;
+            if (window.lucide) lucide.createIcons();
+            // Initialize rendering
+            if (typeof renderLsaCallsTable === 'function') {
+              renderLsaCallsTable();
+              if (typeof resetLsaView === 'function') resetLsaView();
+            }
+          }
+        })
+        .catch(err => console.error("Error loading lsa-calls.html:", err));
 
       lucide.createIcons();
     });

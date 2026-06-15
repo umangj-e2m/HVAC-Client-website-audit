@@ -1,0 +1,605 @@
+<!-- Competitor SEO Form View -->
+<div id="competitor-form-view"
+  style="width: 100%; margin: 32px 0; display: flex; flex-direction: row; gap: 24px; align-items: stretch;">
+
+  <!-- LEFT CARD: Input Form -->
+  <div style="flex: 1; min-width: 0; background: white; border: 1px solid var(--color-border); border-radius: 20px; box-shadow: 0 8px 24px -8px rgba(20,47,69,0.10); padding: 40px; display: flex; flex-direction: column; gap: 28px;">
+    
+    <!-- Header -->
+    <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 14px;">
+      <div style="width: 52px; height: 52px; border-radius: 14px; background: #e0f2fe; color: #0284c7; display: flex; align-items: center; justify-content: center; border: 1px solid var(--color-border);">
+        <i data-lucide="swords" style="width: 26px; height: 26px;"></i>
+      </div>
+      <div>
+        <h2 style="font-family: var(--font-serif); font-size: 24px; font-weight: 700; color: var(--color-primary); margin: 0 0 6px 0;">Competitor SEO Performance Audit</h2>
+        <p style="color: var(--color-secondary); font-size: 14px; margin: 0;">Run automated competitor analysis to identify search gaps and optimize content output.</p>
+      </div>
+    </div>
+
+    <!-- Form -->
+    <div style="display: flex; flex-direction: column; gap: 20px; flex: 1;">
+      <div style="font-size: 12px; color: var(--color-muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;">New Competitor SEO Check</div>
+      <form onsubmit="runCompetitorSimulation(event)" style="display: flex; flex-direction: column; gap: 16px; flex: 1; justify-content: space-between;">
+        <div style="display: flex; flex-direction: column; gap: 16px;">
+          <div>
+            <label style="display: block; font-size: 13px; font-weight: 600; color: var(--color-text); margin-bottom: 6px;">Company Name</label>
+            <input type="text" id="competitor-client-name" required value="Apex Climate Control" placeholder="e.g. Apex Climate Control" class="form-input" style="width: 100%;" />
+          </div>
+          <div>
+            <label style="display: block; font-size: 13px; font-weight: 600; color: var(--color-text); margin-bottom: 6px;">Website URL</label>
+            <input type="text" id="competitor-company-url" required value="www.apexclimatecontrol.com" placeholder="e.g. www.apexclimatecontrol.com" class="form-input" style="width: 100%;" />
+          </div>
+          <div>
+            <label style="display: block; font-size: 13px; font-weight: 600; color: var(--color-text); margin-bottom: 6px;">Target Search Term / Keyword</label>
+            <input type="text" id="competitor-target-keyword" required value="HVAC repair Alabama" placeholder="e.g. HVAC repair Alabama" class="form-input" style="width: 100%;" />
+          </div>
+          <div>
+            <label style="display: block; font-size: 13px; font-weight: 600; color: var(--color-text); margin-bottom: 6px;">Current SEO Ranking</label>
+            <input type="text" id="competitor-current-rank" required value="5th Place" placeholder="e.g. 5th Place" class="form-input" style="width: 100%;" />
+          </div>
+        </div>
+        <button type="submit" class="btn-primary"
+          style="padding: 14px; font-size: 14px; font-weight: 600; border-radius: 12px; justify-content: center; width: 100%; margin-top: 12px;">
+          Analyze SEO Performance
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- RIGHT CARD: Competitors List -->
+  <div style="flex: 1; min-width: 0; background: white; border: 1px solid var(--color-border); border-radius: 20px; box-shadow: 0 8px 24px -8px rgba(20,47,69,0.10); padding: 40px; display: flex; flex-direction: column; gap: 20px;" class="recent-audits-col">
+    <div style="font-size: 12px; color: var(--color-muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;">Regional Competitors (Click to View)</div>
+
+    <div style="display: flex; flex-direction: column; gap: 10px; flex: 1;">
+      <!-- Competitor 1 -->
+      <div onclick="viewCompetitorQuickReport('Apex Climate Control', 'Comfort Masters HVAC', 'www.comfortmastershvac.com')"
+        style="border: 1px solid var(--color-border); border-radius: 12px; padding: 14px 16px; background: #fafbfc; display: flex; justify-content: space-between; align-items: center; cursor: pointer;"
+        class="audit-item">
+        <div>
+          <div style="font-weight: 600; font-size: 14px; color: var(--color-primary);">Comfort Masters HVAC</div>
+          <div style="font-size: 11.5px; color: var(--color-secondary); margin-top: 3px;">www.comfortmastershvac.com • Multi-location, Strong SEO presence</div>
+        </div>
+        <div style="font-size: 12px; font-weight: 700; color: var(--color-accent); display: flex; align-items: center; gap: 4px; white-space: nowrap; margin-left: 16px;">
+          View Report <i data-lucide="arrow-right" style="width: 13px; height: 13px;"></i>
+        </div>
+      </div>
+
+      <!-- Competitor 2 -->
+      <div onclick="viewCompetitorQuickReport('Apex Climate Control', 'Guardian Air Solutions', 'www.guardianairsolutions.com')"
+        style="border: 1px solid var(--color-border); border-radius: 12px; padding: 14px 16px; background: #fafbfc; display: flex; justify-content: space-between; align-items: center; cursor: pointer;"
+        class="audit-item">
+        <div>
+          <div style="font-weight: 600; font-size: 14px; color: var(--color-primary);">Guardian Air Solutions</div>
+          <div style="font-size: 11.5px; color: var(--color-secondary); margin-top: 3px;">www.guardianairsolutions.com • Digital-first approach, Mobile booking</div>
+        </div>
+        <div style="font-size: 12px; font-weight: 700; color: var(--color-accent); display: flex; align-items: center; gap: 4px; white-space: nowrap; margin-left: 16px;">
+          View Report <i data-lucide="arrow-right" style="width: 13px; height: 13px;"></i>
+        </div>
+      </div>
+
+      <!-- Competitor 3 -->
+      <div onclick="viewCompetitorQuickReport('Apex Climate Control', 'Southern Comfort Heating & Air', 'Family-Owned')"
+        style="border: 1px solid var(--color-border); border-radius: 12px; padding: 14px 16px; background: #fafbfc; display: flex; justify-content: space-between; align-items: center; cursor: pointer;"
+        class="audit-item">
+        <div>
+          <div style="font-weight: 600; font-size: 14px; color: var(--color-primary);">Southern Comfort Heating &amp; Air</div>
+          <div style="font-size: 11.5px; color: var(--color-secondary); margin-top: 3px;">Family-owned • Long-term community trust, 25+ years</div>
+        </div>
+        <div style="font-size: 12px; font-weight: 700; color: var(--color-accent); display: flex; align-items: center; gap: 4px; white-space: nowrap; margin-left: 16px;">
+          View Report <i data-lucide="arrow-right" style="width: 13px; height: 13px;"></i>
+        </div>
+      </div>
+
+      <!-- Competitor 4 -->
+      <div onclick="viewCompetitorQuickReport('Apex Climate Control', 'Patriot Home Services', 'Multi-Service')"
+        style="border: 1px solid var(--color-border); border-radius: 12px; padding: 14px 16px; background: #fafbfc; display: flex; justify-content: space-between; align-items: center; cursor: pointer;"
+        class="audit-item">
+        <div>
+          <div style="font-weight: 600; font-size: 14px; color: var(--color-primary);">Patriot Home Services</div>
+          <div style="font-size: 11.5px; color: var(--color-secondary); margin-top: 3px;">Multi-service platform • HVAC + Plumbing + Electrical, Bundled plans</div>
+        </div>
+        <div style="font-size: 12px; font-weight: 700; color: var(--color-accent); display: flex; align-items: center; gap: 4px; white-space: nowrap; margin-left: 16px;">
+          View Report <i data-lucide="arrow-right" style="width: 13px; height: 13px;"></i>
+        </div>
+      </div>
+
+      <!-- Competitor 5 -->
+      <div onclick="viewCompetitorQuickReport('Apex Climate Control', 'Total Home Comfort', 'Premium-Market')"
+        style="border: 1px solid var(--color-border); border-radius: 12px; padding: 14px 16px; background: #fafbfc; display: flex; justify-content: space-between; align-items: center; cursor: pointer;"
+        class="audit-item">
+        <div>
+          <div style="font-weight: 600; font-size: 14px; color: var(--color-primary);">Total Home Comfort</div>
+          <div style="font-size: 11.5px; color: var(--color-secondary); margin-top: 3px;">Luxury specialization • High-end residential market, energy efficiency</div>
+        </div>
+        <div style="font-size: 12px; font-weight: 700; color: var(--color-accent); display: flex; align-items: center; gap: 4px; white-space: nowrap; margin-left: 16px;">
+          View Report <i data-lucide="arrow-right" style="width: 13px; height: 13px;"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Simulated Competitor Crawler Loading State -->
+<div id="competitor-loading-view" class="chart-card"
+  style="display: none; max-width: 600px; margin: 40px auto; padding: 40px 32px; border-radius: 24px; background: white; border: 1px solid var(--color-border); text-align: center;">
+  <div class="spinner-container" style="margin-bottom: 24px;">
+    <div class="loader-circle"
+      style="width: 64px; height: 64px; border: 4px solid #f1f5f9; border-top-color: #0284c7; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto;">
+    </div>
+  </div>
+  <h3 style="font-family: var(--font-serif); font-size: 20px; font-weight: 700; color: var(--color-primary); margin-bottom: 12px;">
+    Auditing Competitor Performance...</h3>
+  <p id="competitor-loading-status"
+    style="color: var(--color-secondary); font-size: 14px; font-weight: 500; min-height: 20px; transition: all 0.3s;">
+    Initiating crawler...</p>
+
+  <div style="margin-top: 32px; display: flex; flex-direction: column; gap: 12px; text-align: left; max-width: 400px; margin-left: auto; margin-right: auto; padding: 20px; background: var(--color-warm); border-radius: 16px; border: 1px solid var(--color-border);">
+    <div id="competitor-step-1" style="font-size: 12.5px; font-weight: 600; color: var(--color-secondary); display: flex; align-items: center; gap: 10px; transition: all 0.3s;">
+      <i data-lucide="circle" style="width: 16px; height: 16px;"></i> Initializing competitor SEO crawl...
+    </div>
+    <div id="competitor-step-2" style="font-size: 12.5px; font-weight: 600; color: var(--color-secondary); display: flex; align-items: center; gap: 10px; transition: all 0.3s;">
+      <i data-lucide="circle" style="width: 16px; height: 16px;"></i> Extracting search term rankings...
+    </div>
+    <div id="competitor-step-3" style="font-size: 12.5px; font-weight: 600; color: var(--color-secondary); display: flex; align-items: center; gap: 10px; transition: all 0.3s;">
+      <i data-lucide="circle" style="width: 16px; height: 16px;"></i> Comparing pages and heading tags...
+    </div>
+    <div id="competitor-step-4" style="font-size: 12.5px; font-weight: 600; color: var(--color-secondary); display: flex; align-items: center; gap: 10px; transition: all 0.3s;">
+      <i data-lucide="circle" style="width: 16px; height: 16px;"></i> Running content gap checks in Gemini...
+    </div>
+    <div id="competitor-step-5" style="font-size: 12.5px; font-weight: 600; color: var(--color-secondary); display: flex; align-items: center; gap: 10px; transition: all 0.3s;">
+      <i data-lucide="circle" style="width: 16px; height: 16px;"></i> Mapping action tasks in ClickUp...
+    </div>
+  </div>
+</div>
+
+<!-- High-Fidelity Competitor Report View -->
+<div id="competitor-report-view"
+  style="display: none; max-width: 1200px; margin: 0 auto; background: transparent; border: none; box-shadow: none; overflow: visible; position: relative;">
+
+  <!-- Report Actions Bar (Non-Printable) -->
+  <div class="no-print"
+    style="display: flex; justify-content: space-between; align-items: center; padding: 20px 32px; background: rgba(255,255,255,0.85); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(230,222,201,0.6); border-radius: 16px; margin-bottom: 24px; box-shadow: 0 10px 30px -10px rgba(20,47,69,0.08), 0 1px 3px rgba(20,47,69,0.03);">
+    <!-- Status Badge -->
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <div style="display: flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 50%; background: rgba(57,181,74,0.1);">
+        <div style="position: relative; display: flex; align-items: center; justify-content: center; width: 12px; height: 12px;">
+          <span style="position: absolute; display: inline-flex; width: 100%; height: 100%; border-radius: 50%; background-color: var(--color-success); opacity: 0.75; animation: ping 1.5s cubic-bezier(0,0,0.2,1) infinite;"></span>
+          <span style="position: relative; display: inline-flex; border-radius: 50%; width: 9px; height: 9px; background-color: var(--color-success);"></span>
+        </div>
+      </div>
+      <div style="display: flex; flex-direction: column;">
+        <span style="font-size: 15px; font-weight: 700; color: var(--color-primary); letter-spacing: -0.01em;">Competitor SEO Audit Report Ready</span>
+        <span style="font-size: 12px; color: var(--color-secondary); font-weight: 500; margin-top: 2px;">Ready for online viewing or PDF export</span>
+      </div>
+    </div>
+    <!-- Action Buttons -->
+    <div style="display: flex; gap: 12px;">
+      <button onclick="resetCompetitorForm()" class="btn-primary"
+        style="background: white; color: var(--color-primary); border: 1.5px solid var(--color-border); font-weight: 600; border-radius: 10px; padding: 10px 20px; font-size: 13.5px; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; transition: all 0.2s ease; box-shadow: 0 1px 3px rgba(0,0,0,0.04);"
+        onmouseover="this.style.borderColor='var(--color-primary)'; this.style.background='rgba(20,47,69,0.04)'; this.style.transform='translateY(-1px)';"
+        onmouseout="this.style.borderColor='var(--color-border)'; this.style.background='white'; this.style.transform='none';">
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+        New Audit
+      </button>
+      <button onclick="printCompetitorReport()" class="btn-primary"
+        style="background: var(--color-accent); color: white; border: none; font-weight: 600; border-radius: 10px; padding: 10px 22px; font-size: 13.5px; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; transition: all 0.2s ease; box-shadow: 0 4px 14px rgba(238,104,59,0.28);"
+        onmouseover="this.style.background='#e35424'; this.style.boxShadow='0 6px 20px rgba(238,104,59,0.38)'; this.style.transform='translateY(-1px)';"
+        onmouseout="this.style.background='var(--color-accent)'; this.style.boxShadow='0 4px 14px rgba(238,104,59,0.28)'; this.style.transform='none';">
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+        Download PDF
+      </button>
+    </div>
+  </div>
+
+  <!-- The printable competitor report -->
+  <div id="printable-competitor-report">
+
+    <!-- PAGE 1: TITLE & EXECUTIVE SUMMARY -->
+    <div class="pdf-page" style="background: white; padding: 20mm; font-family: var(--font-sans); color: #333333; line-height: 1.6; display: flex; flex-direction: column; justify-content: space-between; box-sizing: border-box; min-height: 297mm; height: auto;">
+      <!-- Page Header -->
+      <div style="display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 1px solid #cccccc; padding-bottom: 8px; margin-bottom: 12px; flex-shrink: 0;">
+        <div style="display: flex; align-items: center;">
+          <img src="/logo.svg" alt="Explore Media Logo" style="height: 60px; opacity: 0.9;" />
+        </div>
+        <div style="font-size: 11px; color: #666666; font-weight: 550;">Generated: <span class="dyn-competitor-date">June 14, 2026</span></div>
+      </div>
+
+      <!-- Page Content -->
+      <div style="flex-grow: 1; display: flex; flex-direction: column; justify-content: flex-start; gap: 10px;">
+        <h1 style="font-family: var(--font-sans); font-size: 24px; font-weight: 700; color: #0f5b99; margin-bottom: 10px; margin-top: 0; text-align: center;">
+          Competitor SEO &amp; Content Performance Audit
+        </h1>
+
+        <!-- Metadata -->
+        <div style="font-size: 12.5px; line-height: 1.8; color: #333333; margin-bottom: 12px; background: #f8fafc; padding: 10px 14px; border-radius: 12px; border: 1px solid #e2e8f0;">
+          <div><span style="color: #0f5b99; font-weight: 700;">Client Company Name:</span> <span class="dyn-comp-client-name">Apex Climate Control</span></div>
+          <div><span style="color: #0f5b99; font-weight: 700;">Client URL:</span> <a class="dyn-comp-company-url" href="https://www.apexclimatecontrol.com" target="_blank" style="color: #0f5b99; text-decoration: underline;">www.apexclimatecontrol.com</a></div>
+          <div><span style="color: #0f5b99; font-weight: 700;">Target Search Term:</span> <span id="dyn-comp-keyword">HVAC repair Alabama</span></div>
+          <div><span style="color: #0f5b99; font-weight: 700;">Current SEO Rank:</span> <span id="dyn-comp-rank" style="color: var(--color-accent); font-weight: 700;">5th Place</span></div>
+          <div style="display: flex; gap: 24px; margin-top: 8px; font-size: 11.5px; border-top: 1px solid #e2e8f0; padding-top: 8px;">
+            <div><span style="color: var(--color-success); font-weight: 700;">● Gemini API Auto-Check:</span> Active</div>
+            <div><span style="color: var(--color-success); font-weight: 700;">● ClickUp Integration:</span> Synchronized</div>
+          </div>
+        </div>
+
+        <!-- Executive Summary -->
+        <div style="margin-bottom: 6px;">
+          <h2 style="font-family: var(--font-sans); font-size: 15px; font-weight: 700; color: #0f5b99; text-transform: uppercase; border-bottom: 1px solid #cccccc; padding-bottom: 4px; margin-bottom: 8px; letter-spacing: 0.03em; margin-top: 0;">
+            Executive Summary
+          </h2>
+          <p style="font-size: 12px; color: #333333; line-height: 1.6; text-align: justify; margin: 0; margin-bottom: 8px;">
+            This audit report outlines the search engine optimization (SEO) standing of <strong>Apex Climate Control</strong> against five core regional competitors: <em>Comfort Masters HVAC</em>, <em>Guardian Air Solutions</em>, <em>Southern Comfort Heating &amp; Air</em>, <em>Patriot Home Services</em>, and <em>Total Home Comfort</em>.
+            Currently holding the <strong>5th position</strong> for the high-intent query "<span class="dyn-comp-kw-text">HVAC repair Alabama</span>", Apex Climate Control has a solid local base but falls behind larger multi-location agencies and digital-first providers who leverage automated scheduling and cross-vertical channels.
+          </p>
+          <p style="font-size: 12px; color: #333333; line-height: 1.6; text-align: justify; margin: 0;">
+            Through our automated competitor analysis engine, we actively monitor content structures of outranking sites. Using <strong>Gemini API integration</strong>, competitor blogs and service pages are parsed weekly to extract keyword structures, schema setups, and layout hierarchies. This data is mapped directly against Apex Climate Control's page setups to generate high-performing, optimized content briefs automatically. These opportunities are instantly synced to <strong>ClickUp</strong> as actionable tasks for our copywriting team. Implementing the recommended steps in this audit will allow Apex to bridge its content gaps and reclaim top SERP positions.
+          </p>
+        </div>
+
+        <!-- Audit Scope & Methodology -->
+        <div style="margin-top: 14px; border-top: 1px dashed #cccccc; padding-top: 14px;">
+          <h3 style="font-family: var(--font-sans); font-size: 13.5px; font-weight: 700; color: #0f5b99; text-transform: uppercase; margin-bottom: 8px; letter-spacing: 0.02em;">Audit Scope &amp; Methodology</h3>
+          <ul style="padding-left: 18px; margin: 0; font-size: 11.5px; color: #333333; display: flex; flex-direction: column; gap: 5px;">
+            <li><strong>Competitor Benchmark:</strong> Comparative analysis against five core regional service providers to gauge visibility share.</li>
+            <li><strong>Gemini API Content Check:</strong> Automatic keyword density, title tags, and content length mapping of outranking sites.</li>
+            <li><strong>ClickUp Integration Flow:</strong> Mapping verified search gaps directly into task logs for rapid copy optimization and deployment.</li>
+            <li><strong>Local Ranking Focus:</strong> Focus on high-intent regional keywords specifically mapping to Google Local Pack and organic positions.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Page Footer -->
+      <div style="border-top: 1px solid #cccccc; padding-top: 8px; display: flex; justify-content: center; align-items: center; font-size: 8.5px; color: #888888; font-weight: normal; margin-top: 16px; flex-shrink: 0; width: 100%; text-align: center;">
+        © 2026 Explore Media. All Rights Reserved. | Privacy Policy | Internal Use Only | Montgomery, Alabama (River Region) | www.exploremedia.com
+      </div>
+    </div>
+
+    <!-- PAGE 2: PROFILE OVERVIEW & TARGET AUDIENCE -->
+    <div class="pdf-page" style="background: white; padding: 20mm; font-family: var(--font-sans); color: #333333; line-height: 1.6; display: flex; flex-direction: column; justify-content: space-between; box-sizing: border-box; min-height: 297mm; height: auto;">
+      <!-- Page Header -->
+      <div style="display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 1px solid #cccccc; padding-bottom: 8px; margin-bottom: 12px; flex-shrink: 0;">
+        <div style="display: flex; align-items: center;">
+          <img src="/logo.svg" alt="Explore Media Logo" style="height: 60px; opacity: 0.9;" />
+        </div>
+        <div style="font-size: 11px; color: #666666; font-weight: 550;">Generated: <span class="dyn-competitor-date">June 14, 2026</span></div>
+      </div>
+
+      <!-- Page Content -->
+      <div style="flex-grow: 1; display: flex; flex-direction: column; justify-content: flex-start; gap: 12px;">
+        <h2 style="font-family: var(--font-sans); font-size: 15px; font-weight: 700; color: #0f5b99; text-transform: uppercase; border-bottom: 1px solid #cccccc; padding-bottom: 4px; margin-bottom: 4px; letter-spacing: 0.03em; margin-top: 0;">
+          Company Profiles &amp; Target Audiences
+        </h2>
+
+        <!-- Profiles Container -->
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          
+          <!-- Apex Climate Control -->
+          <div style="background: #f8fafc; border-left: 4px solid #0f5b99; padding: 8px 12px; border-radius: 4px;">
+            <div style="font-size: 13px; font-weight: 700; color: #0f5b99; margin-bottom: 3px;">Apex Climate Control (Client) <span style="font-size: 11px; font-weight: normal; color: #666666;">| www.apexclimatecontrol.com</span></div>
+            <div style="font-size: 11px; color: #333333; margin-bottom: 3px; text-align: justify; line-height: 1.4;"><strong>Overview:</strong> Established HVAC company serving Alabama for 15+ years. Provides residential and commercial solutions with strong local market reputation. Focuses on maintenance memberships and recurring revenue. Employs 40+ technicians, known for emergency repair response.</div>
+            <div style="font-size: 11px; color: #333333; line-height: 1.4;"><strong>Target Audience:</strong> Homeowners age 30-70, property managers, apartment complexes, commercial property owners, healthcare/educational facilities, small business owners, and residential developers.</div>
+          </div>
+
+          <!-- Comfort Masters HVAC -->
+          <div style="background: #f8fafc; border-left: 4px solid #0284c7; padding: 8px 12px; border-radius: 4px;">
+            <div style="font-size: 13px; font-weight: 700; color: #0284c7; margin-bottom: 3px;">1. Comfort Masters HVAC <span style="font-size: 11px; font-weight: normal; color: #666666;">| www.comfortmastershvac.com</span></div>
+            <div style="font-size: 11px; color: #333333; margin-bottom: 3px; text-align: justify; line-height: 1.4;"><strong>Overview:</strong> Multi-location residential-focused company operating for 20+ years. High marketing investment, large technician team, and active recruitment strategy resulting in a strong regional market presence.</div>
+            <div style="font-size: 11px; color: #333333; line-height: 1.4;"><strong>Target Audience:</strong> Homeowners, retirees, families, residential communities, HOAs, luxury homes, and residential builders.</div>
+          </div>
+
+          <!-- Guardian Air Solutions -->
+          <div style="background: #f8fafc; border-left: 4px solid #0284c7; padding: 8px 12px; border-radius: 4px;">
+            <div style="font-size: 13px; font-weight: 700; color: #0284c7; margin-bottom: 3px;">2. Guardian Air Solutions <span style="font-size: 11px; font-weight: normal; color: #666666;">| www.guardianairsolutions.com</span></div>
+            <div style="font-size: 11px; color: #333333; margin-bottom: 3px; text-align: justify; line-height: 1.4;"><strong>Overview:</strong> Growing digital-first HVAC provider focused on residential and commercial clients. Features modern brand positioning, mobile booking, and aggressive regional growth strategies.</div>
+            <div style="font-size: 11px; color: #333333; line-height: 1.4;"><strong>Target Audience:</strong> Homeowners, businesses, property managers, healthcare facilities, and retail property owners.</div>
+          </div>
+
+          <!-- Southern Comfort Heating & Air -->
+          <div style="background: #f8fafc; border-left: 4px solid #0284c7; padding: 8px 12px; border-radius: 4px;">
+            <div style="font-size: 13px; font-weight: 700; color: #0284c7; margin-bottom: 3px;">3. Southern Comfort Heating &amp; Air <span style="font-size: 11px; font-weight: normal; color: #666666;">| Family-Owned Local Authority</span></div>
+            <div style="font-size: 11px; color: #333333; margin-bottom: 3px; text-align: justify; line-height: 1.4;"><strong>Overview:</strong> Family-owned trusted local brand with 25+ years in operation. Focuses on local families and senior citizens with a high-trust, referral-based model. Built on long-term community relationships and personal recommendations.</div>
+            <div style="font-size: 11px; color: #333333; line-height: 1.4;"><strong>Target Audience:</strong> Senior citizens, multi-generational local families, residential neighborhoods, and loyal community members.</div>
+          </div>
+
+          <!-- Patriot Home Services -->
+          <div style="background: #f8fafc; border-left: 4px solid #0284c7; padding: 8px 12px; border-radius: 4px;">
+            <div style="font-size: 13px; font-weight: 700; color: #0284c7; margin-bottom: 3px;">4. Patriot Home Services <span style="font-size: 11px; font-weight: normal; color: #666666;">| Multi-Service Contractor</span></div>
+            <div style="font-size: 11px; color: #333333; margin-bottom: 3px; text-align: justify; line-height: 1.4;"><strong>Overview:</strong> One-stop multi-service provider (HVAC, plumbing, electrical). Targets homeowners and property managers looking for bundled maintenance plans and one-call solutions. Heavy regional advertising for maintenance bundles.</div>
+            <div style="font-size: 11px; color: #333333; line-height: 1.4;"><strong>Target Audience:</strong> Property managers, busy working homeowners, rental property investors, and clients desiring single-source home repairs.</div>
+          </div>
+
+          <!-- Total Home Comfort -->
+          <div style="background: #f8fafc; border-left: 4px solid #0284c7; padding: 8px 12px; border-radius: 4px;">
+            <div style="font-size: 13px; font-weight: 700; color: #0284c7; margin-bottom: 3px;">5. Total Home Comfort <span style="font-size: 11px; font-weight: normal; color: #666666;">| Luxury &amp; Smart-Home Niche</span></div>
+            <div style="font-size: 11px; color: #333333; margin-bottom: 3px; text-align: justify; line-height: 1.4;"><strong>Overview:</strong> Premium high-end residential contractor. Focuses on luxury homeowners, high-income households, and custom home builders, specializing in smart-home integration and energy optimization. High-end equipment focus.</div>
+            <div style="font-size: 11px; color: #333333; line-height: 1.4;"><strong>Target Audience:</strong> High-income homeowners, luxury custom home builders, tech-oriented buyers, and energy-efficiency advocates.</div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Page Footer -->
+      <div style="border-top: 1px solid #cccccc; padding-top: 8px; display: flex; justify-content: center; align-items: center; font-size: 8.5px; color: #888888; font-weight: normal; margin-top: 16px; flex-shrink: 0; width: 100%; text-align: center;">
+        © 2026 Explore Media. All Rights Reserved. | Privacy Policy | Internal Use Only | Montgomery, Alabama (River Region) | www.exploremedia.com
+      </div>
+    </div>
+
+    <!-- PAGE 3: CORE OFFERINGS & PRICING MATRIX -->
+    <div class="pdf-page" style="background: white; padding: 20mm; font-family: var(--font-sans); color: #333333; line-height: 1.6; display: flex; flex-direction: column; justify-content: space-between; box-sizing: border-box; min-height: 297mm; height: auto;">
+      <!-- Page Header -->
+      <div style="display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 1px solid #cccccc; padding-bottom: 8px; margin-bottom: 12px; flex-shrink: 0;">
+        <div style="display: flex; align-items: center;">
+          <img src="/logo.svg" alt="Explore Media Logo" style="height: 60px; opacity: 0.9;" />
+        </div>
+        <div style="font-size: 11px; color: #666666; font-weight: 550;">Generated: <span class="dyn-competitor-date">June 14, 2026</span></div>
+      </div>
+
+      <!-- Page Content -->
+      <div style="flex-grow: 1; display: flex; flex-direction: column; justify-content: flex-start; gap: 12px;">
+        <h2 style="font-family: var(--font-sans); font-size: 15px; font-weight: 700; color: #0f5b99; text-transform: uppercase; border-bottom: 1px solid #cccccc; padding-bottom: 4px; margin-bottom: 4px; letter-spacing: 0.03em; margin-top: 0;">
+          Core Offerings &amp; Pricing Structures
+        </h2>
+
+        <!-- Comparison Cards Container -->
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          
+          <!-- Apex Climate Control -->
+          <div style="border: 1px solid #e2e8f0; border-radius: 8px; padding: 8px 12px; background: #f8fafc;">
+            <div style="font-size: 12.5px; font-weight: 700; color: #0f5b99; border-bottom: 1px solid #e2e8f0; padding-bottom: 4px; margin-bottom: 5px;">
+              Apex Climate Control (Client)
+            </div>
+            <div style="display: flex; gap: 16px; font-size: 11px; line-height: 1.4;">
+              <div style="flex: 1.2;">
+                <strong>Core Offerings:</strong> AC/furnace repair &amp; install, heat pumps, indoor air quality, duct cleaning, commercial HVAC, thermostat setups.
+              </div>
+              <div style="flex: 1; border-left: 1px solid #e2e8f0; padding-left: 16px;">
+                <strong>Pricing &amp; Memberships:</strong> Service call: $99-$149 • Tune-ups: $199/yr • Membership: $29/mo • Replacement: $5k-$18k.
+              </div>
+            </div>
+          </div>
+
+          <!-- Comfort Masters HVAC -->
+          <div style="border: 1px solid #e2e8f0; border-radius: 8px; padding: 8px 12px;">
+            <div style="font-size: 12.5px; font-weight: 700; color: var(--color-primary); border-bottom: 1px solid #e2e8f0; padding-bottom: 4px; margin-bottom: 5px;">
+              1. Comfort Masters HVAC
+            </div>
+            <div style="display: flex; gap: 16px; font-size: 11px; line-height: 1.4;">
+              <div style="flex: 1.2;">
+                <strong>Core Offerings:</strong> AC installation/repair, heating services, maintenance plans, duct replacement, indoor air quality, financing options.
+              </div>
+              <div style="flex: 1; border-left: 1px solid #e2e8f0; padding-left: 16px;">
+                <strong>Pricing &amp; Memberships:</strong> Service call: $89-$129 • Membership: $25/mo • System installations: $4.5k-$15k.
+              </div>
+            </div>
+          </div>
+
+          <!-- Guardian Air Solutions -->
+          <div style="border: 1px solid #e2e8f0; border-radius: 8px; padding: 8px 12px;">
+            <div style="font-size: 12.5px; font-weight: 700; color: var(--color-primary); border-bottom: 1px solid #e2e8f0; padding-bottom: 4px; margin-bottom: 5px;">
+              2. Guardian Air Solutions
+            </div>
+            <div style="display: flex; gap: 16px; font-size: 11px; line-height: 1.4;">
+              <div style="flex: 1.2;">
+                <strong>Core Offerings:</strong> HVAC repair/installation, air quality control, duct cleaning, commercial contracts, digital booking scheduler portal.
+              </div>
+              <div style="flex: 1; border-left: 1px solid #e2e8f0; padding-left: 16px;">
+                <strong>Pricing &amp; Memberships:</strong> Competitive mid-market rates, custom commercial contracts, flexible financing plans.
+              </div>
+            </div>
+          </div>
+
+          <!-- Southern Comfort Heating & Air -->
+          <div style="border: 1px solid #e2e8f0; border-radius: 8px; padding: 8px 12px;">
+            <div style="font-size: 12.5px; font-weight: 700; color: var(--color-primary); border-bottom: 1px solid #e2e8f0; padding-bottom: 4px; margin-bottom: 5px;">
+              3. Southern Comfort Heating &amp; Air
+            </div>
+            <div style="display: flex; gap: 16px; font-size: 11px; line-height: 1.4;">
+              <div style="flex: 1.2;">
+                <strong>Core Offerings:</strong> Residential AC &amp; heating repairs, system replacements, maintenance agreements, basic air quality checks.
+              </div>
+              <div style="flex: 1; border-left: 1px solid #e2e8f0; padding-left: 16px;">
+                <strong>Pricing &amp; Memberships:</strong> Traditional pricing models, senior citizen discounts, custom quotes for system replacements.
+              </div>
+            </div>
+          </div>
+
+          <!-- Patriot Home Services -->
+          <div style="border: 1px solid #e2e8f0; border-radius: 8px; padding: 8px 12px;">
+            <div style="font-size: 12.5px; font-weight: 700; color: var(--color-primary); border-bottom: 1px solid #e2e8f0; padding-bottom: 4px; margin-bottom: 5px;">
+              4. Patriot Home Services
+            </div>
+            <div style="display: flex; gap: 16px; font-size: 11px; line-height: 1.4;">
+              <div style="flex: 1.2;">
+                <strong>Core Offerings:</strong> HVAC, plumbing, electrical installation/maintenance, whole-home audits, multi-trade membership options.
+              </div>
+              <div style="flex: 1; border-left: 1px solid #e2e8f0; padding-left: 16px;">
+                <strong>Pricing &amp; Memberships:</strong> Bundled membership packages, multi-trade checkups, standard service tier pricing.
+              </div>
+            </div>
+          </div>
+
+          <!-- Total Home Comfort -->
+          <div style="border: 1px solid #e2e8f0; border-radius: 8px; padding: 8px 12px;">
+            <div style="font-size: 12.5px; font-weight: 700; color: var(--color-primary); border-bottom: 1px solid #e2e8f0; padding-bottom: 4px; margin-bottom: 5px;">
+              5. Total Home Comfort
+            </div>
+            <div style="display: flex; gap: 16px; font-size: 11px; line-height: 1.4;">
+              <div style="flex: 1.2;">
+                <strong>Core Offerings:</strong> Premium HVAC installations, smart home integrations, advanced indoor air quality setups, custom energy audits.
+              </div>
+              <div style="flex: 1; border-left: 1px solid #e2e8f0; padding-left: 16px;">
+                <strong>Pricing &amp; Memberships:</strong> Premium high-end pricing, luxury service memberships, custom financing for premium systems.
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Pricing Strategy Note -->
+        <div style="background: #fafbfc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 10px; margin-top: 4px; font-size: 11px;">
+          <span style="font-weight: 700; color: var(--color-primary);">Strategic Pricing Insight:</span> Apex Climate Control sits slightly on the higher end for service calls ($99-$149 vs. Comfort Masters' $89-$129). To justify this premium, Apex must emphasize its 24/7 same-day service guarantee and utilize automated follow-up workflows. Reorganizing membership pricing to match regional benchmarks ($25-$29/month) while bundles are cross-promoted will ensure stronger customer retention.
+        </div>
+      </div>
+
+      <!-- Page Footer -->
+      <div style="border-top: 1px solid #cccccc; padding-top: 8px; display: flex; justify-content: center; align-items: center; font-size: 8.5px; color: #888888; font-weight: normal; margin-top: 16px; flex-shrink: 0; width: 100%; text-align: center;">
+        © 2026 Explore Media. All Rights Reserved. | Privacy Policy | Internal Use Only | Montgomery, Alabama (River Region) | www.exploremedia.com
+      </div>
+    </div>
+
+    <!-- PAGE 4: SWOT & GAP ANALYSIS -->
+    <div class="pdf-page" style="background: white; padding: 20mm; font-family: var(--font-sans); color: #333333; line-height: 1.6; display: flex; flex-direction: column; justify-content: space-between; box-sizing: border-box; min-height: 297mm; height: auto;">
+      <!-- Page Header -->
+      <div style="display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 1px solid #cccccc; padding-bottom: 8px; margin-bottom: 10px; flex-shrink: 0;">
+        <div style="display: flex; align-items: center;">
+          <img src="/logo.svg" alt="Explore Media Logo" style="height: 60px; opacity: 0.9;" />
+        </div>
+        <div style="font-size: 11px; color: #666666; font-weight: 550;">Generated: <span class="dyn-competitor-date">June 14, 2026</span></div>
+      </div>
+
+      <!-- Page Content -->
+      <div style="flex-grow: 1; display: flex; flex-direction: column; justify-content: flex-start; gap: 12px;">
+        <h2 style="font-family: var(--font-sans); font-size: 15px; font-weight: 700; color: #0f5b99; text-transform: uppercase; border-bottom: 1px solid #cccccc; padding-bottom: 4px; margin-bottom: 4px; letter-spacing: 0.03em; margin-top: 0;">
+          Strengths &amp; Weaknesses &amp; Uniqueness
+        </h2>
+
+        <!-- SWOT Cards Container -->
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          
+          <!-- Apex Climate Control -->
+          <div style="border: 1px solid #e2e8f0; border-radius: 8px; padding: 8px 12px; background: #f8fafc;">
+            <div style="font-size: 12.5px; font-weight: 700; color: #0f5b99; margin-bottom: 4px;">Apex Climate Control (Client)</div>
+            <div style="display: flex; gap: 16px; font-size: 11px; line-height: 1.4;">
+              <div style="flex: 1;"><strong>Strengths:</strong> High Google ratings, strong local organic SEO, well-received maintenance membership model.</div>
+              <div style="flex: 1; border-left: 1px solid #e2e8f0; padding-left: 12px;"><strong>Weaknesses:</strong> Underutilized social channels, inconsistent email marketing, slower adoption of automation.</div>
+              <div style="flex: 1; border-left: 1px solid #e2e8f0; padding-left: 12px;"><strong>Uniqueness:</strong> Same-day commitment, 10k+ completed jobs, top River Region award winner.</div>
+            </div>
+          </div>
+
+          <!-- Comfort Masters HVAC -->
+          <div style="border: 1px solid #e2e8f0; border-radius: 8px; padding: 8px 12px;">
+            <div style="font-size: 12.5px; font-weight: 700; color: var(--color-primary); margin-bottom: 4px;">1. Comfort Masters HVAC</div>
+            <div style="display: flex; gap: 16px; font-size: 11px; line-height: 1.4;">
+              <div style="flex: 1;"><strong>Strengths:</strong> Massive search presence, large digital advertising budgets, high landing page conversions.</div>
+              <div style="flex: 1; border-left: 1px solid #e2e8f0; padding-left: 12px;"><strong>Weaknesses:</strong> Outdated blogging style, low social engagement, highly generic brand positioning.</div>
+              <div style="flex: 1; border-left: 1px solid #e2e8f0; padding-left: 12px;"><strong>Uniqueness:</strong> Multi-location setups, very large service fleet, 15k+ total jobs completed.</div>
+            </div>
+          </div>
+
+          <!-- Guardian Air Solutions -->
+          <div style="border: 1px solid #e2e8f0; border-radius: 8px; padding: 8px 12px;">
+            <div style="font-size: 12.5px; font-weight: 700; color: var(--color-primary); margin-bottom: 4px;">2. Guardian Air Solutions</div>
+            <div style="display: flex; gap: 16px; font-size: 11px; line-height: 1.4;">
+              <div style="flex: 1;"><strong>Strengths:</strong> Sleek website layouts, excellent organic reviews, fast digital booking follow-ups.</div>
+              <div style="flex: 1; border-left: 1px solid #e2e8f0; padding-left: 12px;"><strong>Weaknesses:</strong> Limited service territory, small technician count, lower overall brand recognition.</div>
+              <div style="flex: 1; border-left: 1px solid #e2e8f0; padding-left: 12px;"><strong>Uniqueness:</strong> Digital-first online booking portal, instant mobile scheduling, rapid growth.</div>
+            </div>
+          </div>
+
+          <!-- Southern Comfort Heating & Air -->
+          <div style="border: 1px solid #e2e8f0; border-radius: 8px; padding: 8px 12px;">
+            <div style="font-size: 12.5px; font-weight: 700; color: var(--color-primary); margin-bottom: 4px;">3. Southern Comfort Heating &amp; Air</div>
+            <div style="display: flex; gap: 16px; font-size: 11px; line-height: 1.4;">
+              <div style="flex: 1;"><strong>Strengths:</strong> 25+ years local authority, outstanding customer referral rates, deep local trust.</div>
+              <div style="flex: 1; border-left: 1px solid #e2e8f0; padding-left: 12px;"><strong>Weaknesses:</strong> Legacy non-responsive website, zero content marketing, no backend automation.</div>
+              <div style="flex: 1; border-left: 1px solid #e2e8f0; padding-left: 12px;"><strong>Uniqueness:</strong> Focus on family values, deep-rooted community relationships, high client retention.</div>
+            </div>
+          </div>
+
+          <!-- Patriot Home Services -->
+          <div style="border: 1px solid #e2e8f0; border-radius: 8px; padding: 8px 12px;">
+            <div style="font-size: 12.5px; font-weight: 700; color: var(--color-primary); margin-bottom: 4px;">4. Patriot Home Services</div>
+            <div style="display: flex; gap: 16px; font-size: 11px; line-height: 1.4;">
+              <div style="flex: 1;"><strong>Strengths:</strong> High lifetime value, cross-service promotion (HVAC + electrical + plumbing), clear ops.</div>
+              <div style="flex: 1; border-left: 1px solid #e2e8f0; padding-left: 12px;"><strong>Weaknesses:</strong> Occasional service consistency challenges, weak localized search footprint.</div>
+              <div style="flex: 1; border-left: 1px solid #e2e8f0; padding-left: 12px;"><strong>Uniqueness:</strong> Multi-trade convenience packages, bundled service plans, active regional growth.</div>
+            </div>
+          </div>
+
+          <!-- Total Home Comfort -->
+          <div style="border: 1px solid #e2e8f0; border-radius: 8px; padding: 8px 12px;">
+            <div style="font-size: 12.5px; font-weight: 700; color: var(--color-primary); margin-bottom: 4px;">5. Total Home Comfort</div>
+            <div style="display: flex; gap: 16px; font-size: 11px; line-height: 1.4;">
+              <div style="flex: 1;"><strong>Strengths:</strong> Very high profit margins, advanced home automation offerings, strong service QA.</div>
+              <div style="flex: 1; border-left: 1px solid #e2e8f0; padding-left: 12px;"><strong>Weaknesses:</strong> Small targetable customer base, high ad acquisition costs, limited market coverage.</div>
+              <div style="flex: 1; border-left: 1px solid #e2e8f0; padding-left: 12px;"><strong>Uniqueness:</strong> High-end luxury niche focus, smart thermostat/energy experts, premium ratings.</div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- SWOT Findings -->
+        <div style="background: #fafbfc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 10px; margin-top: 4px; font-size: 11px;">
+          <span style="font-weight: 700; color: var(--color-primary);">SEO Gap Analysis:</span> Competitors like Comfort Masters are spending heavily on keywords Apex currently lacks pages for. Guardian Air outranks Apex on mobile queries due to a faster site and native mobile booking forms. By using Gemini to review Comfort Masters' content structure and generating optimized landing pages, Apex can capture the high-intent traffic it is currently missing.
+        </div>
+      </div>
+
+      <!-- Page Footer -->
+      <div style="border-top: 1px solid #cccccc; padding-top: 8px; display: flex; justify-content: center; align-items: center; font-size: 8.5px; color: #888888; font-weight: normal; margin-top: 16px; flex-shrink: 0; width: 100%; text-align: center;">
+        © 2026 Explore Media. All Rights Reserved. | Privacy Policy | Internal Use Only | Montgomery, Alabama (River Region) | www.exploremedia.com
+      </div>
+    </div>
+
+    <!-- PAGE 5: STRATEGIC ACTION PLAN & AUTOMATION OPPORTUNITIES -->
+    <div class="pdf-page" style="background: white; padding: 20mm; font-family: var(--font-sans); color: #333333; line-height: 1.6; display: flex; flex-direction: column; justify-content: space-between; box-sizing: border-box; min-height: 297mm; height: auto;">
+      <!-- Page Header -->
+      <div style="display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 1px solid #cccccc; padding-bottom: 8px; margin-bottom: 12px; flex-shrink: 0;">
+        <div style="display: flex; align-items: center;">
+          <img src="/logo.svg" alt="Explore Media Logo" style="height: 60px; opacity: 0.9;" />
+        </div>
+        <div style="font-size: 11px; color: #666666; font-weight: 550;">Generated: <span class="dyn-competitor-date">June 14, 2026</span></div>
+      </div>
+
+      <!-- Page Content -->
+      <div style="flex-grow: 1; display: flex; flex-direction: column; justify-content: flex-start; gap: 8px;">
+        <h2 style="font-family: var(--font-sans); font-size: 15px; font-weight: 700; color: #0f5b99; text-transform: uppercase; border-bottom: 1px solid #cccccc; padding-bottom: 4px; margin-bottom: 8px; letter-spacing: 0.03em; margin-top: 0;">
+          Strategic Action Plan &amp; Automation Opportunities
+        </h2>
+
+        <!-- Fall Behinds & Opportunities -->
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <!-- Fall Behinds -->
+          <div>
+            <div style="font-size: 12.5px; font-weight: 700; color: #b91c1c; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.02em;">Where Apex Falls Behind</div>
+            <ul style="padding-left: 18px; margin: 0; font-size: 11px; color: #333333; display: flex; flex-direction: column; gap: 2px;">
+              <li><strong>Lagging AI automation:</strong> Competitors are starting to adopt automated AI leads scoring and follow-up sequences.</li>
+              <li><strong>Slower response times:</strong> Lead qualification processes remain manual, leading to a lag in customer bookings.</li>
+              <li><strong>Basic reporting:</strong> Lack of automated marketing attribution and client health scoring prevents accurate ROI determination.</li>
+              <li><strong>Manual operations:</strong> Review solicitation, follow-up messages, and client sentiment analyses are done by hand.</li>
+            </ul>
+          </div>
+
+          <!-- Opportunities -->
+          <div>
+            <div style="font-size: 12.5px; font-weight: 700; color: var(--color-success); margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.02em;">Automated Opportunities (Gemini + ClickUp Integration)</div>
+            <ul style="padding-left: 18px; margin: 0; font-size: 11px; color: #333333; display: flex; flex-direction: column; gap: 2px;">
+              <li><strong>AI Lead Qualification &amp; Portal Booking:</strong> Deploy smart conversational bots to qualify and schedule service bookings immediately.</li>
+              <li><strong>Call Transcript Analysis:</strong> Integrate call transcript scoring using LLMs to automatically capture customer complaints and upsell opportunities.</li>
+              <li><strong>Automated Review Generation:</strong> Set up automated triggers in HighLevel (GHL) that send review requests immediately after an invoice is cleared.</li>
+              <li><strong>Predictive Maintenance Alerts:</strong> Notify clients automatically of annual tune-up plans or winter/summer prep reminders.</li>
+              <li><strong>ClickUp Task Automation:</strong> Automatically generate competitor SEO tasks (like Comfort Masters content gap fixes) directly in the content production team's boards.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Immediate Implementation Strategy -->
+        <div style="margin-top: 14px; border-top: 1px dashed #cccccc; padding-top: 14px;">
+          <div style="font-size: 12.5px; font-weight: 700; color: var(--color-primary); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.02em;">Immediate Implementation Strategy</div>
+          <div style="font-size: 11.5px; color: #333333; line-height: 1.5; text-align: justify;">
+            To address the highlighted gaps, we recommend executing a three-phased deployment plan. 
+            First, launch the <strong>SEO Content Gap Phase</strong> by writing targeted service landing pages using the Gemini API analysis to match outranking keyword densities. 
+            Second, implement the <strong>ClickUp Sync Phase</strong>, connecting SEO crawler webhooks to automatically generate copywriting tasks when search gaps are detected. 
+            Third, initiate the <strong>AI Integration Phase</strong> by configuring automated lead qualification workflows and review collection templates to boost organic local authority.
+          </div>
+        </div>
+      </div>
+
+      <!-- Page Footer -->
+      <div style="border-top: 1px solid #cccccc; padding-top: 8px; display: flex; justify-content: center; align-items: center; font-size: 8.5px; color: #888888; font-weight: normal; margin-top: 16px; flex-shrink: 0; width: 100%; text-align: center;">
+        © 2026 Explore Media. All Rights Reserved. | Privacy Policy | Internal Use Only | Montgomery, Alabama (River Region) | www.exploremedia.com
+      </div>
+    </div>
+
+  </div>
+</div>

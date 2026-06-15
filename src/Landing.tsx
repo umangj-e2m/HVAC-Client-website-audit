@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
   BarChart2, Crosshair, PhoneCall, Bot, LayoutTemplate, 
   Map as MapIcon, Users, Bell, Zap, ChevronRight, CheckCircle2, 
-  ArrowRight, ShieldCheck, Clock, TrendingUp, User, Lock, X
+  ArrowRight, ShieldCheck, Clock, TrendingUp, User, Lock, X,
+  Sparkles, ClipboardCheck, Swords
 } from 'lucide-react';
 
 const Typewriter = ({ text, delay = 100 }) => {
@@ -23,22 +24,152 @@ const Typewriter = ({ text, delay = 100 }) => {
   return <span>{currentText}</span>;
 };
 
-const FeatureCard = ({ icon: Icon, title, description, delay }) => (
-  <motion.div 
-    initial={{ opacity: 0, y: 30 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true }}
-    transition={{ duration: 0.5, delay }}
-    whileHover={{ y: -5, scale: 1.02 }}
-    className="bg-white dark:bg-slate-800 p-6 xl:p-8 rounded-2xl shadow-lg shadow-slate-200/50 dark:shadow-none border border-slate-100 dark:border-slate-700 hover:border-orange-500/30 dark:hover:border-orange-500/30 transition-all flex flex-col items-start"
-  >
-    <div className="w-12 h-12 bg-orange-100 dark:bg-orange-500/20 text-orange-600 dark:text-orange-400 rounded-xl flex items-center justify-center mb-6">
-      <Icon size={24} />
-    </div>
-    <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3">{title}</h3>
-    <p className="text-slate-600 dark:text-slate-300 leading-relaxed">{description}</p>
-  </motion.div>
-);
+const AnimatedCounter = ({ target, suffix = '', duration = 2000 }) => {
+  const [count, setCount] = useState(0);
+  const ref = useRef<HTMLSpanElement>(null);
+  const started = useRef(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting && !started.current) {
+        started.current = true;
+        const start = performance.now();
+        const step = (now: number) => {
+          const progress = Math.min((now - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          setCount(Math.floor(eased * target));
+          if (progress < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+      }
+    }, { threshold: 0.5 });
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, [target, duration]);
+
+  return <span ref={ref}>{count}{suffix}</span>;
+};
+
+const CYCLING_WORDS = ['SEO Automation', 'Call Analysis', 'Competitor Intel', 'Lead Scoring', 'Content AI'];
+const CyclingWord = () => {
+  const [index, setIndex] = useState(0);
+  useEffect(() => {
+    const t = setInterval(() => setIndex(i => (i + 1) % CYCLING_WORDS.length), 2400);
+    return () => clearInterval(t);
+  }, []);
+  return (
+    <AnimatePresence mode="wait">
+      <motion.span
+        key={index}
+        initial={{ opacity: 0, y: 20, filter: 'blur(8px)' }}
+        animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+        exit={{ opacity: 0, y: -20, filter: 'blur(8px)' }}
+        transition={{ duration: 0.45, ease: 'easeOut' }}
+        className="inline-block text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-rose-500"
+      >
+        {CYCLING_WORDS[index]}
+      </motion.span>
+    </AnimatePresence>
+  );
+};
+
+const HEADLINE_PAIRS = [
+  { line1: 'Stop Manual Work.',    line2: 'Start Smart Growth.' },
+  { line1: 'Stop Wasted Hours.',   line2: 'Start Scaling Faster.' },
+  { line1: 'Stop Missing Leads.',  line2: 'Start Converting More.' },
+  { line1: 'Stop Slow Reports.',   line2: 'Start AI Automation.' },
+];
+
+const CyclingHeadline = () => {
+  const [hIdx, setHIdx] = useState(0);
+  useEffect(() => {
+    // Initial word-in animation runs once, then start cycling after 3.5s
+    const t = setTimeout(() => {
+      const interval = setInterval(() => setHIdx(i => (i + 1) % HEADLINE_PAIRS.length), 3500);
+      return () => clearInterval(interval);
+    }, 3500);
+    return () => clearTimeout(t);
+  }, []);
+
+  const { line1, line2 } = HEADLINE_PAIRS[hIdx];
+
+  return (
+    <AnimatePresence mode="wait">
+      <motion.div
+        key={hIdx}
+        initial="hidden"
+        animate="visible"
+        exit="exit"
+        className="mb-6"
+      >
+        {/* Line 1 — dark */}
+        <div className="text-5xl md:text-[4.5rem] font-extrabold text-slate-900 dark:text-white leading-[1.08] tracking-tight">
+          {line1.split(' ').map((word, i) => (
+            <motion.span
+              key={`${hIdx}-l1-${i}`}
+              initial={{ opacity: 0, y: 36, filter: 'blur(6px)' }}
+              animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+              exit={{ opacity: 0, y: -24, filter: 'blur(6px)' }}
+              transition={{ duration: 0.5, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
+              className="inline-block mr-4"
+            >
+              {word}
+            </motion.span>
+          ))}
+        </div>
+        {/* Line 2 — gradient */}
+        <div className="text-5xl md:text-[4.5rem] font-extrabold leading-[1.08] tracking-tight mt-1">
+          {line2.split(' ').map((word, i) => (
+            <motion.span
+              key={`${hIdx}-l2-${i}`}
+              initial={{ opacity: 0, y: 36, filter: 'blur(6px)' }}
+              animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+              exit={{ opacity: 0, y: -24, filter: 'blur(6px)' }}
+              transition={{ duration: 0.5, delay: 0.25 + i * 0.1, ease: [0.22, 1, 0.36, 1] }}
+              className="inline-block mr-4 text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-rose-500"
+            >
+              {word}
+            </motion.span>
+          ))}
+        </div>
+      </motion.div>
+    </AnimatePresence>
+  );
+};
+
+const FeatureCard = ({ icon: Icon, title, badgeText, description, themeColor, delay }) => {
+  let iconBg = "bg-orange-100 dark:bg-orange-500/20 text-orange-600 dark:text-orange-400";
+  let borderHover = "hover:border-orange-500/30";
+  
+  if (themeColor === "blue") {
+    iconBg = "bg-blue-100 dark:bg-blue-500/20 text-blue-600 dark:text-blue-400";
+    borderHover = "hover:border-blue-500/30";
+  } else if (themeColor === "indigo") {
+    iconBg = "bg-indigo-100 dark:bg-indigo-500/20 text-indigo-600 dark:text-indigo-400";
+    borderHover = "hover:border-indigo-500/30";
+  } else if (themeColor === "purple") {
+    iconBg = "bg-purple-100 dark:bg-purple-500/20 text-purple-600 dark:text-purple-400";
+    borderHover = "hover:border-purple-500/30";
+  }
+
+  return (
+    <motion.div 
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, delay }}
+      whileHover={{ y: -5, scale: 1.02 }}
+      className={`bg-white dark:bg-slate-800 p-6 xl:p-8 rounded-2xl shadow-lg shadow-slate-200/50 dark:shadow-none border border-slate-100 dark:border-slate-700 ${borderHover} transition-all flex flex-col items-start h-full`}
+    >
+      <div className={`w-12 h-12 ${iconBg} rounded-xl flex items-center justify-center mb-6`}>
+        <Icon size={24} />
+      </div>
+      <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">{title}</h3>
+      <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-4">{badgeText}</span>
+      <p className="text-slate-600 dark:text-slate-300 leading-relaxed text-sm flex-1">{description}</p>
+    </motion.div>
+  );
+};
 
 const StepCard = ({ number, title, description, delay }) => (
   <motion.div 
@@ -67,6 +198,18 @@ export default function Landing() {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [activeDemoTab, setActiveDemoTab] = useState('optimizer');
+
+  useEffect(() => {
+    const tabs = ['optimizer', 'audit', 'competitor', 'lsa'];
+    const interval = setInterval(() => {
+      setActiveDemoTab(prev => {
+        const nextIdx = (tabs.indexOf(prev) + 1) % tabs.length;
+        return tabs[nextIdx];
+      });
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     // Basic dark mode toggle logic based on a class or system pref, hardcoded to light for now but structured to support dark.
@@ -172,149 +315,309 @@ export default function Landing() {
 
         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center relative z-10">
           <div className="max-w-2xl">
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-orange-100 dark:bg-orange-500/10 text-orange-600 dark:text-orange-400 text-sm font-semibold mb-6"
+            {/* Glowing badge */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, ease: 'backOut' }}
+              className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-gradient-to-r from-orange-500/10 to-rose-500/10 border border-orange-400/30 text-orange-600 dark:text-orange-400 text-sm font-bold mb-8 backdrop-blur-sm relative overflow-hidden"
             >
-              <Zap size={16} /> <span>AI Automation Platform</span>
-            </motion.div>
-            
-            <motion.h1 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-              className="text-5xl md:text-7xl font-extrabold text-slate-900 dark:text-white leading-[1.1] tracking-tight mb-6"
-            >
-              Stop Manual Work. <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-rose-500">
-                Start Smart Growth.
-              </span>
-            </motion.h1>
-
-            <motion.div 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.4 }}
-              className="text-lg md:text-xl text-slate-600 dark:text-slate-400 mb-10 h-16"
-            >
-              <span className="font-mono text-slate-500 text-sm tracking-widest uppercase mb-2 block">Status:</span>
-              <Typewriter text="Manual Work → Automated System" delay={50} />
+              <motion.div
+                animate={{ scale: [1, 1.6, 1], opacity: [0.6, 0, 0.6] }}
+                transition={{ duration: 2, repeat: Infinity }}
+                className="absolute left-3 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-orange-500"
+              />
+              <span className="pl-3">AI Automation Platform</span>
+              <Zap size={14} className="text-orange-500" />
             </motion.div>
 
+            {/* Headline — cycling word-by-word stagger */}
+            <CyclingHeadline />
+
+            {/* Cycling subtitle */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.85 }}
+              className="text-xl md:text-2xl font-semibold text-slate-700 dark:text-slate-300 mb-6 h-10 flex items-center gap-2"
+            >
+              <span className="text-slate-400 dark:text-slate-500 font-normal">Powered by</span>
+              <CyclingWord />
+            </motion.div>
+
+            {/* Description */}
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5 }}
-              className="text-lg text-slate-600 dark:text-slate-400 mb-10 leading-relaxed"
+              transition={{ delay: 1.0 }}
+              className="text-base md:text-lg text-slate-500 dark:text-slate-400 mb-10 leading-relaxed max-w-xl"
             >
-              Automate your SEO, content, call tracking, reporting, and team workflows — all in one intelligent platform. Save 20+ hours per week down to the minute.
+              Automate your SEO, content, call tracking, reporting, and team workflows — all in one intelligent platform.
             </motion.p>
 
-            <motion.div 
+            {/* Animated stat pills */}
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6 }}
-              className="text-slate-600 dark:text-slate-300 border-l-4 border-orange-500 pl-4 py-2 mt-4 max-w-lg"
+              transition={{ delay: 1.15 }}
+              className="flex flex-wrap gap-3 mb-10"
             >
-              <p className="font-semibold text-lg text-slate-900 dark:text-white mb-1">
-                Platform Access & Inquiries
-              </p>
-              <p className="text-sm leading-relaxed">
-                Explore Media is currently operating on an invite-only model. For custom integrations or platform inquiries, please contact us.
-              </p>
+              {[
+                { value: 20, suffix: '+', label: 'Hours saved / week' },
+                { value: 98, suffix: '%', label: 'Audit Accuracy' },
+                { value: 4, suffix: 'x', label: 'Faster reporting' },
+              ].map((stat, i) => (
+                <motion.div
+                  key={i}
+                  whileHover={{ scale: 1.05, y: -2 }}
+                  className="flex items-center gap-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl px-4 py-3 shadow-sm shadow-slate-100 dark:shadow-none"
+                >
+                  <div>
+                    <p className="text-2xl font-extrabold text-slate-900 dark:text-white leading-none">
+                      <AnimatedCounter target={stat.value} suffix={stat.suffix} duration={1800} />
+                    </p>
+                    <p className="text-[11px] text-slate-400 mt-0.5 font-medium tracking-wide">{stat.label}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+
+            {/* Invite-only note */}
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 1.3 }}
+              className="flex items-start gap-3 max-w-lg bg-gradient-to-r from-orange-50 to-rose-50 dark:from-orange-950/20 dark:to-rose-950/20 border border-orange-200/60 dark:border-orange-800/30 rounded-2xl px-5 py-4"
+            >
+              <div className="mt-0.5 flex-shrink-0 w-8 h-8 rounded-xl bg-orange-500/10 dark:bg-orange-400/10 flex items-center justify-center">
+                <ShieldCheck size={16} className="text-orange-500" />
+              </div>
+              <div>
+                <p className="font-bold text-sm text-slate-900 dark:text-white mb-0.5">Invite-Only Access</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                  Explore Media is currently operating on an invite-only model. Contact us for custom integrations or platform inquiries.
+                </p>
+              </div>
             </motion.div>
           </div>
-
           <motion.div 
-            initial={{ opacity: 0, x: 50, rotateY: 15 }}
-            animate={{ opacity: 1, x: 0, rotateY: 0 }}
-            transition={{ duration: 1, delay: 0.2 }}
-            className="relative lg:h-[600px] flex items-center perspective-[2000px]"
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="relative lg:h-[620px] flex items-center w-full"
           >
-            <motion.div 
-              animate={{ 
-                scale: [1, 1.1, 1],
-                rotate: [0, 90, 0],
-              }}
-              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-              className="absolute inset-0 bg-gradient-to-tr from-orange-500/30 via-rose-500/20 to-transparent blur-3xl rounded-full" 
-            />
-            <motion.div 
-              animate={{ 
-                scale: [1, 1.2, 1],
-                rotate: [0, -90, 0],
-              }}
-              transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-              className="absolute inset-0 bg-gradient-to-bl from-blue-500/20 via-emerald-500/20 to-transparent blur-3xl rounded-full" 
-            />
-            <div className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-2xl overflow-hidden relative z-10 transform translate-z-12">
-              {/* Card Inner Animated Background */}
-              <motion.div 
-                 animate={{ backgroundPosition: ['0% 0%', '100% 100%'] }} 
-                 transition={{ repeat: Infinity, duration: 15, ease: 'linear', repeatType: 'mirror' }} 
-                 className="absolute inset-0 z-0 opacity-[0.04] dark:opacity-[0.08]" 
-                 style={{ 
-                   backgroundImage: 'radial-gradient(circle at 0% 0%, #f97316 0%, transparent 50%), radial-gradient(circle at 100% 100%, #10b981 0%, transparent 50%)', 
-                   backgroundSize: '200% 200%' 
-                 }}
-              />
-              <div className="relative z-10">
-                <div className="h-10 border-b border-slate-100 dark:border-slate-800 flex items-center px-4 gap-2 bg-slate-50/80 dark:bg-slate-900/50 backdrop-blur-sm">
+            <div className="absolute inset-0 bg-gradient-to-tr from-orange-500/20 via-rose-500/10 to-transparent blur-3xl rounded-full" />
+            <div className="absolute inset-0 bg-gradient-to-bl from-blue-500/15 via-emerald-500/10 to-transparent blur-3xl rounded-full" />
+            
+            <div className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl shadow-2xl overflow-hidden relative z-10">
+              <div className="h-12 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between px-4 bg-slate-50/80 dark:bg-slate-900/50 backdrop-blur-sm">
+                <div className="flex gap-2">
                   <div className="w-3 h-3 rounded-full bg-rose-400" />
                   <div className="w-3 h-3 rounded-full bg-amber-400" />
                   <div className="w-3 h-3 rounded-full bg-emerald-400" />
                 </div>
-                <div className="p-6">
-                  <div className="flex gap-4 mb-6">
-                    <div className="flex-1 h-24 bg-white/50 dark:bg-slate-800/50 backdrop-blur-md rounded-xl border border-slate-100 dark:border-slate-700/50 relative overflow-hidden flex flex-col justify-center px-4 shadow-sm">
-                      <span className="text-xs font-semibold text-slate-500 uppercase">Hours Saved</span>
-                      <motion.div 
-                        key="hours-saved"
-                        initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-                        className="text-2xl font-bold text-slate-900 dark:text-white mt-1 flex items-baseline gap-1"
-                      >42 <span className="text-sm font-normal text-emerald-500">+12%</span></motion.div>
-                    </div>
-                    <div className="flex-1 h-24 bg-white/50 dark:bg-slate-800/50 backdrop-blur-md rounded-xl border border-slate-100 dark:border-slate-700/50 relative overflow-hidden flex flex-col justify-center px-4 shadow-sm">
-                      <span className="text-xs font-semibold text-slate-500 uppercase">Leads Auto-Qualified</span>
-                      <motion.div 
-                        initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-                        className="text-2xl font-bold text-slate-900 dark:text-white mt-1 flex items-baseline gap-1"
-                      >1,204 <span className="text-sm font-normal text-emerald-500">+5%</span></motion.div>
-                    </div>
-                  </div>
-  
-                  <div className="h-48 bg-white/40 dark:bg-slate-800/30 backdrop-blur-sm rounded-xl border border-slate-100 dark:border-slate-700/50 flex items-end p-4 gap-2">
-                     {/* Fake chart bars */}
-                     {[40, 70, 45, 90, 65, 85, 100].map((height, i) => (
-                       <motion.div 
-                         key={i}
-                         initial={{ height: 0 }}
-                         animate={{ height: `${height}%` }}
-                         transition={{ duration: 1, delay: 0.5 + i * 0.1 }}
-                         className="flex-1 bg-gradient-to-t from-orange-500 to-orange-400 rounded-t-sm opacity-90 shadow-sm"
-                       />
-                     ))}
-                  </div>
-                  
-                  <div className="mt-6 space-y-3">
-                    {[1, 2, 3].map(i => (
-                      <motion.div 
-                        key={i}
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 1 + i * 0.2 }}
-                        className="h-12 bg-white/60 dark:bg-slate-800/60 backdrop-blur-md rounded-lg flex items-center px-4 gap-4 border border-slate-50 dark:border-slate-700/50 shadow-sm"
-                      >
-                        <div className="w-8 h-8 rounded-full bg-slate-50 dark:bg-slate-700 flex items-center justify-center">
-                          <CheckCircle2 size={16} className="text-emerald-500" />
+                <div className="text-xs font-mono text-slate-400">exploremedia-hvac-audit-v1.0</div>
+                <div className="w-12"></div>
+              </div>
+
+              <div className="flex border-b border-slate-100 dark:border-slate-800 bg-slate-50/30 dark:bg-slate-900/30 p-2 gap-1 overflow-x-auto">
+                {[
+                  { id: 'optimizer', label: 'Optimizer', icon: Sparkles },
+                  { id: 'audit', label: 'Audit Crawler', icon: ClipboardCheck },
+                  { id: 'competitor', label: 'Competitor SEO', icon: Swords },
+                  { id: 'lsa', label: 'LSA Analyzer', icon: PhoneCall }
+                ].map(tab => {
+                  const Icon = tab.icon;
+                  const isActive = activeDemoTab === tab.id;
+                  return (
+                    <button
+                      key={tab.id}
+                      onClick={() => setActiveDemoTab(tab.id)}
+                      className={`flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-semibold transition-all border-0 cursor-pointer ${
+                        isActive 
+                          ? 'bg-slate-950 dark:bg-white text-white dark:text-slate-950 shadow-sm' 
+                          : 'text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
+                      }`}
+                    >
+                      <Icon size={13} />
+                      <span>{tab.label}</span>
+                    </button>
+                  );
+                })}
+              </div>
+
+              <div className="p-6 h-[400px] overflow-hidden flex flex-col justify-between relative bg-white dark:bg-slate-900">
+                <AnimatePresence mode="wait">
+                  {activeDemoTab === 'optimizer' && (
+                    <motion.div
+                      key="optimizer"
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      className="space-y-4 flex-1 flex flex-col justify-between text-left"
+                    >
+                      <div>
+                        <div className="flex items-center gap-2 mb-2">
+                          <span className="text-[10px] font-bold text-amber-500 uppercase tracking-widest bg-amber-50 dark:bg-amber-950/20 px-2 py-0.5 rounded">Active City: Montgomery, AL</span>
                         </div>
-                        <div className="flex-1 h-3 bg-slate-200 dark:bg-slate-700 rounded-full" />
-                        <div className="w-16 h-3 bg-slate-200 dark:bg-slate-700 rounded-full" />
-                      </motion.div>
-                    ))}
-                  </div>
-                </div>
+                        <h4 className="text-lg font-bold text-slate-900 dark:text-white">AC Repair Service Page Optimizer</h4>
+                      </div>
+                      
+                      <div className="space-y-3 flex-1 flex flex-col justify-center">
+                        <div className="border border-red-200 dark:border-red-950 bg-red-50/50 dark:bg-red-950/10 p-3 rounded-xl">
+                          <span className="text-[10px] font-bold text-red-500 uppercase tracking-wider">Current copy:</span>
+                          <p className="text-xs italic text-slate-500 dark:text-slate-400 mt-1">
+                            "We offer professional AC repair in Montgomery, Alabama. Our technicians are certified. Call us for service."
+                          </p>
+                        </div>
+                        
+                        <div className="border border-emerald-200 dark:border-emerald-950 bg-emerald-50/50 dark:bg-emerald-950/10 p-3 rounded-xl">
+                          <span className="text-[10px] font-bold text-emerald-500 uppercase tracking-wider">Gemini suggested rewrite:</span>
+                          <p className="text-xs font-semibold text-slate-805 dark:text-slate-200 mt-1">
+                            "Need emergency AC repair in Montgomery, AL? Our NATE-certified technicians provide 24/7 same-day HVAC repair, servicing all air conditioning models with upfront pricing and lifetime workmanship guarantees."
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center justify-between border-t border-slate-100 dark:border-slate-800 pt-3 text-[11px] text-slate-400">
+                        <span>SEO Score Improvement</span>
+                        <span className="font-bold text-emerald-500 text-sm">45% → 89%</span>
+                      </div>
+                    </motion.div>
+                  )}
+
+                  {activeDemoTab === 'audit' && (
+                    <motion.div
+                      key="audit"
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      className="space-y-4 flex-1 flex flex-col justify-between text-left"
+                    >
+                      <div>
+                        <div className="flex items-center gap-2 mb-2">
+                          <span className="text-[10px] font-bold text-blue-500 uppercase tracking-widest bg-blue-50 dark:bg-blue-950/20 px-2 py-0.5 rounded">Target: precisionhvac.com</span>
+                        </div>
+                        <h4 className="text-lg font-bold text-slate-900 dark:text-white">Automated Website Crawler</h4>
+                      </div>
+
+                      <div className="space-y-2.5 flex-1 flex flex-col justify-center">
+                        {[
+                          { text: 'Crawl website structure & site hierarchy', done: true },
+                          { text: 'Lighthouse Page Speed diagnostics (Score: 94)', done: true },
+                          { text: 'Broken redirect and 404 links scan', done: true },
+                          { text: 'Triggering HighLevel webhook sync...', done: false }
+                        ].map((step, idx) => (
+                          <div key={idx} className="flex items-center gap-3 px-3 py-2 bg-slate-50 dark:bg-slate-800/40 rounded-xl border border-slate-100 dark:border-slate-800/50 shadow-sm">
+                            <div className="flex-shrink-0">
+                              {step.done ? (
+                                <CheckCircle2 size={16} className="text-emerald-500" />
+                              ) : (
+                                <motion.div
+                                  animate={{ rotate: 360 }}
+                                  transition={{ repeat: Infinity, duration: 1.5, ease: 'linear' }}
+                                  className="w-4 h-4 rounded-full border-2 border-blue-500 border-t-transparent"
+                                />
+                              )}
+                            </div>
+                            <span className={`text-xs ${step.done ? 'text-slate-600 dark:text-slate-300' : 'text-blue-500 font-semibold'}`}>
+                              {step.text}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+
+                      <div className="flex items-center justify-between border-t border-slate-100 dark:border-slate-800 pt-3 text-[11px] text-slate-400">
+                        <span>Lighthouse Score</span>
+                        <span className="font-bold text-emerald-500 text-sm">94/100</span>
+                      </div>
+                    </motion.div>
+                  )}
+
+                  {activeDemoTab === 'competitor' && (
+                    <motion.div
+                      key="competitor"
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      className="space-y-4 flex-1 flex flex-col justify-between text-left"
+                    >
+                      <div>
+                        <div className="flex items-center gap-2 mb-2">
+                          <span className="text-[10px] font-bold text-indigo-500 uppercase tracking-widest bg-indigo-50 dark:bg-indigo-950/20 px-2 py-0.5 rounded">Competitor SEO Gap Analysis</span>
+                        </div>
+                        <h4 className="text-lg font-bold text-slate-900 dark:text-white">Organic Local Search Competitors</h4>
+                      </div>
+
+                      <div className="space-y-2 flex-1 flex flex-col justify-center">
+                        {[
+                          { domain: 'comfortmastershvac.com', traffic: '42.5k/mo', gap: 'High', color: 'bg-red-500' },
+                          { domain: 'guardianairsolutions.com', traffic: '18.2k/mo', gap: 'Medium', color: 'bg-amber-500' },
+                          { domain: 'southerncomforthvac.com', traffic: '29.1k/mo', gap: 'Critical', color: 'bg-red-500' }
+                        ].map((comp, idx) => (
+                          <div key={idx} className="flex justify-between items-center p-2.5 bg-slate-50 dark:bg-slate-800/40 rounded-xl border border-slate-100 dark:border-slate-800/50">
+                            <div>
+                              <div className="text-xs font-semibold text-slate-800 dark:text-slate-205">{comp.domain}</div>
+                              <div className="text-[10px] text-slate-400 mt-0.5">Est. Traffic: {comp.traffic}</div>
+                            </div>
+                            <span className="text-[10px] font-bold px-2 py-1 rounded bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300">
+                              Gap: {comp.gap}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+
+                      <div className="flex items-center justify-between border-t border-slate-100 dark:border-slate-800 pt-3 text-[11px] text-slate-400">
+                        <span>Keywords Audited</span>
+                        <span className="font-bold text-slate-700 dark:text-slate-300 text-sm">2,480</span>
+                      </div>
+                    </motion.div>
+                  )}
+
+                  {activeDemoTab === 'lsa' && (
+                    <motion.div
+                      key="lsa"
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      className="space-y-4 flex-1 flex flex-col justify-between text-left"
+                    >
+                      <div>
+                        <div className="flex items-center gap-2 mb-2">
+                          <span className="text-[10px] font-bold text-purple-500 uppercase tracking-widest bg-purple-50 dark:bg-purple-950/20 px-2 py-0.5 rounded">Active Call Lead Verification</span>
+                        </div>
+                        <h4 className="text-lg font-bold text-slate-900 dark:text-white">LSA / SEM Lead Analyzer</h4>
+                      </div>
+
+                      <div className="space-y-3 flex-1 flex flex-col justify-center">
+                        <div className="bg-slate-50 dark:bg-slate-800/30 p-2.5 rounded-xl border border-slate-100 dark:border-slate-800/50 flex flex-col gap-1">
+                          <div className="flex justify-between items-center text-[10px] font-bold text-slate-400">
+                            <span>Caller: (334) 555-0144</span>
+                            <span className="text-purple-650 dark:text-purple-400">Google LSA</span>
+                          </div>
+                          <p className="text-xs italic text-slate-500 dark:text-slate-400 mt-1 line-clamp-2">
+                            "Hi, I'm calling from SEO Grow. I wanted to speak to the owner about getting more leads for your AC repair business..."
+                          </p>
+                        </div>
+
+                        <div className="bg-purple-50/50 dark:bg-purple-950/10 border border-purple-200 dark:border-purple-900 p-2.5 rounded-xl text-xs flex justify-between items-center">
+                          <div className="flex flex-col gap-0.5">
+                            <span className="text-[10px] font-bold text-purple-600 dark:text-purple-400 uppercase">Analysis result</span>
+                            <span className="font-bold text-slate-808 dark:text-slate-200">Dispute Recommended</span>
+                          </div>
+                          <span className="text-[10px] font-bold bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 px-2 py-1 rounded">
+                            Confidence: 98%
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center justify-between border-t border-slate-100 dark:border-slate-800 pt-3 text-[11px] text-slate-400">
+                        <span>Lead Cost Status</span>
+                        <span className="font-bold text-red-500 text-sm">Charged ($45)</span>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
             </div>
           </motion.div>
@@ -325,46 +628,42 @@ export default function Landing() {
       <section id="features" className="py-24 bg-white dark:bg-slate-900 border-y border-slate-100 dark:border-slate-800">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center max-w-3xl mx-auto mb-20">
-            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6 tracking-tight">Everything you need to automate</h2>
-            <p className="text-xl text-slate-600 dark:text-slate-400">Stop manually checking data. Our platform handles the heavy lifting, so you can focus on strategy.</p>
+            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6 tracking-tight">Core Platform Capabilities</h2>
+            <p className="text-xl text-slate-600 dark:text-slate-400">Continuous AI diagnostics and local keyword audits built specifically for local service businesses.</p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
             <FeatureCard 
-              icon={BarChart2}
-              title="SEO & Content Optimization"
-              description="Detect weak service pages with priority suggestions. Access a full SEO health board and automatic competitor insights."
+              icon={Sparkles}
+              title="Service Page Optimizer"
+              badgeText="Audit & Onboarding"
+              description="Identify search content gaps instantly. Generates dynamic SEO briefs, local business schema markups, and NATE-certified copy suggestions using style-preserving Gemini AI rewrites."
+              themeColor="orange"
               delay={0.1}
             />
             <FeatureCard 
-              icon={PhoneCall}
-              title="Call Tracking & Leads"
-              description="Auto-collect call data, leverage AI-based transcription analysis, and qualify SEM leads instantly."
+              icon={ClipboardCheck}
+              title="HVAC Website Audit"
+              badgeText="Audit & Onboarding"
+              description="Deploy lightning-fast diagnostics. Auto-crawls site hierarchy, compiles Lighthouse speed metrics, inspects layout responsiveness, checks broken redirect routes, and feeds CRM/HighLevel webhooks."
+              themeColor="blue"
               delay={0.2}
             />
             <FeatureCard 
-              icon={Bot}
-              title="Social Media Automation"
-              description="AI filters your noise, summarizing vital conversations. Schedule posts directly from your linked Google Sheets."
+              icon={Swords}
+              title="Competitor SEO Audit"
+              badgeText="Competitor Analysis"
+              description="Map out local competitors' search rankings. Analyze organic keywords, monitor search share changes, track domain authorities, and extract high-value local search queries."
+              themeColor="indigo"
               delay={0.3}
             />
             <FeatureCard 
-              icon={LayoutTemplate}
-              title="Website & QA Automation"
-              description="Auto-update landing pages using templates and run continuous bug testing to eliminate scattered manual edits."
+              icon={PhoneCall}
+              title="LSA/SEM Call Analyzer"
+              badgeText="Lead & Call Analysis"
+              description="Stop wasting money on invalid leads. Fetches Google LSA phone leads, transcribes calls with speaker separation, automatically flags solicitors/spam using LLM context analysis, and syncs tasks to ClickUp."
+              themeColor="purple"
               delay={0.4}
-            />
-            <FeatureCard 
-              icon={TrendUpIcon}
-              title="Dashboards & Reporting"
-              description="Auto-fetch cross-channel metrics. View real-time reports without manually hunting data across five different tools."
-              delay={0.5}
-            />
-            <FeatureCard 
-              icon={Users}
-              title="Client & Team Automation"
-              description="Maintain a dynamic auto-updating client map. Generate automated meeting agendas pre-filled with team performance data."
-              delay={0.6}
             />
           </div>
         </div>
@@ -381,10 +680,10 @@ export default function Landing() {
           <div className="relative">
             <div className="hidden md:block absolute top-[24px] left-[10%] right-[10%] h-0.5 bg-slate-200 dark:bg-slate-700" />
             <div className="grid md:grid-cols-4 gap-12 md:gap-6 relative">
-              <StepCard number="1" title="Connect Tools" description="Link Google Analytics, CRM, Ads, and sites in seconds." delay={0.1} />
-              <StepCard number="2" title="AI Analysis" description="System auto-collects and processes transcripts and metrics." delay={0.3} />
-              <StepCard number="3" title="Alerts & Dashboards" description="Get prioritized recommendations and real-time visualization." delay={0.5} />
-              <StepCard number="4" title="Automate Actions" description="Trigger landing page updates and reports without human touch." delay={0.7} />
+              <StepCard number="1" title="Profile & Crawl" description="Perform comprehensive website structure crawls and audit competitor search metrics." delay={0.1} />
+              <StepCard number="2" title="Track LSA Leads" description="Auto-retrieve lead details and raw call audio directly from Google Local Service Ads." delay={0.3} />
+              <StepCard number="3" title="AI Content Generation" description="Let Gemini write style-preserved copy suggestions and qualify disputable spam calls." delay={0.5} />
+              <StepCard number="4" title="Sync to ClickUp / CRM" description="Push tasks, link recommendations, schema templates, and dispute cases directly to ClickUp." delay={0.7} />
             </div>
           </div>
         </div>
@@ -452,10 +751,10 @@ export default function Landing() {
              <div>
                 <h4 className="font-bold text-slate-900 dark:text-white mb-4">Platform</h4>
                 <ul className="space-y-2 text-slate-500">
-                  <li><a href="#" className="hover:text-orange-500 transition-colors">SEO Health</a></li>
-                  <li><a href="#" className="hover:text-orange-500 transition-colors">Call Tracking</a></li>
-                  <li><a href="#" className="hover:text-orange-500 transition-colors">Social Automation</a></li>
-                  <li><a href="#" className="hover:text-orange-500 transition-colors">Reporting</a></li>
+                  <li><a href="#" className="hover:text-orange-500 transition-colors">Service Page Optimizer</a></li>
+                  <li><a href="#" className="hover:text-orange-500 transition-colors">HVAC Website Audit</a></li>
+                  <li><a href="#" className="hover:text-orange-500 transition-colors">Competitor SEO Audit</a></li>
+                  <li><a href="#" className="hover:text-orange-500 transition-colors">LSA/SEM Call Analyzer</a></li>
                 </ul>
              </div>
              <div>
