@@ -1498,34 +1498,15 @@
     <!-- Sidebar -->
     <aside class="sidebar">
       <div style="flex: 1; overflow-y: auto; padding-bottom: 24px;" class="custom-scroll">
-        <div class="sidebar-section-title" style="margin-top: 24px;">Analytics</div>
-        <ul class="sidebar-nav" style="margin-top: 0">
-          <li onclick="showTab('tab-ga4')" class="active">
-            <i data-lucide="bar-chart-2" style="width: 18px; height: 18px"></i>
-            Google Analytics (GA4)
-          </li>
-          <li onclick="showTab('tab-gsc')">
-            <i data-lucide="search" style="width: 18px; height: 18px"></i> Search
-            Console
-          </li>
-          <li onclick="showTab('tab-ads')">
-            <i data-lucide="megaphone" style="width: 18px; height: 18px"></i>
-            Google Ads
-          </li>
-          <li onclick="showTab('tab-gbp')">
-            <i data-lucide="store" style="width: 18px; height: 18px"></i> Business
-            Profile
-          </li>
-        </ul>
         <div class="sidebar-section-title" style="margin-top: 24px;">Audit & Onboarding</div>
         <ul class="sidebar-nav" style="margin-top: 0">
+          <li onclick="showTab('tab-service-pages')" class="active">
+            <i data-lucide="sparkles" style="width: 18px; height: 18px"></i>
+            Service Page Optimizer
+          </li>
           <li onclick="showTab('tab-audit')">
             <i data-lucide="clipboard-check" style="width: 18px; height: 18px"></i>
             HVAC Website Audit
-          </li>
-          <li onclick="showTab('tab-service-pages')">
-            <i data-lucide="sparkles" style="width: 18px; height: 18px"></i>
-            Service Page Optimizer
           </li>
         </ul>
         <div class="sidebar-section-title" style="margin-top: 24px;">Competitor Analysis</div>
@@ -1729,7 +1710,7 @@
         </div>
 
         <!-- GA4 TAB -->
-        <div id="tab-ga4" class="tab-content active">
+        <div id="tab-ga4" class="tab-content">
           <div class="sub-tabs" style="
               display: flex;
               overflow-x: auto;
@@ -4745,7 +4726,7 @@
         </div>
 
         <!-- SERVICE PAGE OPTIMIZER TAB -->
-        <div id="tab-service-pages" class="tab-content">
+        <div id="tab-service-pages" class="tab-content active">
           <!-- Service Page Optimizer Content will be dynamically loaded here from service-pages.html -->
         </div>
 
@@ -5152,6 +5133,17 @@
         }
       }
 
+      // Check if user is currently viewing the details page in Service Pages tab
+      const optDetailLayout = document.getElementById("service-pages-detail-view");
+      const optTab = document.getElementById("tab-service-pages");
+      
+      if (optTab && optTab.classList.contains("active") && optDetailLayout && optDetailLayout.style.display === "flex") {
+        if (typeof showServicePagesQueue === 'function') {
+          showServicePagesQueue();
+          return;
+        }
+      }
+
       if (btn && btn.dataset.onReport === "1") {
         // User is on report — go back to form (same as New Audit reset)
         resetAuditForm();
@@ -5345,9 +5337,9 @@
     }
 
     // SERVICE PAGE OPTIMIZER FUNCTIONS
-    const servicePagesData = [
+    const BASE_SERVICE_PAGES_DATA = [
       {
-        title: "AC Repair Montgomery",
+        title: "AC Repair",
         url: "/services/ac-repair",
         score: 45,
         urgency: "Critical",
@@ -5666,6 +5658,228 @@
       }
     ];
 
+    let servicePagesData = [];
+
+    const CLIENTS_INFO = [
+      { name: "Apex Climate Control", city: "Montgomery", state: "AL", competitor: "comfortmastershvac.com", neighborhoods: "Eastchase, Halcyon, Deer Creek", baseDomain: "apexclimatecontrol.com" },
+      { name: "Precision HVAC Experts", city: "Birmingham", state: "AL", competitor: "birminghamhvacpros.com", neighborhoods: "Hoover, Vestavia Hills, Homewood", baseDomain: "precisionhvac.com" },
+      { name: "Comfort Zone Heating & Air", city: "Huntsville", state: "AL", competitor: "huntsvilleacservice.com", neighborhoods: "Madison, Decatur, Athens", baseDomain: "comfortzoneheating.com" },
+      { name: "Elite Air Systems", city: "Mobile", state: "AL", competitor: "mobilesuperiorair.com", neighborhoods: "Daphne, Fairhope, Prichard", baseDomain: "eliteairsystems.com" },
+      { name: "Rapid Response Air", city: "Tuscaloosa", state: "AL", competitor: "tuscaloosatemps.com", neighborhoods: "Northport, Cottondale, Holt", baseDomain: "rapidresponseair.com" },
+      { name: "Pure Air Solutions", city: "Auburn", state: "AL", competitor: "auburnclimate.com", neighborhoods: "Opelika, Phenix City, Smiths Station", baseDomain: "pureairsolutions.com" },
+      { name: "Airflow Masters", city: "Prattville", state: "AL", competitor: "prattvillehvac.com", neighborhoods: "Millbrook, Deatsville, Autaugaville", baseDomain: "airflowmasters.com" },
+      { name: "Frosty Systems", city: "Wetumpka", state: "AL", competitor: "wetumpkaheating.com", neighborhoods: "Elmore, Coosada, Blue Ridge", baseDomain: "frostysystems.com" },
+      { name: "Prime Comfort HVAC", city: "Selma", state: "AL", competitor: "selmaairconditioning.com", neighborhoods: "Valley Grande, Beloit, Sardis", baseDomain: "primecomforthvac.com" },
+      { name: "EcoTemp Climate Services", city: "Troy", state: "AL", competitor: "troytemperature.com", neighborhoods: "Brundidge, Banks, Goshen", baseDomain: "ecotempclimate.com" }
+    ];
+
+    window.changeClientOptimizer = function() {
+      const selectEl = document.getElementById("opt-filter-client");
+      if (!selectEl) return;
+      
+      const clientName = selectEl.value;
+      const clientInfo = CLIENTS_INFO.find(c => c.name === clientName) || CLIENTS_INFO[0];
+      const clientIndex = CLIENTS_INFO.indexOf(clientInfo);
+
+      servicePagesData = BASE_SERVICE_PAGES_DATA.map(basePage => {
+        const offset = (clientIndex * 4 + basePage.title.length) % 15 - 7;
+        let newScore = Math.max(30, Math.min(95, basePage.score + offset));
+        
+        let newUrgency = basePage.urgency;
+        let newTimeline = basePage.timeline;
+        if (newScore < 55) {
+          newUrgency = "Critical";
+          newTimeline = "Optimize Now";
+        } else if (newScore < 75) {
+          newUrgency = "High";
+          newTimeline = "In 2 Months";
+        } else if (newScore < 85) {
+          newUrgency = "Medium";
+          newTimeline = "In 2 Months";
+        } else {
+          newUrgency = "Low";
+          newTimeline = "In 6 Months";
+        }
+
+        const replaceGeo = (text) => {
+          return text
+            .replace(/Montgomery, Alabama/g, `${clientInfo.city}, Alabama`)
+            .replace(/Montgomery, AL/g, `${clientInfo.city}, ${clientInfo.state}`)
+            .replace(/Montgomery/g, clientInfo.city)
+            .replace(/Eastchase, Halcyon, Deer Creek/g, clientInfo.neighborhoods);
+        };
+
+        const newRecs = basePage.recommendations.map(replaceGeo);
+        const newLinking = basePage.linkingMedia.map(replaceGeo);
+        const newVitals = basePage.webVitals.map(replaceGeo);
+        const newCopyCurrent = replaceGeo(basePage.copyCurrent);
+        const newCopySuggested = replaceGeo(basePage.copySuggested);
+
+        let gapWordsClient = basePage.gapWordsClient;
+        let gapWordsComp = basePage.gapWordsComp;
+        let gapWordsBadge = basePage.gapWordsBadge;
+
+        if (basePage.gapWordsBadge !== "Aligned") {
+          const baseWords = parseInt(basePage.gapWordsClient);
+          const compWords = parseInt(basePage.gapWordsComp);
+          const newBaseWords = Math.round(baseWords * (1 + offset * 0.03));
+          const newCompWords = Math.round(compWords * (1 - offset * 0.02));
+          gapWordsClient = `${newBaseWords} words`;
+          gapWordsComp = `${newCompWords} words`;
+          const gapRatio = (newCompWords / newBaseWords).toFixed(1);
+          gapWordsBadge = gapRatio > 1.2 ? `${gapRatio}x Gap` : "Aligned";
+        }
+
+        // Dynamically replace original competitor domain with this client's competitor domain
+        let competitorUrl = basePage.competitor;
+        const slashIdx = competitorUrl.indexOf('/');
+        if (slashIdx !== -1) {
+          competitorUrl = clientInfo.competitor + competitorUrl.substring(slashIdx);
+        } else {
+          competitorUrl = clientInfo.competitor;
+        }
+
+        const newSchema = JSON.parse(JSON.stringify(basePage.schemaCode));
+        newSchema.name = clientInfo.name;
+        newSchema.url = `https://${clientInfo.baseDomain}${basePage.url}`;
+        newSchema.areaServed = `${clientInfo.city}, Alabama`;
+        if (newSchema.address) {
+          newSchema.address.addressLocality = clientInfo.city;
+        }
+
+        // Generate customized title with client's city
+        const newTitle = basePage.title.includes(clientInfo.city) ? basePage.title : basePage.title + " " + clientInfo.city;
+
+        return {
+          ...basePage,
+          title: newTitle,
+          score: newScore,
+          urgency: newUrgency,
+          timeline: newTimeline,
+          competitor: competitorUrl,
+          gapWordsClient,
+          gapWordsComp,
+          gapWordsBadge,
+          recommendations: newRecs,
+          linkingMedia: newLinking,
+          webVitals: newVitals,
+          copyCurrent: newCopyCurrent,
+          copySuggested: newCopySuggested,
+          schemaCode: newSchema
+        };
+      });
+
+      // User requested: do NOT select first item by default
+      selectedServicePageIndex = null;
+      renderServicePagesTable();
+
+      // Dynamically calculate and update metric cards
+      const totalPages = servicePagesData.length;
+      const criticalOrHighCount = servicePagesData.filter(p => p.urgency === "Critical" || p.urgency === "High").length;
+      const optimizedCount = servicePagesData.filter(p => p.score > 70).length;
+      const avgScore = totalPages > 0 ? Math.round(servicePagesData.reduce((acc, p) => acc + p.score, 0) / totalPages) : 0;
+
+      const trackedEl = document.getElementById("opt-metric-tracked");
+      if (trackedEl) trackedEl.innerText = totalPages;
+
+      const urgencyEl = document.getElementById("opt-metric-urgency");
+      if (urgencyEl) urgencyEl.innerText = criticalOrHighCount;
+
+      const optimizedEl = document.getElementById("opt-metric-optimized");
+      if (optimizedEl) optimizedEl.innerText = optimizedCount;
+
+      const avgScoreEl = document.getElementById("opt-metric-avg-score");
+      if (avgScoreEl) avgScoreEl.innerText = avgScore + "%";
+
+      const headerClientName = document.getElementById("opt-header-client-name");
+      if (headerClientName) {
+        headerClientName.innerText = clientName;
+      }
+
+      const mainView = document.getElementById("service-pages-main-view");
+      const detailView = document.getElementById("service-pages-detail-view");
+      if (mainView) mainView.style.display = "flex";
+      if (detailView) detailView.style.display = "none";
+      const label = document.getElementById("navbar-back-label");
+      if (label) label.innerText = "Back to Home";
+
+      // Sync back to main dashboard inputs and report elements in the background
+      const companyNameEl = document.getElementById("audit-company-name");
+      if (companyNameEl && companyNameEl.value !== clientInfo.name) {
+        const contactMap = {
+          "Apex Climate Control": "Robert Johnson",
+          "Precision HVAC Experts": "Jane Smith",
+          "Comfort Zone Heating & Air": "Michael Miller",
+          "Elite Air Systems": "Sarah Davis",
+          "Rapid Response Air": "John Doe",
+          "Pure Air Solutions": "Alice Williams",
+          "Airflow Masters": "Bob Brown",
+          "Frosty Systems": "Charlie Davis",
+          "Prime Comfort HVAC": "David Evans",
+          "EcoTemp Climate Services": "Eva Green"
+        };
+        const contactName = contactMap[clientInfo.name] || "John Doe";
+        const companyUrl = `https://${clientInfo.baseDomain}`;
+
+        document.getElementById("audit-client-name").value = contactName;
+        document.getElementById("audit-company-name").value = clientInfo.name;
+        document.getElementById("audit-company-url").value = companyUrl;
+
+        if (document.getElementById("report-client-name")) {
+          document.getElementById("report-client-name").innerText = contactName;
+        }
+        if (document.getElementById("report-company-name")) {
+          document.getElementById("report-company-name").innerText = clientInfo.name;
+        }
+        if (document.getElementById("report-company-url")) {
+          document.getElementById("report-company-url").innerText = companyUrl;
+          document.getElementById("report-company-url").href = companyUrl;
+        }
+        document.querySelectorAll('.dyn-company-name').forEach(el => {
+          el.innerText = clientInfo.name;
+        });
+        document.querySelectorAll('.dyn-company-url').forEach(el => {
+          el.innerText = companyUrl;
+          if (el.tagName === 'A') el.href = companyUrl;
+        });
+
+        // Update link elements in dashboard report
+        const homepageLinkEl = document.getElementById("report-link-homepage");
+        if (homepageLinkEl) {
+          homepageLinkEl.innerText = companyUrl + "/";
+          homepageLinkEl.href = companyUrl;
+        }
+        const acLinkEl = document.getElementById("report-link-ac");
+        if (acLinkEl) {
+          acLinkEl.innerText = companyUrl + "/ac-repair";
+          acLinkEl.href = companyUrl + "/ac-repair";
+        }
+        const contactLinkEl = document.getElementById("report-link-contact");
+        if (contactLinkEl) {
+          contactLinkEl.innerText = companyUrl + "/contact";
+          contactLinkEl.href = companyUrl + "/contact";
+        }
+      }
+    };
+
+    window.syncDashboardClientToOptimizer = function() {
+      const companyNameEl = document.getElementById("audit-company-name");
+      const optSelectEl = document.getElementById("opt-filter-client");
+      if (!companyNameEl || !optSelectEl) return;
+      
+      const currentCompany = companyNameEl.value.trim();
+      if (!currentCompany) return;
+
+      // Find match in CLIENTS_INFO
+      const match = CLIENTS_INFO.find(c => c.name.toLowerCase() === currentCompany.toLowerCase() || c.baseDomain.toLowerCase() === currentCompany.toLowerCase());
+      if (match) {
+        if (optSelectEl.value !== match.name) {
+          optSelectEl.value = match.name;
+          changeClientOptimizer();
+        }
+      }
+    };
+
     let selectedServicePageIndex = null;
 
     window.renderServicePagesTable = function() {
@@ -5699,9 +5913,9 @@
         else if (page.score < 75) scoreColor = "#ea580c";
 
         // Style timeline color
-        let timelineStyle = "color: #4b5563; font-weight: 500;";
-        if (page.timeline === "Optimize Now") timelineStyle = "color: #dc2626; font-weight: 700;";
-        else if (page.timeline === "In 2 Months") timelineStyle = "color: #ea580c; font-weight: 600;";
+        let timelineStyle = "color: #4b5563; font-weight: 555; font-size: 14.5px;";
+        if (page.timeline === "Optimize Now") timelineStyle = "color: #dc2626; font-weight: 700; font-size: 14.5px;";
+        else if (page.timeline === "In 2 Months") timelineStyle = "color: #ea580c; font-weight: 600; font-size: 14.5px;";
 
         const isSelected = selectedServicePageIndex === idx;
         const rowBg = isSelected ? "background: #fdfaf1; border-left: 4px solid var(--color-accent);" : "";
@@ -5711,24 +5925,24 @@
         tr.onclick = () => selectServicePage(idx);
 
         tr.innerHTML = `
-          <td style="padding: 12px; vertical-align: middle;">
-            <div style="font-weight: 600; color: var(--color-primary);">${page.title}</div>
-            <div style="font-size: 10px; font-family: monospace; color: var(--color-secondary); margin-top: 2px;">${page.url}</div>
+          <td style="padding: 14px 16px; vertical-align: middle;">
+            <div style="font-weight: 600; color: var(--color-primary); font-size: 15px;">${page.title}</div>
+            <div style="font-size: 11.5px; font-family: monospace; color: var(--color-secondary); margin-top: 2px;">${page.url}</div>
           </td>
-          <td style="padding: 12px; text-align: center; vertical-align: middle; font-weight: 700; color: ${scoreColor}; font-size: 13px;">
+          <td style="padding: 14px 16px; text-align: center; vertical-align: middle; font-weight: 700; color: ${scoreColor}; font-size: 15px;">
             ${page.score}%
           </td>
-          <td style="padding: 12px; text-align: center; vertical-align: middle;">
-            <span style="font-size: 9.5px; padding: 2px 8px; border-radius: 4px; display: inline-block; ${urgencyBadgeStyle}">
+          <td style="padding: 14px 16px; text-align: center; vertical-align: middle;">
+            <span style="font-size: 11.5px; padding: 4px 10px; border-radius: 6px; display: inline-block; ${urgencyBadgeStyle}">
               ${page.urgency.toUpperCase()}
             </span>
           </td>
-          <td style="padding: 12px; text-align: center; vertical-align: middle; ${timelineStyle}">
+          <td style="padding: 14px 16px; text-align: center; vertical-align: middle; ${timelineStyle}">
             ${page.timeline}
           </td>
-          <td style="padding: 12px; text-align: center; vertical-align: middle;">
-            <button class="btn-primary" style="padding: 5px 10px; font-size: 10px; border-radius: 6px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; background: ${isSelected ? 'var(--color-primary)' : 'var(--color-accent)'}; border: none; color: white;">
-              <i data-lucide="${isSelected ? 'check' : 'sparkles'}" style="width: 10px; height: 10px;"></i>
+          <td style="padding: 14px 16px; text-align: center; vertical-align: middle;">
+            <button class="btn-primary" style="padding: 6px 12px; font-size: 12px; border-radius: 8px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; background: ${isSelected ? 'var(--color-primary)' : 'var(--color-accent)'}; border: none; color: white;">
+              <i data-lucide="${isSelected ? 'check' : 'sparkles'}" style="width: 12px; height: 12px;"></i>
               Brief
             </button>
           </td>
@@ -5744,16 +5958,21 @@
       if (window.lucide) lucide.createIcons();
     }
 
-    window.selectServicePage = function(idx) {
+    window.selectServicePage = function(idx, showDetail = true) {
       selectedServicePageIndex = idx;
       renderServicePagesTable();
 
-      const emptyState = document.getElementById("brief-empty-state");
-      const loadedContent = document.getElementById("brief-loaded-content");
-      if (!emptyState || !loadedContent) return;
+      const mainView = document.getElementById("service-pages-main-view");
+      const detailView = document.getElementById("service-pages-detail-view");
 
-      emptyState.style.display = "none";
-      loadedContent.style.display = "flex";
+      if (showDetail) {
+        if (mainView) mainView.style.display = "none";
+        if (detailView) {
+          detailView.style.display = "flex";
+          const label = document.getElementById("navbar-back-label");
+          if (label) label.innerText = "Back to Optimization Queue";
+        }
+      }
 
       const page = servicePagesData[idx];
 
@@ -5782,11 +6001,11 @@
       const timelineBadge = document.getElementById("brief-timeline-badge");
       timelineBadge.innerText = page.timeline;
       if (page.timeline === "Optimize Now") {
-        timelineBadge.style.cssText = "font-size: 10px; font-weight: 700; background: #fee2e2; color: #dc2626; padding: 2px 6px; border-radius: 4px; text-transform: uppercase;";
+        timelineBadge.style.cssText = "font-size: 13px; font-weight: 700; background: #fee2e2; color: #dc2626; padding: 4px 10px; border-radius: 6px; text-transform: uppercase;";
       } else if (page.timeline === "In 2 Months") {
-        timelineBadge.style.cssText = "font-size: 10px; font-weight: 700; background: #ffedd5; color: #ea580c; padding: 2px 6px; border-radius: 4px; text-transform: uppercase;";
+        timelineBadge.style.cssText = "font-size: 13px; font-weight: 700; background: #ffedd5; color: #ea580c; padding: 4px 10px; border-radius: 6px; text-transform: uppercase;";
       } else {
-        timelineBadge.style.cssText = "font-size: 10px; font-weight: 700; background: #e0f2fe; color: #0284c7; padding: 2px 6px; border-radius: 4px; text-transform: uppercase;";
+        timelineBadge.style.cssText = "font-size: 13px; font-weight: 700; background: #e0f2fe; color: #0284c7; padding: 4px 10px; border-radius: 6px; text-transform: uppercase;";
       }
 
       // Gap analysis table details
@@ -5795,9 +6014,9 @@
       const wordsBadge = document.getElementById("brief-gap-words-badge");
       wordsBadge.innerText = page.gapWordsBadge;
       if (page.gapWordsBadge === "Aligned") {
-        wordsBadge.style.cssText = "color: #16a34a; font-weight: 700; background: #dcfce7; padding: 1px 4px; border-radius: 4px; font-size: 9px;";
+        wordsBadge.style.cssText = "color: #16a34a; font-weight: 700; background: #dcfce7; padding: 4px 8px; border-radius: 6px; font-size: 12px;";
       } else {
-        wordsBadge.style.cssText = "color: #dc2626; font-weight: 700; background: #fee2e2; padding: 1px 4px; border-radius: 4px; font-size: 9px;";
+        wordsBadge.style.cssText = "color: #dc2626; font-weight: 700; background: #fee2e2; padding: 4px 8px; border-radius: 6px; font-size: 12px;";
       }
 
       document.getElementById("brief-gap-headings-client").innerText = page.gapHeadingsClient;
@@ -5805,11 +6024,11 @@
       const headingsBadge = document.getElementById("brief-gap-headings-badge");
       headingsBadge.innerText = page.gapHeadingsBadge;
       if (page.gapHeadingsBadge === "Aligned") {
-        headingsBadge.style.cssText = "color: #16a34a; font-weight: 700; background: #dcfce7; padding: 1px 4px; border-radius: 4px; font-size: 9px;";
+        headingsBadge.style.cssText = "color: #16a34a; font-weight: 700; background: #dcfce7; padding: 4px 8px; border-radius: 6px; font-size: 12px;";
       } else if (page.gapHeadingsBadge === "Minor gap") {
-        headingsBadge.style.cssText = "color: #ea580c; font-weight: 700; background: #ffedd5; padding: 1px 4px; border-radius: 4px; font-size: 9px;";
+        headingsBadge.style.cssText = "color: #ea580c; font-weight: 700; background: #ffedd5; padding: 4px 8px; border-radius: 6px; font-size: 12px;";
       } else {
-        headingsBadge.style.cssText = "color: #dc2626; font-weight: 700; background: #fee2e2; padding: 1px 4px; border-radius: 4px; font-size: 9px;";
+        headingsBadge.style.cssText = "color: #dc2626; font-weight: 700; background: #fee2e2; padding: 4px 8px; border-radius: 6px; font-size: 12px;";
       }
 
       document.getElementById("brief-gap-schema-client").innerText = page.gapSchemaClient;
@@ -5817,9 +6036,9 @@
       const schemaBadge = document.getElementById("brief-gap-schema-badge");
       schemaBadge.innerText = page.gapSchemaBadge;
       if (page.gapSchemaBadge === "Aligned") {
-        schemaBadge.style.cssText = "color: #16a34a; font-weight: 700; background: #dcfce7; padding: 1px 4px; border-radius: 4px; font-size: 9px;";
+        schemaBadge.style.cssText = "color: #16a34a; font-weight: 700; background: #dcfce7; padding: 4px 8px; border-radius: 6px; font-size: 12px;";
       } else {
-        schemaBadge.style.cssText = "color: #ea580c; font-weight: 700; background: #ffedd5; padding: 1px 4px; border-radius: 4px; font-size: 9px;";
+        schemaBadge.style.cssText = "color: #ea580c; font-weight: 700; background: #ffedd5; padding: 4px 8px; border-radius: 6px; font-size: 12px;";
       }
 
       // Recommendations list
@@ -5866,6 +6085,15 @@
 
       if (window.lucide) lucide.createIcons();
     }
+
+    window.showServicePagesQueue = function() {
+      const mainView = document.getElementById("service-pages-main-view");
+      const detailView = document.getElementById("service-pages-detail-view");
+      if (mainView) mainView.style.display = "flex";
+      if (detailView) detailView.style.display = "none";
+      const label = document.getElementById("navbar-back-label");
+      if (label) label.innerText = "Back to Home";
+    };
 
     window.filterServicePages = function() {
       renderServicePagesTable();
@@ -7328,6 +7556,12 @@
         `.sidebar-nav li[onclick="showTab('${tabId}')"]`,
       );
       if (activeBtn) activeBtn.classList.add("active");
+
+      if (tabId === 'tab-service-pages') {
+        if (typeof syncDashboardClientToOptimizer === 'function') {
+          syncDashboardClientToOptimizer();
+        }
+      }
 
       // Trigger render and resize for ChartJS AFTER layout finishes
       setTimeout(() => {
@@ -12322,11 +12556,24 @@
           if (container) {
             container.innerHTML = html;
             if (window.lucide) lucide.createIcons();
+
+            // Set the dropdown to match the active dashboard client before running changeClientOptimizer
+            const companyNameEl = document.getElementById("audit-company-name");
+            const optSelectEl = document.getElementById("opt-filter-client");
+            if (companyNameEl && optSelectEl && companyNameEl.value.trim()) {
+              const currentCompany = companyNameEl.value.trim();
+              const match = CLIENTS_INFO.find(c => c.name.toLowerCase() === currentCompany.toLowerCase() || c.baseDomain.toLowerCase() === currentCompany.toLowerCase());
+              if (match) {
+                optSelectEl.value = match.name;
+              }
+            }
+
             // Initialize rendering
-            if (typeof renderServicePagesTable === 'function') {
+            if (typeof changeClientOptimizer === 'function') {
+              changeClientOptimizer();
+            } else if (typeof renderServicePagesTable === 'function') {
+              selectedServicePageIndex = null;
               renderServicePagesTable();
-              // Select first item by default
-              selectServicePage(0);
             }
           }
         })
